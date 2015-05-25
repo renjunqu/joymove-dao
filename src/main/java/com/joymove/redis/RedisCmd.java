@@ -1,5 +1,6 @@
 package com.joymove.redis;
 
+import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -10,6 +11,8 @@ import java.util.Map;
 /**
  * Created by jessie on 2015/5/25.
  */
+
+@Service("RedisCmd")
 public class RedisCmd {
     public static JedisPool pool = new JedisPool(new JedisPoolConfig(), "123.57.151.176");
 
