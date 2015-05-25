@@ -11,4 +11,15 @@ src/main/webapp/WEB-INF/lib
 **/*.class
 *.log
 **/*.log
+.idea
 
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/vcs.xml
+.idea/workspace.xml
