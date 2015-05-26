@@ -14,7 +14,7 @@
 	</insert>
 
 
-	<update id="updateLockState" parameterType="JOYNCar">
+	<update id="updateCarLockState" parameterType="JOYNCar">
 		update JOY_NCar set lockState=#{lockState}
 		<where>
 			vinNum = #{vinNum}

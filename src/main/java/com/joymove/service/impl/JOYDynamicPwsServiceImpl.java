@@ -19,7 +19,7 @@ public class JOYDynamicPwsServiceImpl implements JOYDynamicPwsService{
 	@Autowired
 	private  JOYDynamicPwsDao  joydynamicpwsDao;
 
-	@Override
+
 	public void insertDynamicPwse(JOYDynamicPws dynamicpws) {
 		// TODO Auto-generated method stub
 		joydynamicpwsDao.insertDynamicPws(dynamicpws);
@@ -27,7 +27,7 @@ public class JOYDynamicPwsServiceImpl implements JOYDynamicPwsService{
 
 	
 
-	@Override
+
 	public List<JOYDynamicPws> getDynamicPws(Map<String, Object> likeCondition) {
 		
 		List<JOYDynamicPws> dynamicPws = joydynamicpwsDao.getDynamicPws(likeCondition);
