@@ -46,7 +46,7 @@ public class JOYNCarServiceImpl implements JOYNCarService  {
 
 
 
-	@Override
+
 	public void updateCarRegisterState(JOYNCar car) {
 		joyNCarDao.updateCarRegisterState(car);
 	}
@@ -54,9 +54,13 @@ public class JOYNCarServiceImpl implements JOYNCarService  {
 
 
 
-	@Override
+
 	public List<JOYNCar> getNeededCar(Map<String, Object> condition) {
 		return joyNCarDao.getNeededCar(condition);
+	}
+
+	public void updateCarLockState(JOYNCar car) {
+		joyNCarDao.updateCarLockState(car);
 	}
 
 }

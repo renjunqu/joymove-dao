@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.joymove.util.ClearExpireReserveJob;
+import com.joymove.jobs.ClearExpireReserveJob;
 import com.joymove.service.*;
 import com.joymove.dao.*;
 import com.joymove.entity.*;

@@ -72,7 +72,7 @@ public class JOYNReserveOrderServiceImpl implements JOYNReserveOrderService {
 	}
 	
 
-	@Override
+
 	public boolean insertReserveOrder(Car cacheCar) throws Exception {
 		Car tempCar = null;
 		//first update to pending, for the two-phase commit
@@ -113,7 +113,7 @@ public class JOYNReserveOrderServiceImpl implements JOYNReserveOrderService {
 		}		
 	}
 
-	@Override
+
 	public void updateReserveOrderDelFlag(String mobileNo) throws SchedulerException {
 		// TODO Auto-generated method stub
 		//first get the ReserveOrder from mysql 

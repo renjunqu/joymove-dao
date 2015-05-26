@@ -11,6 +11,8 @@ public interface JOYNCarService {
 
 	void updateCarRegisterState(JOYNCar car);
 
+	void updateCarLockState(JOYNCar car);
+
 	List<JOYNCar> getNeededCar(Map<String, Object> condition);
 
 }

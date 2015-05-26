@@ -1,4 +1,4 @@
-package com.joymove.util;
+package com.joymove.jobs;
 
 import java.util.Map;
 
@@ -26,7 +26,7 @@ public class ClearExpireReserveJob  implements Job {
 	
 	
 	
-	@Override
+
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		// TODO Auto-generated method stub
 		try {

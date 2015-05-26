@@ -4,27 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="com.joymove.dao.JOYNCarDao">
-	<!--
-	<resultMap type="JOYNCar" id="joyncar">
-		<constructor>
-			<idArg column="vinNum" javaType="String"/>
-			<arg column="registerTime" javaType="java.util.Date"/>
-			<arg column="RSAPubKey" javaType="String"/>
-			<arg column="RSAPriKey" javaType="String"/>
-			<arg column="registerState" javaType="Integer"/>
-			<arg column="licensenum" javaType="String"/>
-		</constructor>
-	</resultMap>
-	
-	<sql id="userColumn">
-			u.vinNum,
-			u.registerTime,
-			u.RSAPubKey,
-			u.RSAPriKey,
-			u.registerState,
-			u.licensenum
-	</sql>
-	-->
+
 	<sql id="userColumn">
 		*
 	</sql>
@@ -32,7 +12,15 @@
 	<insert id="insertCar" parameterType="JOYNCar">
 	     insert into JOY_NCar (vinNum,RSAPubKey,RSAPriKey,registerState) values (#{vinNum},#{RSAPubKey},#{RSAPriKey},#{registerState}); 
 	</insert>
-	
+
+
+	<update id="updateLockState" parameterType="JOYNCar">
+		update JOY_NCar set lockState=#{lockState}
+		<where>
+			vinNum = #{vinNum}
+		</where>
+	</update>
+
 	
 	<update id="updateCarRegisterState" parameterType="JOYNCar">
 	     update JOY_NCar set registerState=#{registerState} 

@@ -23,5 +23,8 @@ public class JOYNCar {
 	public Integer registerState;
 	//license num 
 	public String licensenum;
+	//lock state
+	public Integer lockState;
+
 
 }

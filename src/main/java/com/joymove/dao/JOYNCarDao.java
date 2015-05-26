@@ -12,5 +12,7 @@ public interface JOYNCarDao {
 
 	public void updateCarRegisterState(JOYNCar car);
 
+	public void updateCarLockState(JOYNCar car);
+
 	public List<JOYNCar> getNeededCar(Map<String, Object> condition);
 }
