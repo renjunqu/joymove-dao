@@ -7,9 +7,9 @@ import com.joymove.entity.JOYSeed;
 
 public interface JOYSeedDao {
 
-    public List<JOYSeed> getNeededSeed(Map<String,Object> likeCondition);
+     List<JOYSeed> getNeededSeed(Map<String,Object> likeCondition);
 
-    public void deleteSeed(JOYSeed seed);
+     void deleteSeed(JOYSeed seed);
 
-    public void createSeed(JOYSeed seed);
+     void createSeed(JOYSeed seed);
 }

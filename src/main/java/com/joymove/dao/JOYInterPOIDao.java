@@ -9,5 +9,5 @@ import com.joymove.entity.JOYInterPOI;
 
 
 public interface JOYInterPOIDao {
-	public List<JOYInterPOI> getAllPOI();
+	 List<JOYInterPOI> getAllPOI();
 }

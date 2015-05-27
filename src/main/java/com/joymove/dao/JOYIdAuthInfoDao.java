@@ -7,11 +7,11 @@ import com.joymove.entity.JOYIdAuthInfo;
 
 public interface JOYIdAuthInfoDao {
 	
-	public void insertIdAuthInfo(JOYIdAuthInfo authInfo);
+	 void insertIdAuthInfo(JOYIdAuthInfo authInfo);
 	
-	public List<JOYIdAuthInfo> getNeededIdAuthInfo(Map<String,Object> likeCondition);
+	 List<JOYIdAuthInfo> getNeededIdAuthInfo(Map<String,Object> likeCondition);
 
-	public void updateIdAuthInfo(JOYIdAuthInfo authInfo);
+	 void updateIdAuthInfo(JOYIdAuthInfo authInfo);
 	
 	
 }

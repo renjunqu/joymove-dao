@@ -9,7 +9,7 @@ import com.joymove.entity.JOYIntegration;
 public interface JOYIntegrationDao {
 	
 	
-	public List<JOYIntegration> getJOYIntegration(Map<String, Object> likeCondition);
+	 List<JOYIntegration> getJOYIntegration(Map<String, Object> likeCondition);
 	
-	public void insertJOYIntegration(JOYIntegration joy);
+	 void insertJOYIntegration(JOYIntegration integration);
 }

@@ -8,5 +8,5 @@ import java.math.*;
 
 public interface JOYPowerBarDao {
 	
-	public List<JOYPowerBar>  getPowerBarByScope(Map<String, Object> likeCondition);
+	 List<JOYPowerBar>  getPowerBarByScope(Map<String, Object> likeCondition);
 }

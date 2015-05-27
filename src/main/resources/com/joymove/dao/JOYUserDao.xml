@@ -11,12 +11,6 @@
 			insert into JOY_Users(mobileNo,userpwd) values(#{mobileNo},#{userpwd});
 	</insert>
 
-	<select id="getJOYUserByPhone" resultType="JOYUser" parameterType="map">
-		select *
-		from JOY_Users u
-		<where>u.mobileNo=#{mobileNo}</where>
-	</select>
-
 
 	<update id="updateJOYUser" parameterType="JOYUser">
 		update JOY_Users set 
@@ -54,7 +48,7 @@
 	
 	
 
-	<select id="getAllJOYUser" resultType="JOYUser" parameterType="map">
+	<select id="getNeededUser" resultType="JOYUser" parameterType="JOYUser">
 		select <include refid="userColumn"/>
 		from JOY_Users u
 		<trim suffixOverrides="and">
@@ -65,9 +59,6 @@
 				<if test="authToken!=null">authToken=#{authToken} and </if>
 			</where>
 		</trim>
-		<if test="page!=null and pageCount!=null">
-			limit #{page}, #{pageCount}
-		</if>
 	</select>
 
 

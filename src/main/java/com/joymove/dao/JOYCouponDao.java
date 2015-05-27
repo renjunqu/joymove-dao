@@ -9,11 +9,11 @@ import com.joymove.entity.JOYCoupon;
 public interface JOYCouponDao {
 	
 	
-	public List<JOYCoupon> getJOYCoupon(Map<String, Object> likeCondit);
+	 List<JOYCoupon> getJOYCoupon(Map<String, Object> likeCondition);
 	
-	public void insertJOYCoupon(JOYCoupon joy);
+	 void insertJOYCoupon(JOYCoupon coupon);
 
-	public JOYCoupon getCouponById(Long couponId);
+	 JOYCoupon getCouponById(Long couponId);
 
-	public void deleteCouponById(Long couponId);
+	 void deleteCouponById(Long couponId);
 }

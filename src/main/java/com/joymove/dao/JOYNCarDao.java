@@ -8,11 +8,11 @@ import com.joymove.entity.JOYNCar;
 
 public interface JOYNCarDao {
 
-	public void insertCar(JOYNCar car);
+	 void insertCar(JOYNCar car);
 
-	public void updateCarRegisterState(JOYNCar car);
+	 void updateCarRegisterState(JOYNCar car);
 
-	public void updateCarLockState(JOYNCar car);
+	 void updateCarLockState(JOYNCar car);
 
-	public List<JOYNCar> getNeededCar(Map<String, Object> condition);
+	 List<JOYNCar> getNeededCar(Map<String, Object> likecondition);
 }

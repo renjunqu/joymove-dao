@@ -11,7 +11,7 @@ import com.joymove.entity.JOYWXPayInfo;
  */
 public interface JOYWXPayInfoDao {
 
-    public void insertWXPayInfo(JOYWXPayInfo  payInfo);
-    public List<JOYWXPayInfo> getNeededPayInfo(Map<String,Object> likeCondition);
-    public void markPayInfo(JOYWXPayInfo payInfo);
+     void insertWXPayInfo(JOYWXPayInfo  payInfo);
+     List<JOYWXPayInfo> getNeededPayInfo(Map<String,Object> likeCondition);
+     void markPayInfo(JOYWXPayInfo payInfo);
 }

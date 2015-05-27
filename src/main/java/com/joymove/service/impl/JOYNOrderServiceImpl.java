@@ -64,13 +64,17 @@ public class JOYNOrderServiceImpl implements JOYNOrderService {
 		//that is in the get send auth code 's process function.
 		 cacheCarService.updateCarStateFree(car);
 		 Car tempCar = cacheCarService.getByVinNum(car.getVinNum());
-		 if(tempCar.getState()==Car.state_free) {
-	     //send cmd to cloudmove
-			 sendClearAuth(car.getVinNum());
-			 return true;
-		 } else {
-			 return false;
-		 }
+		try {
+			if (tempCar.getState() == Car.state_free) {
+				//send cmd to cloudmove
+				sendClearAuth(car.getVinNum());
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			logger.error(e.toString());
+		}
+		return true;
 	}
 
 

@@ -10,12 +10,12 @@ import com.joymove.entity.JOYReserveOrder;
 public interface JOYReserveOrderDao {
 	
 	
-	public void insertReserveOrder(JOYReserveOrder cOrder);
+	 void insertReserveOrder(JOYReserveOrder cOrder);
 	
-	public List<JOYReserveOrder> getNeededReserveOrder(
+	 List<JOYReserveOrder> getNeededReserveOrder(
 			Map<String, Object> likeCondition);
-	public void updateReserveOrderDelFlag(JOYReserveOrder cOrder);
+	 void updateReserveOrderDelFlag(JOYReserveOrder cOrder);
 
-	public void insertNReserveOrder(JOYReserveOrder cOrder);
+	 void insertNReserveOrder(JOYReserveOrder cOrder);
 
 }

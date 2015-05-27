@@ -51,7 +51,7 @@ public class JOYUserServiceImpl implements JOYUserService{
 //            properties = @Property( name="includeMethod", value="false" )
 //        )
 //    )
-
+/*
 	public List<JOYUser> getJOYUserInfo(JOYUser user) {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
@@ -60,7 +60,7 @@ public class JOYUserServiceImpl implements JOYUserService{
 			likeCondition.put("mobileNo", user.mobileNo);
 		return joyuserDao.getAllJOYUser(likeCondition);
 	}
-	
+*/
 
 //	@Cacheable(cacheName="joyUserCache",
 //    keyGenerator = @KeyGenerator (
@@ -74,9 +74,7 @@ public class JOYUserServiceImpl implements JOYUserService{
 		// TODO Auto-generated method stub
 		String errMsg = null;
 		logger.warn("inside get joy user info ");
-		Map<String, Object> likeCondition = new HashMap<String, Object>();
-		likeCondition.put("mobileNo", user.mobileNo);
-		List<JOYUser> users = joyuserDao.getAllJOYUser(likeCondition);
+		List<JOYUser> users = joyuserDao.getNeededUser(user);
 		JOYUser currUser = users.get(0);
 		if( currUser.authenticateId ==0 ) {
 			errMsg = "用户身份认证未通过";
@@ -102,6 +100,7 @@ public class JOYUserServiceImpl implements JOYUserService{
 //        )
 //    )
 
+	/*
 	public List<JOYUser> getJOYUserByMobileNo(JOYUser user) {
 		// TODO Auto-generated method stub
 		logger.warn("inside get joy user by mobileNo ");
@@ -109,7 +108,7 @@ public class JOYUserServiceImpl implements JOYUserService{
 		likeCondition.put("mobileNo", user.mobileNo);
 		return joyuserDao.getJOYUserByPhone(likeCondition);
 	}
-	
+	*/
 	
 	
 
@@ -128,12 +127,12 @@ public class JOYUserServiceImpl implements JOYUserService{
 
     
 
-	public List<JOYUser> getJOyUserNeeded(Map<String, Object> likeCondition) {
+	public List<JOYUser> getNeededUser(JOYUser user) {
 		// TODO Auto-generated method stub
-		return joyuserDao.getAllJOYUser(likeCondition);
+		return joyuserDao.getNeededUser(user);
 	}
-    
-	
+
+
 	public static void main(String [] args){
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:**/applicationContext-mvc.xml");
@@ -142,9 +141,9 @@ public class JOYUserServiceImpl implements JOYUserService{
 		JOYUser user1 = new JOYUser();
 		user.mobileNo = ("18500411146");
 		user1.mobileNo = ("18500217642");
-		List<JOYUser> users1 = service.getJOYUserByMobileNo(user);
+		List<JOYUser> users1 = service.getNeededUser(user);
 		System.out.println("users1 is "+users1);
-		List<JOYUser> users2 = service.getJOYUserByMobileNo(user1);
+		List<JOYUser> users2 = service.getNeededUser(user1);
 		System.out.println("users2 is "+users2);
 		System.out.println("test over");
 		

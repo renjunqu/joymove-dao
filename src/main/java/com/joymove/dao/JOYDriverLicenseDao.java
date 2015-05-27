@@ -7,10 +7,10 @@ import com.joymove.entity.JOYDriverLicense;
 
 public interface JOYDriverLicenseDao {
 
-	public void insertDriverAuthInfo(JOYDriverLicense joy);
+	 void insertDriverAuthInfo(JOYDriverLicense driverLicense);
 	
-	public List<JOYDriverLicense> getDriverAuthInfo(Map<String,Object> likeCondition);
+	 List<JOYDriverLicense> getDriverAuthInfo(Map<String,Object> likeCondition);
 	
 	
-	public void updateJOYDriverLicense(JOYDriverLicense joy);
+	 void updateJOYDriverLicense(JOYDriverLicense driverLicense);
 }

@@ -9,14 +9,11 @@ import com.joymove.entity.JOYUser;
 
 
 public interface JOYUserDao {
-	public void insertJOYUser(JOYUser user);
+	 void insertJOYUser(JOYUser user);
+
+	 List<JOYUser> getNeededUser(JOYUser user);
 	
-	public List<JOYUser> getJOYUserByPhone(Map<String,Object> likeCondition);
-	
-	public List<JOYUser> getAllJOYUser(Map<String,Object> likeCondition);
-	
-	public void updateJOYUser(JOYUser user);
-	
+	 void updateJOYUser(JOYUser user);
 	
 }
 

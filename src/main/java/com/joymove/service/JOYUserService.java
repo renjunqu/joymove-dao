@@ -10,26 +10,12 @@ import com.joymove.entity.JOYUser;
 public interface JOYUserService {
 	public JOYUser insertJOYUser (JOYUser user);
 	
-	
-	/*
-	public List<JOYUser> getJOYUserByPhone(Map<String,Object> likeCondition);
-	
-	
-	public List<JOYUser> getJOYUserInfo(Map<String, Object> likeCondition);
-	*/
-	
 	public void updateJOYUser(JOYUser user);
 	
 	public int triggerUserCache(JOYUser user);
 	
 	
-	public List<JOYUser> getJOyUserNeeded(Map<String, Object> likeCondition);
-
-
-	List<JOYUser> getJOYUserByMobileNo(JOYUser user);
-
-
-	List<JOYUser> getJOYUserInfo(JOYUser user);
+	public List<JOYUser> getNeededUser(JOYUser user);
 
 
 	String checkUserState(JOYUser user);

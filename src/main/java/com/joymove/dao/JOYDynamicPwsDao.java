@@ -10,8 +10,8 @@ import com.joymove.entity.JOYUser;
 
 public interface JOYDynamicPwsDao {
 	
-	public void insertDynamicPws(JOYDynamicPws registercode);
+	 void insertDynamicPws(JOYDynamicPws code);
 	
-	public List<JOYDynamicPws> getDynamicPws(Map<String,Object> likeCondition);
+	 List<JOYDynamicPws> getDynamicPws(Map<String,Object> likeCondition);
 	
 }
