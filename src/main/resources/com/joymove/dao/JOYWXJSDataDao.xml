@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.joymove.dao.JOYWXJSDataDao">
+
+
+
+
+    <insert id="insertNewWXJSData" parameterType="JOYWXJSData">
+        insert into joy_wxjsdata(type,expireTime,detailData) values (
+         #{type},
+         #{expireTime},
+         #{detailData}
+        );
+    </insert>
+    <select id="getNeededWXJSData" parameterType="JOYWXJSData" resultType="JOYWXJSData">
+        select * from joy_wxjsdata u
+        <where>
+            <trim suffixOverrides="and">
+                <if test="type!=null"> u.type=#{type} and  </if>
+                <if test="expireTime!=null">TIMEDIFF(u.expireTime, #{expireTime}) &gt; 0 and  </if>
+            </trim>
+        </where>
+    </select>
+</mapper>
