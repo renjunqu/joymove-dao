@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.joymove.dao.JOYNCarDao;
+import com.joymove.entity.JOYNCar;
 import org.mongodb.morphia.Datastore;
 import org.quartz.Job;
 import org.quartz.JobDataMap;
@@ -46,6 +48,8 @@ public class JOYNReserveOrderServiceImpl implements JOYNReserveOrderService {
 	private CarService      cacheCarService;
 	@Autowired
 	private JOYReserveOrderDao joyReserveOrderDao;
+	@Autowired
+	private JOYNCarDao joynCarDao;
 	@Resource(name="scheduler")
 	private Scheduler scheduler;
 
@@ -78,14 +82,19 @@ public class JOYNReserveOrderServiceImpl implements JOYNReserveOrderService {
 		//first update to pending, for the two-phase commit
 		logger.info("first set the car to pending state");
 		cacheCarService.updateCarStateReservePending(cacheCar);
+		Map<String,Object> likeCondition = new HashMap<String, Object>();
 		//if get here, means, not Concurrency exception find
 		tempCar = cacheCarService.getByVinNum(cacheCar.getVinNum());
 		if(tempCar.getState()==Car.state_reserve_pending && cacheCar.getOwner().equals(tempCar.getOwner())) {
 			try {
 				    logger.info("first set the car to pending ok ");
+				    likeCondition.put("vinNum", tempCar.getVinNum());
+				    List<JOYNCar>  ncars = joynCarDao.getNeededCar(likeCondition);
+				    JOYNCar ncar = ncars.get(0);
 					JOYReserveOrder cOrder  = new JOYReserveOrder();
 					cOrder.mobileNo = (cacheCar.getOwner());
 					cOrder.carVinNum = (cacheCar.getVinNum());
+				    cOrder.ifBlueTeeth = ncar.ifBlueTeeth;
 					logger.info("try to create a new reserve order");
 					joyReserveOrderDao.insertNReserveOrder(cOrder);
 					logger.info("create new reserve order ok");

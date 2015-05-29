@@ -11,6 +11,7 @@ public class JOYReserveOrder {
 	public Integer carId;
 	public Integer delFlag;
 	public String carVinNum;
+	public Integer  ifBlueTeeth;
 	
 	static public int DEL_FLAG = 1;
 	static public int NODEL_FLAG = 0;

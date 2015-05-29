@@ -10,6 +10,7 @@ import java.util.Date;
  * */
 @Alias("JOYNCar")
 public class JOYNCar {
+
 	public int id;
 	//the primary key
 	public String vinNum;
@@ -25,6 +26,10 @@ public class JOYNCar {
 	public String licensenum;
 	//lock state
 	public Integer lockState;
+	//if has blue teech device
+	// 0 --> non blue teech
+	// 1 --> has blue teech
+	public Integer     ifBlueTeeth;
 
 
 }

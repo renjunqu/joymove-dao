@@ -4,27 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="com.joymove.dao.JOYReserveOrderDao">
- <!--
-	<resultMap type="JOYReserveOrder" id="joyreserveorder">
-		<constructor>
-			<idArg column="id" javaType="Integer"/>
-			<arg column="mobileNo" javaType="String"/>
-			<arg column="startTime" javaType="Date"/>
-			<arg column="carId" javaType="Integer"/>
-			<arg column="delFlag" javaType="Integer"/>
-			<arg column="carVinNum" javaType="String"/>
-		</constructor>
-	</resultMap>
-	
-	<sql id="userColumn">
-			u.id,
-			u.mobileNo,
-			u.startTime,
-			u.carId,
-			u.delFlag,
-			u.carVinNum
-	</sql>
-	-->
+
 	<sql id="userColumn">
 		*
 	</sql>
@@ -38,12 +18,12 @@
 	
 	<insert id="insertReserveOrder" parameterType="JOYReserveOrder">
 	        
-	        insert into JOY_ReserveOrder (mobileNo,carId) values (#{mobileNo},#{carId}); 
+	        insert into JOY_ReserveOrder (mobileNo,carId,ifBlueTeeth) values (#{mobileNo},#{carId},#{ifBlueTeeth});
 	</insert>
 	
 	
 	<insert id="insertNReserveOrder" parameterType="JOYReserveOrder">
-	        insert into JOY_ReserveOrder (mobileNo,carVinNum) values (#{mobileNo},#{carVinNum}); 
+	        insert into JOY_ReserveOrder (mobileNo,carVinNum,ifBlueTeeth) values (#{mobileNo},#{carVinNum},#{ifBlueTeeth});
 	</insert>
 	
 	

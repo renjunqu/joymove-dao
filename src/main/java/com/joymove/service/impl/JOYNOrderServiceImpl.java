@@ -5,7 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.joymove.dao.JOYNCarDao;
+import com.joymove.entity.JOYNCar;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
@@ -36,6 +39,8 @@ public class JOYNOrderServiceImpl implements JOYNOrderService {
 	private JOYOrderDao        joyOrderDao;
 	@Resource(name="scheduler")
 	private Scheduler scheduler;
+	@Autowired
+	private JOYNCarDao joynCarDao;
 	
 	
 
@@ -46,53 +51,77 @@ public class JOYNOrderServiceImpl implements JOYNOrderService {
 		return joyOrderDao.getNeededOrder(likeCondition);
 	}
 	
-	void sendClearAuth(String vin){
+	boolean sendClearAuth(String vin) throws Exception {
 		 String timeStr = String.valueOf(System.currentTimeMillis());
 		 String data = "time="+timeStr+"&vin="+vin;
 		 String url = ConfigUtils.getPropValues("cloudmove.clearAuth");
 		 String result = HttpPostUtils.post(url, data);
-		 logger.info("send data to cloudmove to clear auth  success,data is ");
+		/*
+		  logger.info("send data to cloudmove to clear auth  success,data is ");
 		 logger.info(data);
+
 		 logger.info("now show the results");
-		 logger.info(result);	
+		 logger.info(result);
+		 */
+		JSONObject cmObj = (JSONObject)(new JSONParser().parse(result));
+		int opResult = Integer.parseInt(cmObj.get("result").toString());
+		if(opResult==1)
+			return true;
+		else
+			return false;
+
 	}
 
 
-	public boolean updateOrderCancel(Car car) {
+	public boolean updateOrderCancel(Car car) throws  Exception {
 		// TODO Auto-generated method stub
 		//just cancel the order,if the server start after this, it will be process in other func,
 		//that is in the get send auth code 's process function.
-		 cacheCarService.updateCarStateFree(car);
-		 Car tempCar = cacheCarService.getByVinNum(car.getVinNum());
-		try {
+		Map<String,Object> likeCondition = new HashMap<String, Object>();
+		likeCondition.put("vinNum", car.getVinNum());
+		List<JOYNCar> ncars = joynCarDao.getNeededCar(likeCondition);
+		JOYNCar ncar = ncars.get(0);
+		if( ncar.ifBlueTeeth==1 && sendClearAuth(car.getVinNum()) || ncar.ifBlueTeeth==0) {
+			cacheCarService.updateCarStateFree(car);
+			Car tempCar = cacheCarService.getByVinNum(car.getVinNum());
+
 			if (tempCar.getState() == Car.state_free) {
-				//send cmd to cloudmove
-				sendClearAuth(car.getVinNum());
+				return true;
 			} else {
 				return false;
 			}
-		} catch (Exception e) {
-			logger.error(e.toString());
 		}
-		return true;
+		return false;
+
 	}
 
 
-	public void updateOrderTermiate(Car car) {
+	public void updateOrderTermiate(Car car) throws  Exception {
 		// TODO Auto-generated method stub
 		 //goto order pay work flow
 		Map<String,Object> likeCondition = new HashMap<String, Object>();
-		 likeCondition.put("carVinNum", car.getVinNum());
-		 likeCondition.put("mobileNo", car.getOwner());
-		 likeCondition.put("delMark", JOYOrder.NON_DEL_MARK);
-		 List<JOYOrder> orders = joyOrderDao.getNeededOrder(likeCondition);
-		 JOYOrder cOrder = orders.get(0);
-		 cOrder.state = (JOYOrder.state_wait_pay);
-		 cOrder.stopTime = (new Date(System.currentTimeMillis()));
-		 joyOrderDao.updateNOrderStop(cOrder);
-		 cacheCarService.updateCarStateFree(car);
-	     //send cmd to cloudmove
-		 sendClearAuth(car.getVinNum());
+		likeCondition.put("vinNum", car.getVinNum());
+		List<JOYNCar> ncars = joynCarDao.getNeededCar(likeCondition);
+		JOYNCar ncar = ncars.get(0);
+
+
+		if(ncar.ifBlueTeeth==1 && sendClearAuth(car.getVinNum()) || ncar.ifBlueTeeth==0) {
+				likeCondition.put("carVinNum", car.getVinNum());
+				likeCondition.put("mobileNo", car.getOwner());
+				likeCondition.put("delMark", JOYOrder.NON_DEL_MARK);
+				List<JOYOrder> orders = joyOrderDao.getNeededOrder(likeCondition);
+				JOYOrder cOrder = orders.get(0);
+			    cOrder.stopLatitude = car.getLatitude();
+			    cOrder.stopLongitude = car.getLongitude();
+				cOrder.state = (JOYOrder.state_wait_pay);
+				cOrder.stopTime = (new Date(System.currentTimeMillis()));
+				joyOrderDao.updateNOrderStop(cOrder);
+				cacheCarService.updateCarStateFree(car);
+				//send cmd to cloudmove
+		} else {
+			throw new Exception("update order terminate error");
+		}
+
 	}
 
 

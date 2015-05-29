@@ -21,6 +21,11 @@ public class JOYOrder {
 	public String  destination;
 	public Integer    state;
 	public String   carVinNum;
+	public Integer  ifBlueTeeth;
+	public Double   startLatitude;
+	public Double   stopLatitude;
+	public Double   startLongitude;
+	public Double   stopLongitude;
 	
 	
 	public static int DEL_MARK=1;

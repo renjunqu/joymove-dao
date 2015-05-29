@@ -42,8 +42,6 @@ public class JOYOrderServiceImpl  implements JOYOrderService {
 	/****** business proc ************/
 
 
-	
-	@Override
 	// i do not need transaction
 	public boolean insertOrder(JOYOrder order) throws Exception {
 		// TODO Auto-generated method stub
@@ -84,7 +82,7 @@ public class JOYOrderServiceImpl  implements JOYOrderService {
 		
 	}
 
-	@Override
+
 	public void deleteOrder(JOYOrder order) {
 		JOYCar car = new JOYCar();
 		car.id = (order.carId);
@@ -95,32 +93,32 @@ public class JOYOrderServiceImpl  implements JOYOrderService {
 		
 	}
 
-	@Override
+
 	public List<JOYOrder> getNeededOrder(Map<String, Object> likeCondition) {
 		// TODO Auto-generated method stub
 		return joyOrderDao.getNeededOrder(likeCondition);
 	}
 
-	@Override
+
 	public void updateDestination(JOYOrder cOrder) {
 		// TODO Auto-generated method stub
 		joyOrderDao.updateDestination(cOrder);
 		
 	}
 
-	@Override
+
 	public void changeBatonMode(JOYOrder cOrder) {
 		// TODO Auto-generated method stub
 		joyOrderDao.changeBatonMode(cOrder);
 	}
 
-	@Override
+
 	public void updateOrderStop(JOYOrder order) {
 		// TODO Auto-generated method stub
 		joyOrderDao.updateOrderStop(order);
 	}
 
-	@Override
+
 	public void deleteOrder(Long[] couponIds, JOYOrder order) {
 		// TODO Auto-generated method stub
 		for(Long id:couponIds) {	
@@ -130,7 +128,7 @@ public class JOYOrderServiceImpl  implements JOYOrderService {
 	}
 
 
-	@Override
+
 	public JOYOrder getOrderById(Map<String, Object> likeCondition) {
 		return joyOrderDao.getJOYOrderById(likeCondition);
 	}

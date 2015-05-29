@@ -4,47 +4,16 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="com.joymove.dao.JOYOrderDao">
-	<!--
-	<resultMap type="JOYOrder" id="joyorder">
-		<constructor>
-			<idArg column="id" javaType="Integer"/>
-			<arg column="mobileNo" javaType="String"/>
-			<arg column="carId" javaType="Integer"/>
-			<arg column="startTime" javaType="java.util.Date"/>
-			<arg column="stopTime" javaType="java.util.Date"/>
-			<arg column="delMark" javaType="Integer"/>
-			<arg column="rentStatus" javaType="Integer"/>
-			<arg column="type" javaType="Integer"/>
-			<arg column="batonMode" javaType="Integer"/>
-			<arg column="destination" javaType="String"/>
-			<arg column="state" javaType="Integer"/>
-			<arg column="carVinNum" javaType="String"/>
-		</constructor>
-	</resultMap>
 
-	
-	<sql id="userColumn">
-			u.id,
-			u.mobileNo,
-			u.carId,
-			u.startTime,
-			u.stopTime,
-			u.delMark,
-			u.rentStatus,
-			u.type,
-			u.batonMode,
-			u.destination,
-			u.state,
-			u.carVinNum
-	</sql>
-	-->
 	<sql id="userColumn"> *</sql>
 	<insert id="insertOrder" parameterType="JOYOrder">
-	     insert into JOY_Order (mobileNo,carId,delMark,type) values (#{mobileNo},#{carId},0,0); 
+	     insert into JOY_Order (mobileNo,carId,delMark,type,ifBlueTeeth,startLatitude,startLongitude)
+	     values (#{mobileNo},#{carId},0,0,#{ifBlueTeeth},#{startLatitude},#{startLongitude});
 	</insert>
 	
 	<insert id="insertNOrder" parameterType="JOYOrder">
-	     insert into JOY_Order (mobileNo,carVinNum,delMark,type) values (#{mobileNo},#{carVinNum},0,0); 
+	     insert into JOY_Order (mobileNo,carVinNum,delMark,type,ifBlueTeeth,startLatitude,startLongitude)
+	     values (#{mobileNo},#{carVinNum},0,0,#{ifBlueTeeth},#{startLatitude},#{startLongitude});
 	</insert>
 	
 	<update id="deleteOrder" parameterType="JOYOrder">
@@ -61,7 +30,8 @@
 	</update>
 	
 	<update id="updateOrderStop" parameterType="JOYOrder">
-	     update JOY_Order set state=#{state},stopTime = #{stopTime}
+	     update JOY_Order set state=#{state},stopTime = #{stopTime},
+		                      stopLatitude=#{stopLatitude},stopLongitude=#{stopLongitude}
 	        <where>
 	               mobileNo = #{mobileNo} and carId = #{carId} and delMark=#{delMark}
 	        </where>
@@ -70,7 +40,8 @@
 	
 	
 	<update id="updateNOrderStop" parameterType="JOYOrder">
-	     update JOY_Order set state=#{state},stopTime = #{stopTime}
+	     update JOY_Order set state=#{state},stopTime = #{stopTime},
+		                      stopLatitude=#{stopLatitude},stopLongitude=#{stopLongitude}
 	        <where>
 	               mobileNo = #{mobileNo} and carVinNum = #{carVinNum} and delMark=#{delMark}
 	        </where>
