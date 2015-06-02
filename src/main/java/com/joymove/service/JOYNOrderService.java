@@ -12,8 +12,6 @@ public interface JOYNOrderService {
 
 	List<JOYOrder> getNeededOrder(Map<String, Object> likeCondition);
 
-	boolean  updateOrderCancel(Car car) throws  Exception;
-
 	void updateOrderTermiate(Car car) throws  Exception;
 
 	void insertNOrder(JOYOrder order) throws SchedulerException;
@@ -21,5 +19,8 @@ public interface JOYNOrderService {
 	void changeNBatonMode(JOYOrder cOrder);
 
 	void updateNDestination(JOYOrder cOrder);
+
+
+
 
 }

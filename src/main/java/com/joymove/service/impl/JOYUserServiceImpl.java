@@ -80,7 +80,7 @@ public class JOYUserServiceImpl implements JOYUserService{
 			errMsg = "用户身份认证未通过";
 		} else if(currUser.authenticateDriver ==0 ) {
 			errMsg = "用户驾照认证未通过";
-		} else if(currUser.deposit.compareTo(new BigDecimal(0.01))<0){
+		} else if(currUser.deposit.doubleValue()  < 0.01){
 			errMsg = "用户押金余额不足";
 		}
 		return errMsg;

@@ -111,8 +111,8 @@ public class JOYNReserveOrderServiceImpl implements JOYNReserveOrderService {
 			} catch(Exception e){
 				// if exception hannpens, then, change the car's state back to free
 				logger.info("Exception happens, just send the car's state to free");
-				cacheCar.setState(Car.state_free);
-				cacheCarService.updateCarState(cacheCar);
+				cacheCar.setState(null);
+				cacheCarService.updateCarStateFree(cacheCar);
 				throw e;
 			}
 			return true;	

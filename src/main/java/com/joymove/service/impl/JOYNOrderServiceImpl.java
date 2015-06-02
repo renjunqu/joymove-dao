@@ -50,50 +50,11 @@ public class JOYNOrderServiceImpl implements JOYNOrderService {
 		// TODO Auto-generated method stub
 		return joyOrderDao.getNeededOrder(likeCondition);
 	}
-	
-	boolean sendClearAuth(String vin) throws Exception {
-		 String timeStr = String.valueOf(System.currentTimeMillis());
-		 String data = "time="+timeStr+"&vin="+vin;
-		 String url = ConfigUtils.getPropValues("cloudmove.clearAuth");
-		 String result = HttpPostUtils.post(url, data);
-		/*
-		  logger.info("send data to cloudmove to clear auth  success,data is ");
-		 logger.info(data);
-
-		 logger.info("now show the results");
-		 logger.info(result);
-		 */
-		JSONObject cmObj = (JSONObject)(new JSONParser().parse(result));
-		int opResult = Integer.parseInt(cmObj.get("result").toString());
-		if(opResult==1)
-			return true;
-		else
-			return false;
-
-	}
 
 
-	public boolean updateOrderCancel(Car car) throws  Exception {
-		// TODO Auto-generated method stub
-		//just cancel the order,if the server start after this, it will be process in other func,
-		//that is in the get send auth code 's process function.
-		Map<String,Object> likeCondition = new HashMap<String, Object>();
-		likeCondition.put("vinNum", car.getVinNum());
-		List<JOYNCar> ncars = joynCarDao.getNeededCar(likeCondition);
-		JOYNCar ncar = ncars.get(0);
-		if( ncar.ifBlueTeeth==1 && sendClearAuth(car.getVinNum()) || ncar.ifBlueTeeth==0) {
-			cacheCarService.updateCarStateFree(car);
-			Car tempCar = cacheCarService.getByVinNum(car.getVinNum());
 
-			if (tempCar.getState() == Car.state_free) {
-				return true;
-			} else {
-				return false;
-			}
-		}
-		return false;
 
-	}
+
 
 
 	public void updateOrderTermiate(Car car) throws  Exception {
@@ -101,27 +62,16 @@ public class JOYNOrderServiceImpl implements JOYNOrderService {
 		 //goto order pay work flow
 		Map<String,Object> likeCondition = new HashMap<String, Object>();
 		likeCondition.put("vinNum", car.getVinNum());
-		List<JOYNCar> ncars = joynCarDao.getNeededCar(likeCondition);
-		JOYNCar ncar = ncars.get(0);
-
-
-		if(ncar.ifBlueTeeth==1 && sendClearAuth(car.getVinNum()) || ncar.ifBlueTeeth==0) {
-				likeCondition.put("carVinNum", car.getVinNum());
-				likeCondition.put("mobileNo", car.getOwner());
-				likeCondition.put("delMark", JOYOrder.NON_DEL_MARK);
-				List<JOYOrder> orders = joyOrderDao.getNeededOrder(likeCondition);
-				JOYOrder cOrder = orders.get(0);
-			    cOrder.stopLatitude = car.getLatitude();
-			    cOrder.stopLongitude = car.getLongitude();
-				cOrder.state = (JOYOrder.state_wait_pay);
-				cOrder.stopTime = (new Date(System.currentTimeMillis()));
-				joyOrderDao.updateNOrderStop(cOrder);
-				cacheCarService.updateCarStateFree(car);
-				//send cmd to cloudmove
-		} else {
-			throw new Exception("update order terminate error");
-		}
-
+		likeCondition.put("carVinNum", car.getVinNum());
+		likeCondition.put("mobileNo", car.getOwner());
+		likeCondition.put("delMark", JOYOrder.NON_DEL_MARK);
+		List<JOYOrder> orders = joyOrderDao.getNeededOrder(likeCondition);
+		JOYOrder cOrder = orders.get(0);
+		cOrder.stopLatitude = car.getLatitude();
+		cOrder.stopLongitude = car.getLongitude();
+		cOrder.state = (JOYOrder.state_wait_pay);
+		cOrder.stopTime = (new Date(System.currentTimeMillis()));
+		joyOrderDao.updateNOrderStop(cOrder);
 	}
 
 
