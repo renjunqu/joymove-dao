@@ -14,6 +14,8 @@ public interface JOYUserDao {
 	 List<JOYUser> getNeededUser(JOYUser user);
 	
 	 void updateJOYUser(JOYUser user);
+
+	List<JOYUser> getPagedUser(Map<String,Object> likeCondition);
 	
 }
 

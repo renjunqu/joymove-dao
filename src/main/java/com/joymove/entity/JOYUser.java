@@ -7,6 +7,11 @@ import java.util.*;
 
 @Alias("JOYUser")
 public class JOYUser {
+	//还未认证
+	public static int auth_state_pending = 0;
+	public static int auth_state_ok      = 1;
+	public static int auth_state_ing     = 2;
+	public static int auth_state_failed  = 3;
     public  int    id;
 	public String mobileNo;
 	public String username;
@@ -21,6 +26,7 @@ public class JOYUser {
 	public String pushKey;
 	public String authToken;
 	public Date   lastActiveTime;
+	public Integer id5PassFlag;
 	public Integer authenticateId;
 	public Integer authenticateDriver;
 	public BigDecimal deposit;

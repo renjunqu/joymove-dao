@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.joymove.dao.JOYDriverLicenseDao;
+import com.joymove.dao.JOYUserDao;
 import com.joymove.entity.JOYDriverLicense;
+import com.joymove.entity.JOYUser;
 import com.joymove.service.JOYDriverLicenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,24 +15,33 @@ import org.springframework.stereotype.Service;
 public class JOYDriverLicenseServiceImpl implements JOYDriverLicenseService{
 	@Autowired
 	private JOYDriverLicenseDao  joydriverlicenseDao;
-	
-	@Override
-	public void insertDriverAuthInfo(JOYDriverLicense joy) {
+
+	@Autowired
+	private JOYUserDao joyUserDao;
+
+
+	public void insertDriverAuthInfo(JOYDriverLicense authInfo) {
 		// TODO Auto-generated method stub
-		joydriverlicenseDao.insertDriverAuthInfo(joy);
+		JOYUser user = new JOYUser();
+		user.mobileNo = authInfo.mobileNo;
+		user.authenticateDriver  = JOYUser.auth_state_ing;
+		joydriverlicenseDao.insertDriverAuthInfo(authInfo);
+		joyUserDao.updateJOYUser(user);
 	}
 
-	@Override
 	public List<JOYDriverLicense> getDriverAuthInfo(
 			Map<String, Object> likeCondition) {
 		// TODO Auto-generated method stub
 		return joydriverlicenseDao.getDriverAuthInfo(likeCondition);
 	}
 
-	@Override
-	public void updateJOYDriverLicense(JOYDriverLicense joy) {
+	public void updateJOYDriverLicense(JOYDriverLicense authInfo) {
 		// TODO Auto-generated method stub
-		joydriverlicenseDao.updateJOYDriverLicense(joy);
+		JOYUser user = new JOYUser();
+		user.mobileNo = authInfo.mobileNo;
+		user.authenticateDriver  = JOYUser.auth_state_ing;
+		joydriverlicenseDao.updateJOYDriverLicense(authInfo);
+		joyUserDao.updateJOYUser(user);
 		
 	}
 

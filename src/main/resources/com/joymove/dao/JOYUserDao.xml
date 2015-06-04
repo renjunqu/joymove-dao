@@ -25,7 +25,8 @@
                         <if test="lastActiveTime!=null">lastActiveTime=#{lastActiveTime},</if>
                         <if test="username!=null">username=#{username},</if>
 	                   	<if test="gender!=null">gender=#{gender},</if>
-	                   	<if test="authenticateDriver!=null">authenticateDriver=#{authenticateDriver},</if>	
+						<if test="authenticateId!=null">authenticateId=#{authenticateId},</if>
+						<if test="authenticateDriver!=null">authenticateDriver=#{authenticateDriver},</if>
 	                   	<if test="homeAddr">homeAddr=#{homeAddr},</if>
 	                   	<if test="homeLatitude">homeLatitude=#{homeLatitude},</if>
 	                   	<if test="homeLongitude">homeLongitude=#{homeLongitude},</if>
@@ -35,6 +36,7 @@
 	                   	<if test="deposit">deposit=#{deposit},</if>
 						<if test="face_info">face_info=#{face_info},</if>
 						<if test="voice_info">voice_info=#{voice_info},</if>
+						<if test="id5PassFlag">id5PassFlag=#{id5PassFlag},</if>
          </trim>
    		 <trim suffixOverrides="or">
          			    <where>
@@ -60,6 +62,13 @@
 			</where>
 		</trim>
 	</select>
+
+	<select id="getPagedUser" resultType="JOYUser" parameterType="map">
+		select <include refid="userColumn"/>
+		from JOY_Users u ${pageStart},${pageSize}
+	</select>
+
+
 
 
 </mapper>

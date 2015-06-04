@@ -84,10 +84,12 @@ public class JOYOrderServiceImpl  implements JOYOrderService {
 
 
 	public void deleteOrder(JOYOrder order) {
-		JOYCar car = new JOYCar();
-		car.id = (order.carId);
-		car.state = (JOYCar.STATE_FREE);
-		joyCarDao.setCarFree(car);
+		if(order.carId!=null) {
+			JOYCar car = new JOYCar();
+			car.id = (order.carId);
+			car.state = (JOYCar.STATE_FREE);
+			joyCarDao.setCarFree(car);
+		}
 		order.delMark = (JOYOrder.DEL_MARK);
 		joyOrderDao.deleteOrder(order);
 		

@@ -164,6 +164,10 @@ public class JOYUserServiceImpl implements JOYUserService{
 		return 0;
 		
 	}
+
+	public  List<JOYUser> getPagedUser(Map<String,Object> likeCondition) {
+		return joyuserDao.getPagedUser(likeCondition);
+	}
 	
 	
 	
