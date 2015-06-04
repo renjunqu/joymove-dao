@@ -61,7 +61,6 @@ public class JOYNOrderServiceImpl implements JOYNOrderService {
 		// TODO Auto-generated method stub
 		 //goto order pay work flow
 		Map<String,Object> likeCondition = new HashMap<String, Object>();
-		likeCondition.put("vinNum", car.getVinNum());
 		likeCondition.put("carVinNum", car.getVinNum());
 		likeCondition.put("mobileNo", car.getOwner());
 		likeCondition.put("delMark", JOYOrder.NON_DEL_MARK);
