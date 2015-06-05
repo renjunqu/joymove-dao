@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.joymove.dao.JOYNCarDao;
 import com.joymove.entity.JOYNCar;
+import com.joymove.entity.JOYOrder;
 import com.joymove.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,6 +62,14 @@ public class JOYNCarServiceImpl implements JOYNCarService  {
 
 	public void updateCarLockState(JOYNCar car) {
 		joyNCarDao.updateCarLockState(car);
+	}
+
+	public List<JOYNCar> getPagedNCarList(Map<String,Object> likeConditon) {
+	     return joyNCarDao.getPagedNCarList(likeConditon);
+	}
+
+	public void deleteNCar(JOYNCar car){
+		joyNCarDao.deleteNCar(car);
 	}
 
 }

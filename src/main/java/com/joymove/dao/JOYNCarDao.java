@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.joymove.entity.JOYNCar;
+import com.joymove.entity.JOYOrder;
 
 
 public interface JOYNCarDao {
@@ -15,4 +16,8 @@ public interface JOYNCarDao {
 	 void updateCarLockState(JOYNCar car);
 
 	 List<JOYNCar> getNeededCar(Map<String, Object> likecondition);
+
+	 List<JOYNCar> getPagedNCarList(Map<String,Object> likeConditon);
+
+	void deleteNCar(JOYNCar car);
 }

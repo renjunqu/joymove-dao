@@ -20,5 +20,5 @@ public interface JOYUserService {
 
 	String checkUserState(JOYUser user);
 
-	List<JOYUser> getPagedUser(Map<String,Object> likeCondition);
+	List<JOYUser> getPagedUserList(Map<String,Object> likeCondition);
 }

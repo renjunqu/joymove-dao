@@ -28,4 +28,6 @@ public interface JOYOrderDao {
 	void updateNDestination(JOYOrder cOrder);
 
 	void updateNOrderStop(JOYOrder cOrder);
+
+	List<JOYOrder> getPagedOrderList(Map<String,Object> likeConditon);
 }

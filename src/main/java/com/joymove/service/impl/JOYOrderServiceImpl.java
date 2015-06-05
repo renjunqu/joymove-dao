@@ -135,4 +135,8 @@ public class JOYOrderServiceImpl  implements JOYOrderService {
 		return joyOrderDao.getJOYOrderById(likeCondition);
 	}
 
+	public List<JOYOrder> getPagedOrderList(Map<String,Object> likeConditon) {
+         return joyOrderDao.getPagedOrderList(likeConditon);
+	}
+
 }

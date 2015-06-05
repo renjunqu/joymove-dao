@@ -20,6 +20,8 @@ public interface JOYNOrderService {
 
 	void updateNDestination(JOYOrder cOrder);
 
+	List<JOYOrder> getPagedOrderList(Map<String,Object> likeConditon);
+
 
 
 

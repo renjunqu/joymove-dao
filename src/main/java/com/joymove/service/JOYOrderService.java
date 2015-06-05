@@ -22,4 +22,7 @@ public interface JOYOrderService {
 	public void deleteOrder(Long[] orderIds, JOYOrder order);
 
 	public JOYOrder getOrderById(Map<String, Object> likeCondition);
+
+	List<JOYOrder> getPagedOrderList(Map<String,Object> likeConditon);
+
 }

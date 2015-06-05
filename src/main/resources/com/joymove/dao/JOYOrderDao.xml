@@ -154,6 +154,20 @@
 	       select <include refid="userColumn"/>
 					from JOY_Order  u  where u.id = #{id};
 	</select>
+
+	<select id="getPagedOrderList" resultType="JOYOrder" parameterType="map">
+		select
+		<include refid="userColumn"/>
+			from JOY_Order u
+		<where>
+			<if test="mobileNo!=null">and mobileNo like '%' + #{mobileNo} + '%'</if>
+		</where>
+		<if test="pageStart!=null and pageSize!=null">
+			limit ${pageStart},${pageSize}
+		</if>
+
+	</select>
+
 	
 	
 	

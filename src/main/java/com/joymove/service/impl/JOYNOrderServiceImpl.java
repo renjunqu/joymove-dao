@@ -95,7 +95,10 @@ public class JOYNOrderServiceImpl implements JOYNOrderService {
 		// TODO Auto-generated method stub
 		joyOrderDao.updateNDestination(cOrder);
 	}
-		
+
+	public List<JOYOrder> getPagedOrderList(Map<String,Object> likeConditon) {
+		return joyOrderDao.getPagedOrderList(likeConditon);
+	}
 	/**********  business proc *************/
 
 }

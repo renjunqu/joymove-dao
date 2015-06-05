@@ -28,6 +28,23 @@
 	               vinNum = #{vinNum}
 	        </where>
 	</update>
+
+
+	<delete id="deleteNCar" parameterType="JOYNCar">
+        <if test="id != null or vinNum != null">
+		delete  from JOY_NCar
+			<where>
+				<if test="id!=null">
+                       id=#{id}
+				</if>
+				<if test="vinNum!=null">
+                     vinNum=#{vinNum}
+				</if>
+			</where>
+	    </if>>
+	</delete>
+
+
 	
 	
 	<select id="getNeededCar" resultType="JOYNCar" parameterType="map">
@@ -36,9 +53,25 @@
 	     <trim suffixOverrides="and">
 	          <where>
 	                    <if test="vinNum!=null">vinNum=#{vinNum}  and  </if>
+				        <if test="id!=null"> id=#{id}  and  </if>
 	           </where>
          </trim>
 	</select>
+
+
+	<select id="getPagedNCarList" resultType="JOYNCar" parameterType="map">
+		select
+		<include refid="userColumn"/>
+		from JOY_NCar u
+		<where>
+			<if test="vinNum!=null">and vinNum like '%' + #{mobileNo} + '%'</if>
+		</where>
+		<if test="pageStart!=null and pageSize!=null">
+			limit ${pageStart},${pageSize}
+		</if>
+
+	</select>
+
 	
 	
 	
