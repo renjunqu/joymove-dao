@@ -72,4 +72,8 @@ public class JOYNCarServiceImpl implements JOYNCarService  {
 		joyNCarDao.deleteNCar(car);
 	}
 
+	public void updateCarInfo(JOYNCar car){
+		joyNCarDao.updateCarInfo(car);
+	}
+
 }

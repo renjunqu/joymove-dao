@@ -13,6 +13,41 @@
 	     insert into JOY_NCar (vinNum,RSAPubKey,RSAPriKey,registerState) values (#{vinNum},#{RSAPubKey},#{RSAPriKey},#{registerState}); 
 	</insert>
 
+	<update id="updateCarInfo" parameterType="JOYNCar">
+		update JOY_NCar
+		<set>
+			<trim suffixOverrides=",">
+				<if test="RSAPubKey!=null">
+				RSAPubKey = #{RSAPubKey} ,
+				</if>
+				<if test="RSAPriKey!=null">
+					RSAPriKey = #{RSAPriKey} ,
+				</if>
+				<if test="registerState!=null">
+					registerState = #{registerState} ,
+				</if>
+				<if test="licensenum!=null">
+					licensenum = #{licensenum} ,
+				</if>
+				<if test="lockState!=null">
+					lockState = #{lockState} ,
+				</if>
+				<if test="ifBlueTeeth!=null">
+					ifBlueTeeth = #{ifBlueTeeth} ,
+				</if>
+			</trim>
+		</set>
+		<where>
+			<if test="vinNum!=null">
+                      vinNum = #{vinNum}
+			</if>
+			<if test="id!=null">
+				id = #{id}
+			</if>
+		</where>
+	</update>
+
+
 
 	<update id="updateCarLockState" parameterType="JOYNCar">
 		update JOY_NCar set lockState=#{lockState}

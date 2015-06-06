@@ -14,10 +14,15 @@ import java.util.List;
 public class SimpleJSONUtil {
     public static JSONObject beanToJSONObject(Object beanObject) throws  Exception {
         JSONObject Reobj = new JSONObject();
-        Field[] fields = beanObject.getClass().getFields();
+        Field[] fields = beanObject.getClass().getDeclaredFields();
         for(Field f : fields) {
-              if(f.get(beanObject)!=null) {
-                  Reobj.put(f.getName(),f.get(beanObject));
+              if(java.lang.reflect.Modifier.isStatic(f.getModifiers())) {
+                  //不使用静态的属性
+              } else {
+                    f.setAccessible(true);
+                    if(f.get(beanObject)!=null) {
+                      Reobj.put(f.getName(),f.get(beanObject));
+                    }
               }
         }
         return Reobj;

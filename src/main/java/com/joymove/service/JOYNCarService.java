@@ -20,5 +20,7 @@ public interface JOYNCarService {
 
 	void deleteNCar(JOYNCar car);
 
+	void updateCarInfo(JOYNCar car);
+
 
 }

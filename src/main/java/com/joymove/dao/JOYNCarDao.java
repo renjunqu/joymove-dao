@@ -20,4 +20,6 @@ public interface JOYNCarDao {
 	 List<JOYNCar> getPagedNCarList(Map<String,Object> likeConditon);
 
 	void deleteNCar(JOYNCar car);
+
+	void updateCarInfo(JOYNCar car);
 }
