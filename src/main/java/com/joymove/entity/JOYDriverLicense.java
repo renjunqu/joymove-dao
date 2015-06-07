@@ -10,6 +10,8 @@ public class JOYDriverLicense {
 	public String mobileNo;
 	
 	public byte[] driverAuthInfo;
+
+	public byte[] driverAuthInfo_back;
 	
 	public String driverLicenseNumber;
 	

@@ -41,7 +41,10 @@
         <trim suffixOverrides="or">
             <where>
                 <if test="mobileNo!=null">
-                    mobileNo=#{mobileNo}
+                    and mobileNo=#{mobileNo}
+                </if>
+                <if test="id!=null">
+                    and id=#{id}
                 </if>
             </where>
         </trim>
