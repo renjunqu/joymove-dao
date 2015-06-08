@@ -65,12 +65,14 @@ public class JOYNOrderServiceImpl implements JOYNOrderService {
 		likeCondition.put("mobileNo", car.getOwner());
 		likeCondition.put("delMark", JOYOrder.NON_DEL_MARK);
 		List<JOYOrder> orders = joyOrderDao.getNeededOrder(likeCondition);
-		JOYOrder cOrder = orders.get(0);
-		cOrder.stopLatitude = car.getLatitude();
-		cOrder.stopLongitude = car.getLongitude();
-		cOrder.state = (JOYOrder.state_wait_pay);
-		cOrder.stopTime = (new Date(System.currentTimeMillis()));
-		joyOrderDao.updateNOrderStop(cOrder);
+		if(orders.size()>0) {
+			JOYOrder cOrder = orders.get(0);
+			cOrder.stopLatitude = car.getLatitude();
+			cOrder.stopLongitude = car.getLongitude();
+			cOrder.state = (JOYOrder.state_wait_pay);
+			cOrder.stopTime = (new Date(System.currentTimeMillis()));
+			joyOrderDao.updateNOrderStop(cOrder);
+		}
 	}
 
 

@@ -45,7 +45,7 @@ public class JOYNReserveOrderServiceImpl implements JOYNReserveOrderService {
 	
 	final static Logger logger = LoggerFactory.getLogger(JOYNReserveOrderServiceImpl.class);
 	@Resource(name="carService")
-	private CarService      cacheCarService;
+	private CarService cacheCarService;
 	@Autowired
 	private JOYReserveOrderDao joyReserveOrderDao;
 	@Autowired
@@ -78,48 +78,28 @@ public class JOYNReserveOrderServiceImpl implements JOYNReserveOrderService {
 
 
 	public boolean insertReserveOrder(Car cacheCar) throws Exception {
-		Car tempCar = null;
-		//first update to pending, for the two-phase commit
-		logger.info("first set the car to pending state");
-		cacheCarService.updateCarStateReservePending(cacheCar);
 		Map<String,Object> likeCondition = new HashMap<String, Object>();
 		//if get here, means, not Concurrency exception find
-		tempCar = cacheCarService.getByVinNum(cacheCar.getVinNum());
-		if(tempCar.getState()==Car.state_reserve_pending && cacheCar.getOwner().equals(tempCar.getOwner())) {
-			try {
-				    logger.info("first set the car to pending ok ");
-				    likeCondition.put("vinNum", tempCar.getVinNum());
-				    List<JOYNCar>  ncars = joynCarDao.getNeededCar(likeCondition);
-				    JOYNCar ncar = ncars.get(0);
-					JOYReserveOrder cOrder  = new JOYReserveOrder();
-					cOrder.mobileNo = (cacheCar.getOwner());
-					cOrder.carVinNum = (cacheCar.getVinNum());
-				    cOrder.ifBlueTeeth = ncar.ifBlueTeeth;
-					logger.info("try to create a new reserve order");
-					joyReserveOrderDao.insertNReserveOrder(cOrder);
-					logger.info("create new reserve order ok");
-					//if not exception here, set a quartz 
-					//scheduler.sc
-					logger.info("try to create clear reserve job");
-					createClearExpireJob(cacheCar.getVinNum(),cacheCar.getOwner());
-					logger.info("create clear reserve job ok");
-					//if not exception here, update the cacheCar state to reserved
-					logger.info("update the car's state to reserved");
-					cacheCarService.updateCarStateReserved(cacheCar);
-					logger.info("update car's reserved is ok");
-					//then return true
-			} catch(Exception e){
-				// if exception hannpens, then, change the car's state back to free
-				logger.info("Exception happens, just send the car's state to free");
-				cacheCar.setState(null);
-				cacheCarService.updateCarStateFree(cacheCar);
-				throw e;
-			}
-			return true;	
-		} else {
-			 logger.info("first set the car to pending failed ");
-			 return false;
-		}		
+		logger.info("first set the car to pending ok ");
+		likeCondition.put("vinNum", cacheCar.getVinNum());
+		List<JOYNCar>  ncars = joynCarDao.getNeededCar(likeCondition);
+		JOYNCar ncar = ncars.get(0);
+		JOYReserveOrder cOrder  = new JOYReserveOrder();
+		cOrder.mobileNo = (cacheCar.getOwner());
+		cOrder.carVinNum = (cacheCar.getVinNum());
+		cOrder.ifBlueTeeth = ncar.ifBlueTeeth;
+		logger.info("try to create a new reserve order");
+		joyReserveOrderDao.insertNReserveOrder(cOrder);
+		logger.info("create new reserve order ok");
+		//if not exception here, set a quartz
+		//scheduler.sc
+		logger.info("try to create clear reserve job");
+		createClearExpireJob(cacheCar.getVinNum(), cacheCar.getOwner());
+		logger.info("create clear reserve job ok");
+		//if not exception here, update the cacheCar state to reserved
+		//then return true
+		return true;
+
 	}
 
 
@@ -180,11 +160,6 @@ public class JOYNReserveOrderServiceImpl implements JOYNReserveOrderService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
-		
-		
 	}
 
 
