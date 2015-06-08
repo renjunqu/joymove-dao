@@ -118,15 +118,9 @@ public class JOYNReserveOrderServiceImpl implements JOYNReserveOrderService {
 			JOYReserveOrder cOrder = orders.get(0);
 			cOrder.delFlag = (JOYReserveOrder.DEL_FLAG);
 			joyReserveOrderDao.updateReserveOrderDelFlag(cOrder);
-			//then update car state 
-			logger.info("remove reserve order is ok,then update the car 's state");
-			Car cacheCar =new Car();
-			cacheCar.setOwner(mobileNo);
-			cacheCar.setVinNum(cOrder.carVinNum);
-			cacheCarService.clearExpireReserve(cacheCar);
 			logger.info("update car's state is ok,then remove the quartz job");
 			//clear the quartz jobs
-			JobKey key = new JobKey(cacheCar.getOwner()+cacheCar.getVinNum(), "clearExpire");
+			JobKey key = new JobKey(mobileNo+cOrder.carVinNum, "clearExpire");
 			logger.debug("to be deleted jobs : "+ key.toString());
 			scheduler.deleteJob(key);
 			logger.info("remove quartz job is ok");
