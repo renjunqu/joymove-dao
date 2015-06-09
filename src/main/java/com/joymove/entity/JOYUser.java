@@ -38,5 +38,9 @@ public class JOYUser {
 	public BigDecimal corpLongitude;
 	public String     face_info;
 	public String     voice_info;
+	//身份证号,和认证信息中有些重
+	public String     idNo;
+	//姓名,和认证信息中有些重
+	public String     idName;
 	
 }
