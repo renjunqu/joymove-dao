@@ -76,12 +76,14 @@ public class JOYUserServiceImpl implements JOYUserService{
 		logger.warn("inside get joy user info ");
 		List<JOYUser> users = joyuserDao.getNeededUser(user);
 		JOYUser currUser = users.get(0);
-		if( currUser.authenticateId ==0 ) {
+		if( currUser.authenticateId !=JOYUser.auth_state_ok ) {
 			errMsg = "用户身份认证未通过";
-		} else if(currUser.authenticateDriver ==0 ) {
+		} else if(currUser.authenticateDriver != JOYUser.auth_state_ok ) {
 			errMsg = "用户驾照认证未通过";
 		} else if(currUser.deposit.doubleValue()  < 0.01){
 			errMsg = "用户押金余额不足";
+		} else if(currUser.id5PassFlag!=JOYUser.auth_state_ok) {
+			errMsg="用户未通过ID5认证";
 		}
 		return errMsg;
 	}

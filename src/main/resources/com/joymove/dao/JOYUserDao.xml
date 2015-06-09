@@ -37,6 +37,8 @@
             <if test="face_info">face_info=#{face_info},</if>
             <if test="voice_info">voice_info=#{voice_info},</if>
             <if test="id5PassFlag">id5PassFlag=#{id5PassFlag},</if>
+            <if test="id5PassFlag">idNo=#{idNo},</if>
+            <if test="id5PassFlag">idName=#{idName},</if>
         </trim>
         <trim suffixOverrides="or">
             <where>
