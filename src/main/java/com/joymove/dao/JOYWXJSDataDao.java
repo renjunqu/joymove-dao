@@ -1,5 +1,6 @@
 package com.joymove.dao;
 
+
 import com.joymove.entity.JOYWXJSData;
 
 import java.util.List;

@@ -8,5 +8,4 @@ import java.util.Map;
 public interface JOYWXJSService {
      String getWXJSCrendentail(int data_type,String json_key) throws Exception;
      String getSignature(Map map) throws  Exception;
-
 }
