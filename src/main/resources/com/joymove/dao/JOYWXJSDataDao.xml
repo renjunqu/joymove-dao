@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.joymove.dao.JOYWXJSDataDao">
 
-
+<!--
 
 
     <insert id="insertNewWXJSData" parameterType="JOYWXJSData">
@@ -23,4 +23,5 @@
             </trim>
         </where>
     </select>
+    -->
 </mapper>

@@ -5,6 +5,7 @@
 	
 <mapper namespace="com.joymove.dao.JOYParkDao">
 
+
 	<sql id="userColumn">
 		*
 	</sql>

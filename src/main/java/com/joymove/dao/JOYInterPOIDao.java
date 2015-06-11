@@ -8,6 +8,5 @@ import com.joymove.entity.JOYInterPOI;
 
 
 
-public interface JOYInterPOIDao {
-	 List<JOYInterPOI> getAllPOI();
+public interface JOYInterPOIDao extends JOYBaseDao<JOYInterPOI>  {
 }

@@ -23,7 +23,7 @@
 		u.idName,
 		u.idNo
 	</sql>
--->
+
 	<sql id="idAuthInfoColumn"> * </sql>
 	<insert id="insertIdAuthInfo" parameterType="JOYIdAuthInfo">
 		insert into JOY_IdAuthInfo(mobileNo,idAuthInfo,idAuthInfo_back,idName,idNo) values(#{mobileNo},#{idAuthInfo},#{idAuthInfo_back},#{idName},#{idNo})
@@ -43,4 +43,5 @@
 		from JOY_IdAuthInfo  u 
 		<where>u.mobileNo=#{mobileNo}</where>
 	</select>
+	-->
 </mapper>	

@@ -5,22 +5,10 @@ import java.util.Map;
 
 import com.joymove.entity.JOYNCar;
 import com.joymove.entity.JOYOrder;
+import com.joymove.entity.JOYUser;
 
-public interface JOYNCarService {
+public interface JOYNCarService  extends  JOYBaseService<JOYNCar>  {
 
-	void insertCar(JOYNCar car);
-
-	void updateCarRegisterState(JOYNCar car);
-
-	void updateCarLockState(JOYNCar car);
-
-	List<JOYNCar> getNeededCar(Map<String, Object> condition);
-
-	List<JOYNCar> getPagedNCarList(Map<String,Object> likeConditon);
-
-	void deleteNCar(JOYNCar car);
-
-	void updateCarInfo(JOYNCar car);
 
 
 }

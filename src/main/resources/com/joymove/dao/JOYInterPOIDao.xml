@@ -22,10 +22,11 @@
 					u.latitude,
 					u.longitude
 	</sql>
-	-->
+
 	<sql id="sqlColumn"> * </sql>
 
 	<select id="getAllPOI" resultType="JOYInterPOI" parameterType="map">
 			select  <include refid="sqlColumn"/> from JOY_InterPOI u;
 	</select>
+	-->
 </mapper>	

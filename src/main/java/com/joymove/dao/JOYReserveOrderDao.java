@@ -7,15 +7,6 @@ import com.joymove.entity.JOYReserveOrder;
 
 
 
-public interface JOYReserveOrderDao {
-	
-	
-	 void insertReserveOrder(JOYReserveOrder cOrder);
-	
-	 List<JOYReserveOrder> getNeededReserveOrder(
-			Map<String, Object> likeCondition);
-	 void updateReserveOrderDelFlag(JOYReserveOrder cOrder);
-
-	 void insertNReserveOrder(JOYReserveOrder cOrder);
+public interface JOYReserveOrderDao  extends JOYBaseDao<JOYReserveOrder> {
 
 }

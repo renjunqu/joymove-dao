@@ -1,9 +1,14 @@
 package com.joymove.service.impl;
 
+import com.joymove.dao.JOYBaseDao;
 import com.joymove.dao.JOYUserDao;
 import com.joymove.dao.JOYWXPayInfoDao;
+import com.joymove.entity.JOYUser;
 import com.joymove.entity.JOYWXPayInfo;
+import com.joymove.service.JOYUserService;
 import com.joymove.service.JOYWXPayInfoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,22 +20,19 @@ import java.util.Map;
  */
 
 @Service("JOYWXPayInfoService")
-public class JOYWXPayInfoServiceImpl implements JOYWXPayInfoService{
+public class JOYWXPayInfoServiceImpl extends JOYBaseServiceImpl<JOYWXPayInfo> implements JOYWXPayInfoService {
+
+    final static Logger logger = LoggerFactory.getLogger(JOYWXPayInfoServiceImpl.class);
     @Autowired
     private JOYWXPayInfoDao joywxPayInfoDao;
 
-    public void insertWXPayInfo(JOYWXPayInfo payInfo) {
-        joywxPayInfoDao.insertWXPayInfo(payInfo);
 
-    }
-    public List<JOYWXPayInfo> getNeededPayInfo(Map<String,Object> likeCondition){
-        return joywxPayInfoDao.getNeededPayInfo(likeCondition);
+    public JOYBaseDao getBaseDao(){
+        return joywxPayInfoDao;
     }
 
-    public void markPayInfo(JOYWXPayInfo payInfo){
-        joywxPayInfoDao.markPayInfo(payInfo);
+    public Class<JOYWXPayInfo> getEntityClass(){
+        return JOYWXPayInfo.class;
     }
-
-
 
 }

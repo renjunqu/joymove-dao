@@ -4,8 +4,14 @@ import java.util.Date;
 import org.apache.ibatis.type.Alias;
 import org.json.simple.JSONObject;
 @Alias("JOYMessage")
-public class JOYMessage {
-	 
+public class JOYMessage extends  JOYBase  {
+
+	public static String tableName = "JOY_Messages";
+
+
+	public JOYMessage() {
+	}
+
 	public Integer id;
 
 	public String type;

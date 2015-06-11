@@ -2,17 +2,22 @@ package com.joymove.entity;
 
 import org.apache.ibatis.type.Alias;
 
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.*;
 
 @Alias("JOYUser")
-public class JOYUser {
+public class JOYUser extends  JOYBase {
+
+	public JOYUser(){}
+
+	public static String tableName = "JOY_Users";
 	//还未认证
 	public static int auth_state_pending = 0;
 	public static int auth_state_ok      = 1;
 	public static int auth_state_ing     = 2;
 	public static int auth_state_failed  = 3;
-    public  int    id;
+    public  Integer    id;
 	public String mobileNo;
 	public String username;
 	public String userpwd;
@@ -42,5 +47,8 @@ public class JOYUser {
 	public String     idNo;
 	//姓名,和认证信息中有些重
 	public String     idName;
+	public byte[]     haha;
+
+
 	
 }

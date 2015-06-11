@@ -9,9 +9,6 @@ import com.joymove.entity.JOYWXPayInfo;
 /**
  * Created by qurj on 15/5/12.
  */
-public interface JOYWXPayInfoDao {
+public interface JOYWXPayInfoDao  extends JOYBaseDao<JOYWXPayInfo> {
 
-     void insertWXPayInfo(JOYWXPayInfo  payInfo);
-     List<JOYWXPayInfo> getNeededPayInfo(Map<String,Object> likeCondition);
-     void markPayInfo(JOYWXPayInfo payInfo);
 }

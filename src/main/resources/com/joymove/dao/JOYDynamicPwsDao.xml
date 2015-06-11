@@ -17,7 +17,7 @@
 	</resultMap>
 	
 	<sql id="dynamicpwsColumn">u.codeid, u.mobileNo, u.Code, u.CreateTime</sql>
-	-->
+
 	<sql id="dynamicpwsColumn"> * </sql>
 	<sql id="likeCondition"> like </sql>
 	
@@ -30,4 +30,5 @@
 		select <include refid="dynamicpwsColumn"/>
 		from JOY_DynamicPws u where u.mobileNo=#{mobileNo} order by u.codeid desc limit 1
 	</select>
+	-->
 </mapper>

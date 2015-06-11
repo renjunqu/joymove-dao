@@ -5,7 +5,9 @@
 
   <mapper namespace="com.joymove.dao.JOYFansDao">
 
+    <!--
     <insert id="addNewFans" parameterType="JOYFans">
         insert into joy_fans(mobileNo,email) values(#{mobileNo},#{email});
     </insert>
+    -->
 </mapper>

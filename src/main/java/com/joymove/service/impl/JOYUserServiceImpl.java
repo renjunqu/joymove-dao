@@ -1,13 +1,14 @@
 package com.joymove.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
+import java.util.*;
 
 
+import com.joymove.dao.JOYBaseDao;
 import com.joymove.dao.JOYUserDao;
-import com.joymove.entity.JOYUser;
-import com.joymove.service.JOYUserService;
+import com.joymove.entity.*;
+import com.joymove.service.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,65 +17,30 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.*;
+
 import java.math.BigDecimal;
 @Service("JOYUserService")
-public class JOYUserServiceImpl implements JOYUserService{
+public class JOYUserServiceImpl extends JOYBaseServiceImpl<JOYUser> implements  JOYUserService {
 	
 	final static Logger logger = LoggerFactory.getLogger(JOYUserServiceImpl.class);
 	@Autowired
-	private JOYUserDao joyuserDao;
-	
-	/*******          business proc *************/
-	
-	//@Transactional(rollbackFor=Exception.class, propagation=Propagation.REQUIRED) 
+	private JOYUserDao joyUserDao;
 
-//	@TriggersRemove(cacheName="joyUserCache",
-//
-//    keyGenerator = @KeyGenerator (
-//            name = "HashCodeCacheKeyGenerator",
-//            properties = @Property( name="includeMethod", value="false" )
-//        )
-//    )
 
-	public JOYUser insertJOYUser(JOYUser user) {
-		
-			joyuserDao.insertJOYUser(user);
-			
-			//throw new Exception("test");
-		    return user;
+	public JOYBaseDao getBaseDao(){
+		return joyUserDao;
 	}
-	
 
-//	@Cacheable(cacheName="joyUserCache",
-//    keyGenerator = @KeyGenerator (
-//            name = "HashCodeCacheKeyGenerator",
-//            properties = @Property( name="includeMethod", value="false" )
-//        )
-//    )
-/*
-	public List<JOYUser> getJOYUserInfo(JOYUser user) {
-		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		logger.warn("inside get joy user info ");
-		Map<String, Object> likeCondition = new HashMap<String, Object>();
-			likeCondition.put("mobileNo", user.mobileNo);
-		return joyuserDao.getAllJOYUser(likeCondition);
+	public Class<JOYUser> getEntityClass(){
+		return JOYUser.class;
 	}
-*/
-
-//	@Cacheable(cacheName="joyUserCache",
-//    keyGenerator = @KeyGenerator (
-//            name = "HashCodeCacheKeyGenerator",
-//            properties = @Property( name="includeMethod", value="false" )
-//        )
-//    )
 
 	public String checkUserState(JOYUser user) {
 		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 		String errMsg = null;
 		logger.warn("inside get joy user info ");
-		List<JOYUser> users = joyuserDao.getNeededUser(user);
+		List<JOYUser> users = this.getNeededList(user);
 		JOYUser currUser = users.get(0);
 		if( currUser.authenticateId !=JOYUser.auth_state_ok ) {
 			errMsg = "用户身份认证未通过";
@@ -87,88 +53,89 @@ public class JOYUserServiceImpl implements JOYUserService{
 		}
 		return errMsg;
 	}
-	
-	
-	
-	
-	
-
-	
-
-//	@Cacheable(cacheName="joyUserCache",
-//    keyGenerator = @KeyGenerator (
-//            name = "HashCodeCacheKeyGenerator",
-//            properties = @Property( name="includeMethod", value="false" )
-//        )
-//    )
-
-	/*
-	public List<JOYUser> getJOYUserByMobileNo(JOYUser user) {
-		// TODO Auto-generated method stub
-		logger.warn("inside get joy user by mobileNo ");
-		Map<String, Object> likeCondition = new HashMap<String, Object>();
-		likeCondition.put("mobileNo", user.mobileNo);
-		return joyuserDao.getJOYUserByPhone(likeCondition);
-	}
-	*/
-	
-	
-
-//	@TriggersRemove(cacheName="joyUserCache",
-//    keyGenerator = @KeyGenerator (
-//            name = "HashCodeCacheKeyGenerator",
-//            properties = @Property( name="includeMethod", value="false" )
-//        )
-//    )
-
-	public void updateJOYUser(JOYUser user) {
-		logger.warn("inside update JOYUser ");
-		joyuserDao.updateJOYUser(user);
-	}
 
 
-    
 
-	public List<JOYUser> getNeededUser(JOYUser user) {
-		// TODO Auto-generated method stub
-		return joyuserDao.getNeededUser(user);
-	}
+	public static void main(String [] args) {
 
-
-	public static void main(String [] args){
 		
-		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:**/applicationContext-mvc.xml");
-		JOYUserService service  = (JOYUserService)context.getBean("JOYUserService");
+		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:test.xml");
+
+		JOYUserService service = (JOYUserService)context.getBean("JOYUserService");
+		JOYUser user = new JOYUser();
+		JOYUser user2 = new JOYUser();
+
+		user2.username = "曲仁军";
+		user.mobileNo="18500217642";
+		service.updateRecord(user2,user);
+		user = service.getNeededRecord(user);
+        System.out.println(user);
+
+		/*
+		JOYOrderService service = (JOYOrderService) context.getBean("JOYOrderService");
+	   JOYOrder order = new JOYOrder();
+		order = service.getNeededRecord(order);
+		JOYOrder order2 = new JOYOrder();
+		order2.startTime = order.startTime;
+		order = new JOYOrder();
+		order.startTime = new Date(System.currentTimeMillis());
+	   service.updateRecord(order,order2);
+			/*
+		JOYNReserveOrderService  service  = (JOYNReserveOrderService)context.getBean("JOYNReserveOrderService");
+		JOYReserveOrder order = new JOYReserveOrder();
+		//service.insertRecord(order);
+		JOYReserveOrder order2 = new JOYReserveOrder();
+		order2.mobileNo = "18500217642";
+		order2.startTime = new Date(System.currentTimeMillis());
+        service.insertRecord(order2);
+		order2.startTime = null;
+		order = service.getNeededRecord(order2);
+	    order.startTime = new Date(System.currentTimeMillis());
+		service.updateRecord(order,order2);
+        order2.startTime = order.startTime;
+		order2.mobileNo = null;
+		order = service.getNeededRecord(order2);
+		System.out.println(order);
+		/*
+		order.delFlag = 1;
+		order.startTime = new Date(System.currentTimeMillis()+30);
+		service.updateRecord(order,order2);
+
+		order2.mobileNo = null;
+		order2.startTime = order.startTime;
+		order = service.getNeededRecord(order2);
+		System.out.println(order);
+		//service.deleteByProperties(order);
+
+
+		/*
+		JOYIdAuthInfoService service  = (JOYIdAuthInfoService)context.getBean("JOYIdAuthInfoService");
+		JOYIdAuthInfo dl = new JOYIdAuthInfo();
+		dl.idAuthInfo = "nihao".getBytes();
+		dl.idAuthInfo_back = "Hello world".getBytes();
+		JOYIdAuthInfo dl2 = new JOYIdAuthInfo();
+		dl2.mobileNo = "15577586649";
+		service.updateRecord(dl,dl2);
+
+
+		service.getNeededList(dl2,null,null);
+
+
+
+		List<JOYIdAuthInfo> dList = service.getNeededList(dl,null,null);
+		System.out.println(dList.get(0));
+
+		for(int i=0;i<dList.get(0).idAuthInfo.length;i++)
+		System.out.format("%c",dList.get(0).idAuthInfo[i]);
+/*
 		JOYUser user = new JOYUser();
 		JOYUser user1 = new JOYUser();
-		user.mobileNo = ("18500411146");
-		user1.mobileNo = ("18500217642");
-		List<JOYUser> users1 = service.getNeededUser(user);
-		System.out.println("users1 is "+users1);
-		List<JOYUser> users2 = service.getNeededUser(user1);
-		System.out.println("users2 is "+users2);
-		System.out.println("test over");
-		
-		
-	}
-
-//	@Override
-//	@TriggersRemove(cacheName="joyUserCache",
-//    keyGenerator = @KeyGenerator (
-//            name = "HashCodeCacheKeyGenerator",
-//            properties = @Property( name="includeMethod", value="false" )
-//        )
-//    )
-
-	public int triggerUserCache(JOYUser user) {
-		// TODO Auto-generated method stub
-		//use it to trigger cache remove
-		return 0;
-		
-	}
-
-	public  List<JOYUser> getPagedUserList(Map<String,Object> likeCondition) {
-		return joyuserDao.getPagedUserList(likeCondition);
+		user.mobileNo = ("18500217642");
+		List<JOYUser> userList =  service.getNeededList(user,0,10);
+        System.out.println("sdfdsdsf :"+userList.size());
+		JOYUser u = userList.get(0);
+		System.out.println(u);
+	    */
 	}
 
 

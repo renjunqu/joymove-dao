@@ -6,7 +6,7 @@ import java.math.*;
 
 
 
-public interface JOYPowerBarDao {
-	
-	 List<JOYPowerBar>  getPowerBarByScope(Map<String, Object> likeCondition);
+public interface JOYPowerBarDao  extends JOYBaseDao<JOYPowerBar> {
+    List<JOYPowerBar>  getPowerBarByScope(Map<String, Object> likeCondition);
+
 }

@@ -6,9 +6,15 @@ import java.util.Date;
 import org.apache.ibatis.type.Alias;
 import org.json.simple.JSONObject;
 @Alias("JOYIntegration")
-public class JOYIntegration {
-	
-	public Integer jifenId;
+public class JOYIntegration extends  JOYBase  {
+
+	public static String tableName = "JOY_Integration";
+
+
+	public JOYIntegration() {
+	}
+
+	public Integer id;
 	
 	public String mobileNo;
 	

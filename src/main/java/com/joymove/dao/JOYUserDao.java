@@ -8,14 +8,7 @@ import com.joymove.entity.JOYUser;
 
 
 
-public interface JOYUserDao {
-	 void insertJOYUser(JOYUser user);
-
-	 List<JOYUser> getNeededUser(JOYUser user);
-	
-	 void updateJOYUser(JOYUser user);
-
-	List<JOYUser> getPagedUserList(Map<String,Object> likeCondition);
+public interface JOYUserDao extends JOYBaseDao<JOYUser> {
 	
 }
 

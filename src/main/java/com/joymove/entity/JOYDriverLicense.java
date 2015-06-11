@@ -5,7 +5,14 @@ import org.apache.ibatis.type.Alias;
 import java.util.Arrays;
 import java.util.Date;
 @Alias("JOYDriverLicense")
-public class JOYDriverLicense {
+public class JOYDriverLicense extends  JOYBase  {
+	public static String tableName = "JOY_DriverLicense";
+
+
+	public JOYDriverLicense() {
+	}
+
+	//缺少一个id
 
 	public String mobileNo;
 	

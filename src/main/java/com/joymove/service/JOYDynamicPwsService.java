@@ -6,9 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.joymove.entity.JOYDynamicPws;
+import com.joymove.entity.JOYUser;
 
-public interface JOYDynamicPwsService {
-	public void insertDynamicPwse(JOYDynamicPws dynamicpws);
-	
-	public List<JOYDynamicPws> getDynamicPws(Map<String,Object> likeCondition);
+public interface JOYDynamicPwsService  extends  JOYBaseService<JOYDynamicPws>  {
+
 }

@@ -8,7 +8,12 @@ import java.util.Date;
  * Created by qurj on 15/5/28.
  */
 @Alias("JOYWXJSData")
-public class JOYWXJSData {
+public class JOYWXJSData extends  JOYBase  {
+    public static String tableName = "joy_wxjsdata";
+
+    public JOYWXJSData() {
+    }
+
     public static int type_access_token = 1;
     public static int type_jsapi_ticket = 2;
     public Integer id;

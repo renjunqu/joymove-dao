@@ -24,7 +24,7 @@
 					u.StatusMark,
 					u.JifenDate
 	</sql>
-	-->
+
 	<sql id="CreditColumn"> * </sql>
 	<select id="getJOYIntegration" resultType="JOYIntegration" parameterType="map">
 			select<include refid="CreditColumn"/>
@@ -34,5 +34,6 @@
 	<insert id="insertJOYIntegration" parameterType="JOYIntegration" useGeneratedKeys="false">
 		insert into JOY_Integration(MobileNo,Jifen,JifenDesc,StatusMark) values(#{mobileNo},#{jiFen},#{jifenDesc},#{statusMark});
 	</insert>
+	-->
 	
 </mapper>	

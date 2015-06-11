@@ -11,6 +11,7 @@
         <setting name="useGeneratedKeys" value="true"/>
         <setting name="defaultExecutorType" value="SIMPLE"/>
         <setting name="defaultStatementTimeout" value="25000"/>
+     <!--   <setting name="defaultScriptingLanguage" value="velocity"/>  -->
     </settings>
     <typeAliases>
         <package name="com.joymove.entity"/>

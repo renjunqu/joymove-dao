@@ -4,7 +4,12 @@ import org.apache.ibatis.type.Alias;
 import java.util.*;
 import java.math.*;
 @Alias("JOYReserveOrder")
-public class JOYReserveOrder {
+public class JOYReserveOrder  extends  JOYBase {
+	public static String tableName = "JOY_ReserveOrder";
+
+	public JOYReserveOrder() {
+	}
+
 	public Integer id;
 	public String mobileNo;
 	public Date startTime;

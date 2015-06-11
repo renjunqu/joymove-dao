@@ -5,6 +5,7 @@
 	
 <mapper namespace="com.joymove.dao.JOYReserveOrderDao">
 
+	<!--
 	<sql id="userColumn">
 		*
 	</sql>
@@ -53,7 +54,7 @@
 			</trim>
 			   order by u.id desc
 	</select>
-	
+	-->
 	
 	
 </mapper>	

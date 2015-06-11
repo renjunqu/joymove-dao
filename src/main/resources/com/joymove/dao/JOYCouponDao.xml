@@ -23,6 +23,7 @@
 	                     u.delMark
 	</sql>
 	-->
+	<!--
 	<sql id="couponColumn"> * </sql>
 	<sql id="likeCondition"> like </sql>
 	
@@ -56,4 +57,5 @@
 	               u.couponId = #{couponId}
 	        </where>
 	</update>
+	-->
 </mapper>	

@@ -21,7 +21,7 @@
         u.totalFee,
         u.payOverFlag
     </sql>
-    -->
+
     <sql id="userColumn">
         *
     </sql>
@@ -49,7 +49,7 @@
             out_trade_no = #{out_trade_no}
         </where>
     </update>
-
+-->
 
 </mapper>
 

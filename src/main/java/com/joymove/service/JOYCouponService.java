@@ -4,17 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 import com.joymove.entity.JOYCoupon;
+import com.joymove.entity.JOYUser;
 
-public interface JOYCouponService {
-	
-	public List<JOYCoupon> getJOYCoupon(Map<String, Object> likeCondition);
-	
-	public void insertJOYCoupon(JOYCoupon joy);
+public interface JOYCouponService extends  JOYBaseService<JOYCoupon>  {
 
+    public List<JOYCoupon> getCouponById(Long[] cIds);
 
-	public List<JOYCoupon> getCouponById(Long[] cIds);
+    public void deleteCouponById(Long[] cIds);
 
-	public void deleteCouponById(Long[] cIds);
 	
 	
 }

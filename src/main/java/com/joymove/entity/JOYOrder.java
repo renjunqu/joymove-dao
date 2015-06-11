@@ -6,9 +6,13 @@ import java.util.Date;
 import java.math.BigDecimal;
 
 @Alias("JOYOrder")
-public class JOYOrder {
-	
-	
+public class JOYOrder  extends  JOYBase {
+
+	public static String tableName = "JOY_Order";
+
+	public JOYOrder() {
+	}
+
 	public Integer id;
 	public String mobileNo;
 	public Integer carId;

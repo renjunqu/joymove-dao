@@ -5,6 +5,33 @@
 	
 <mapper namespace="com.joymove.dao.JOYOrderDao">
 
+
+
+	<select id="getNeededOrder" resultType="JOYOrder" parameterType="map">
+		select *  from JOY_Order  u
+		<trim suffixOverrides="and">
+			<where>
+				<if test="carId!=null">
+					carId=#{carId} and
+				</if>
+				<if test="mobileNo!=null">
+					mobileNo=#{mobileNo} and
+				</if>
+				<if test="delMark!=null">
+					delMark=#{delMark} and
+				</if>
+				<if test="state!=null">
+					state=#{state} and
+				</if>
+				<if test="startId!=null">
+					id  &lt; #{startId}
+				</if>
+			</where>
+		</trim>
+		order by u.id desc limit 20
+	</select>
+
+	<!--
 	<sql id="userColumn"> *</sql>
 	<insert id="insertOrder" parameterType="JOYOrder">
 	     insert into JOY_Order (mobileNo,carId,delMark,type,ifBlueTeeth,startLatitude,startLongitude)
@@ -169,7 +196,7 @@
 	</select>
 
 	
-	
+	-->
 	
 	
 </mapper>	

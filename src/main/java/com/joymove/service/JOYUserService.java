@@ -3,22 +3,12 @@ package com.joymove.service;
 import java.util.List;
 import java.util.Map;
 
+import com.joymove.entity.JOYBase;
 import com.joymove.entity.JOYUser;
 
 
 
-public interface JOYUserService {
-	public JOYUser insertJOYUser (JOYUser user);
-	
-	public void updateJOYUser(JOYUser user);
-	
-	public int triggerUserCache(JOYUser user);
-	
-	
-	public List<JOYUser> getNeededUser(JOYUser user);
+public interface JOYUserService extends  JOYBaseService<JOYUser>  {
 
-
-	String checkUserState(JOYUser user);
-
-	List<JOYUser> getPagedUserList(Map<String,Object> likeCondition);
+    public String checkUserState(JOYUser user);
 }

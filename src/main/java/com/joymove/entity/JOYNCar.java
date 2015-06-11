@@ -9,9 +9,15 @@ import java.util.Date;
  *  the old JOYCar just used to test
  * */
 @Alias("JOYNCar")
-public class JOYNCar {
+public class JOYNCar extends  JOYBase  {
 
-	public int id;
+	public static String tableName = "JOY_NCar";
+
+
+	public JOYNCar() {
+	}
+
+	public Integer id;
 	//the primary key
 	public String vinNum;
 	//the register time

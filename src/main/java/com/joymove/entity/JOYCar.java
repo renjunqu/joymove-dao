@@ -5,8 +5,14 @@ import java.math.*;
 import org.apache.ibatis.type.Alias;
 
 @Alias("JOYCar")
-public class JOYCar {
-	
+public class JOYCar  extends  JOYBase {
+
+	public static String tableName = "JOY_Car";
+
+
+	public JOYCar() {
+	}
+
 	static public int STATE_FREE = 0;
 	static public int STATE_BUSY = 1;
 	static public int STATE_RESERVE = 2;

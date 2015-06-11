@@ -7,10 +7,5 @@ import com.joymove.entity.JOYMessage;
 
 
 
-public interface JOYMessageDao {
-	
-	
-	 List<JOYMessage> getJOYMessageByID(Map<String,Object> likeCondition);
-	
-	 List<JOYMessage> getJOYBroadcastMessage();
+public interface JOYMessageDao extends JOYBaseDao<JOYMessage>  {
 }

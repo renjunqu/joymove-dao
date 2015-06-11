@@ -6,12 +6,11 @@ import com.joymove.entity.*;
 
 
 
-public interface JOYCarDao {
-	 List<JOYCar>  getCarByScope(Map<String, Object> likeCondition);
-	
-	 void setCarReserve(JOYCar car);
-	 void setCarBusy(JOYCar car);
-	 void setCarFree(JOYCar car);
-	 List<JOYCar>  getCarById(Map<String, Object> likeCondition);
-	 void clearReserve(JOYCar car);
+public interface JOYCarDao extends JOYBaseDao<JOYCar>  {
+    void clearReserve(JOYCar car);
+    List<JOYCar>  getCarByScope(Map<String, Object> likeCondition);
+    void setCarReserve(JOYCar car);
+    void setCarBusy(JOYCar car);
+    void setCarFree(JOYCar car);
+
 }

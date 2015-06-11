@@ -4,13 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 
+import com.joymove.dao.JOYDriverLicenseDao;
 import com.joymove.entity.JOYDriverLicense;
+import com.joymove.entity.JOYUser;
 
-public interface JOYDriverLicenseService {
-		
-	public void insertDriverAuthInfo(JOYDriverLicense joy);
-	
-	public List<JOYDriverLicense> getDriverAuthInfo(Map<String,Object> likeCondition);
-	
-	public void updateJOYDriverLicense(JOYDriverLicense joy);
+public interface JOYDriverLicenseService extends  JOYBaseService<JOYDriverLicense>  {
 }

@@ -24,7 +24,7 @@
 	                     u.createTime, 
 	                     u.mobileNo
 		</sql>
-	-->
+
 	<sql id="messageColumn">
 		*
 	</sql>
@@ -37,4 +37,5 @@
 		select <include refid="messageColumn"/>
 		from JOY_Messages u where u.type = 0
 	</select>
+	-->
 </mapper>	

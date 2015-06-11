@@ -8,8 +8,5 @@ import java.util.List;
 /**
  * Created by qurj on 15/5/28.
  */
-public interface JOYWXJSDataDao {
-
-    void insertNewWXJSData(JOYWXJSData data);
-    List<JOYWXJSData> getNeededWXJSData(JOYWXJSData data);
+public interface JOYWXJSDataDao extends JOYBaseDao<JOYWXJSData>  {
 }

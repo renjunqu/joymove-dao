@@ -25,7 +25,7 @@
         u.status,
         u.type
     </sql>
-    -->
+
     <sql id="userColumn">
         *
     </sql>
@@ -52,6 +52,7 @@
     <insert id="createSeed" parameterType="JOYSeed" useGeneratedKeys="false">
         insert into JOY_Seed(mobileNo,code,balance,type) values(#{mobileNo},#{code},#{balance},#{type})
     </insert>
+   -->
 </mapper>
 
 

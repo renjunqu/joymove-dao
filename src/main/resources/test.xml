@@ -56,25 +56,17 @@
 
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
-        <property name="jdbcUrl" value="jdbc:mysql://rdsdb4h8bk1bur8cc1lvv.mysql.rds.aliyuncs.com:3306/joymove"> </property>
-        <property name="user" value="qurenjun"> </property>
-        <property name="password" value="qrj12345"> </property>
+        <property name="jdbcUrl" value="jdbc:mysql://123.57.151.176:3306/joymove_qrj"> </property>
+        <property name="user" value="root"> </property>
+        <property name="password" value="Qrj12345"> </property>
     </bean>
 
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
         <property name="configLocation" value="classpath:mybatis_config.xml"></property>
+        <property name="typeAliases" value="com.joymove.velocity.VelocityDriverDeclare" />
     </bean>
-
-
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.joymove.dao" />
-    </bean>
-
-
-
-
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />

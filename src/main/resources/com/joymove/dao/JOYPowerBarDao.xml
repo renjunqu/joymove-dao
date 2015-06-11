@@ -13,17 +13,10 @@
 			<arg column="desp" javaType="String"/>
 		</constructor>
 	</resultMap>
-	
-	<sql id="userColumn">
-			u.id,
-			u.positionX,
-			u.positionY,
-			u.desp
-	</sql>
 	-->
-	<sql id="userColumn"> * </sql>
+
 	<select id="getPowerBarByScope" resultType="JOYPowerBar" parameterType="map">
-		select <include refid="userColumn"/>
+		select  *
 		from JOY_PowerBar  u 
 			<where>
 				    GetDistance1(#{userPositionY},u.positionY,#{userPositionX},u.positionX) &lt; #{scope}  

@@ -22,6 +22,7 @@
 		u.expireTime
 	</sql>
 	-->
+	<!--
 	<sql id="driverAuthInfoColumn"> * </sql>
 	<insert id="insertDriverAuthInfo" parameterType="JOYDriverLicense" useGeneratedKeys="false">
 		insert into JOY_DriverLicense(mobileNo,driverAuthInfo,driverLicenseNumber,expireTime) values(#{mobileNo},#{driverAuthInfo},#{driverLicenseNumber},#{expireTime});
@@ -52,4 +53,5 @@
 	     </trim>
 
 	</update>
+	-->
 </mapper>	
