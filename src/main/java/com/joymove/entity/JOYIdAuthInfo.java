@@ -12,7 +12,8 @@ public class JOYIdAuthInfo  extends  JOYBase {
 	}
 
 	public String mobileNo;
-	
+
+	Integer id;
 	public byte[] idAuthInfo;
 	public byte[] idAuthInfo_back;
 	public String idName;

@@ -14,6 +14,8 @@ public class JOYDriverLicense extends  JOYBase  {
 
 	//缺少一个id
 
+	Integer id;
+
 	public String mobileNo;
 	
 	public byte[] driverAuthInfo;
