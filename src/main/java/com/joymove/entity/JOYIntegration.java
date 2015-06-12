@@ -18,7 +18,7 @@ public class JOYIntegration extends  JOYBase  {
 	
 	public String mobileNo;
 	
-	public Integer jiFen;
+	public Integer jifen;
 	
 	public String jifenDesc;
 	
@@ -33,7 +33,7 @@ public class JOYIntegration extends  JOYBase  {
 
 	public JSONObject toJSON(){
 		JSONObject jsonObj = new JSONObject();
-		jsonObj.put("jifen",this.jiFen);
+		jsonObj.put("jifen",this.jifen);
 		jsonObj.put("jifenDesc",this.jifenDesc);
 		//SimpleDateFormat   dateFormatter   =   new   SimpleDateFormat   ("yyyy-MM-dd   HH:mm:ss     ");   
 		//String dateStr = dateFormatter.format(new   Date(System.currentTimeMillis()));

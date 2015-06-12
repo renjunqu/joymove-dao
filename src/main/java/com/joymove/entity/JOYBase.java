@@ -86,4 +86,20 @@ public class JOYBase {
         return reMap;
     }
 
+    public void setNull(){
+
+        Field[] fs = this.getClass().getFields();
+        try {
+            for (Field f : fs) {
+                if (java.lang.reflect.Modifier.isStatic(f.getModifiers())) {
+                    // do nothing
+                } else  {
+                    f.set(this,null);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -111,7 +111,7 @@ public class SelectFilterPageList extends Directive {
                 } catch (Exception e) {
                      e.printStackTrace();
                 }
-                String resultString =  fromTable.toString() + " " + where.toString() + " "+limit.toString() +" "+rangeOrder;
+                String resultString =  fromTable.toString() + " " + where.toString() + " "+rangeOrder+" "+limit.toString();
             System.out.println(resultString);
                 writer.write(resultString);
             return true;

@@ -35,7 +35,7 @@ public abstract class JOYBaseServiceImpl<E extends  JOYBase> implements JOYBaseS
 
 
     public List<E> getNeededList(E data,Integer start,Integer limit, String order) {
-        List<E> reList = null;
+        List<E> reList = new ArrayList<E>();
         try {
             Class<E>  entityClass = this.getEntityClass();
             JOYBaseDao dao  = this.getBaseDao();
@@ -52,7 +52,6 @@ public abstract class JOYBaseServiceImpl<E extends  JOYBase> implements JOYBaseS
             List<Map<String, Object>> reMapList = dao.getPagedRecordList(dataMap);
             System.out.println("list length is "+reMapList.size());
             if(reMapList.size()>0) {
-                reList = new ArrayList<E>();
                 for(int i=0;i<reMapList.size();i++) {
                     E entity = entityClass.newInstance();
                     entity.fromMap(reMapList.get(i));

@@ -25,42 +25,27 @@ public class JOYCoupon  extends  JOYBase {
 	public Date couponExpDate;
 	public Date overdueTime;
 	public Integer delMark;
-	
-	
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-	public Integer getDelMark() {
-		return delMark;
+	public JSONObject toJSON(){
+		JSONObject jsonObj = new JSONObject();
+		jsonObj.put("couponId",this.id);
+		jsonObj.put("couponBalance",this.couponNum);
+		//SimpleDateFormat   dateFormatter   =   new   SimpleDateFormat   ("yyyy-MM-dd   HH:mm:ss     ");
+		//String dateStr = dateFormatter.format(new   Date(System.currentTimeMillis()));
+		jsonObj.put("couponExpDate",this.couponExpDate.getTime()/1000);
+		Date overDueTime = this.overdueTime;
+		if(overDueTime!=null) {
+			jsonObj.put("overdueTime",this.overdueTime.getTime()/1000);
+		} else {
+			jsonObj.put("overdueTime",this.couponExpDate.getTime()/1000 + 24*3600*365);
+		}
+		return jsonObj;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
-	public void setDelMark(Integer delMark) {
-		this.delMark = delMark;
-	}
 
 
 

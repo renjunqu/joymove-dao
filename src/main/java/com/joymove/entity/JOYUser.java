@@ -47,7 +47,6 @@ public class JOYUser extends  JOYBase {
 	public String     idNo;
 	//姓名,和认证信息中有些重
 	public String     idName;
-	public byte[]     haha;
 
 
 	
