@@ -10,6 +10,7 @@ import com.joymove.dao.JOYUserDao;
 import com.joymove.entity.*;
 import com.joymove.service.*;
 
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,15 +57,45 @@ public class JOYUserServiceImpl extends JOYBaseServiceImpl<JOYUser> implements  
 
 
 
-	public static void main(String [] args) {
+
+
+
+	public static void main(String [] args) throws  Exception {
 
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:test.xml");
 
+
+		/*
+
+
+		JOYPayHistoryService service = (JOYPayHistoryService)context.getBean("JOYPayHistoryService");
+		JOYPayHistory payHistoryNew = new JOYPayHistory();
+		payHistoryNew.balance = 0.2;
+		payHistoryNew.type = 2;
+		service.deleteByProperties(payHistoryNew);
+
+
+		/*
 		JOYUserService service = (JOYUserService)context.getBean("JOYUserService");
 		JOYUser user = new JOYUser();
-		JOYUser user2 = new JOYUser();
+		user.mobileNo = "18500217642";
+		List<Map<String,Object>> mapList = service.getExtendInfoPagedList(" select u.*, m.driverLicenseNumber  from JOY_Users u left join JOY_DriverLicense m on u.mobileNo = m.mobileNo ",user);
 
+
+	//	JOYUser user2 = new JOYUser();
+		Map<String,Object> t = mapList.get(0);
+		Iterator i =t.entrySet().iterator();
+		JSONObject tt = new JSONObject();
+		while(i.hasNext()) {
+
+			Map.Entry<String,Object> haha = (Map.Entry<String,Object>)i.next();
+		    if(String.valueOf(haha.getValue()).equals("null")) {
+				System.out.println(haha.getKey()+" is null");
+			}
+		}
+
+/*
 		user2.username = "曲仁军";
 		user.mobileNo="18500217642";
 		service.updateRecord(user2,user);

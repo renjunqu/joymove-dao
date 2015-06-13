@@ -55,11 +55,12 @@ public class JOYCouponServiceImpl extends JOYBaseServiceImpl<JOYCoupon> implemen
     }
 
     @Override
-    public void deleteCouponById(Long[] cIds) {
+    public void deleteCouponById(Long[] cIds,Integer orderId) {
             // TODO Auto-generated method stub
             JOYCoupon couponFilter = new JOYCoupon();
             JOYCoupon couponNew = new JOYCoupon();
             couponNew.delMark = JOYCoupon.DELMARK;
+            couponNew.orderId = orderId;
             Map<String, Object> dataMap = new HashMap<String, Object>();
             dataMap.put("value", couponNew);
             for (Long id : cIds) {

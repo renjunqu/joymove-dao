@@ -10,8 +10,6 @@ public interface JOYCouponService extends  JOYBaseService<JOYCoupon>  {
 
     public List<JOYCoupon> getCouponById(Long[] cIds);
 
-    public void deleteCouponById(Long[] cIds);
+    public void deleteCouponById(Long[] cIds,Integer orderId);
 
-	
-	
 }

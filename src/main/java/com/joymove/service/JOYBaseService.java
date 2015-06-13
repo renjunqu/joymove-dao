@@ -15,7 +15,13 @@ public interface  JOYBaseService  <E extends JOYBase>  {
     public List<E> getNeededList(E data,Integer start,Integer limit,String order);
     public List<E> getNeededList(E data,Integer start,Integer limit);
     public List<E> getNeededList(E data);
+
+    List<Map<String,Object>> getExtendInfoPagedList(String sql,E data,Integer start,Integer limit,String order);
+    List<Map<String,Object>> getExtendInfoPagedList(String sql,E data,Integer start,Integer limit);
+    List<Map<String,Object>> getExtendInfoPagedList(String sql,E data);
+
     public E getNeededRecord(E data);
+    public long countRecord(E data);
     //void updateRecord(Map<String,Object> filterMap);
     public void updateRecord(E value,E filter);
     void deleteByProperties(E t);

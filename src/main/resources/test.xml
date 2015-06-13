@@ -3,10 +3,13 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
+
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="
     http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context-3.0.xsd
     http://www.springframework.org/schema/tx
@@ -54,11 +57,29 @@
 
 
 
+    <!--
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
         <property name="jdbcUrl" value="jdbc:mysql://123.57.151.176:3306/joymove_qrj"> </property>
         <property name="user" value="root"> </property>
         <property name="password" value="Qrj12345"> </property>
+    </bean>
+-->
+    <bean name="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName">
+            <value>com.mysql.jdbc.Driver</value>
+        </property>
+        <property name="url">
+            <value>jdbc:mysql://123.57.151.176:3306/joymove_qrj</value>
+        </property>
+        <property name="username">
+            <value>root</value>
+        </property>
+        <property name="password">
+            <value>Qrj12345</value>
+        </property>
+
     </bean>
 
 
@@ -110,5 +131,16 @@
             </bean>
         </property>
     </bean>
+
+    <aop:config>
+
+        <aop:pointcut id="pc" expression="execution(* com.joymove.service.impl.*.*(..))" />
+        <aop:advisor pointcut-ref="pc" advice-ref="txAdvice"/>
+
+
+
+
+    </aop:config>
+
 
 </beans>

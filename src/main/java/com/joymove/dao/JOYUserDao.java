@@ -9,7 +9,6 @@ import com.joymove.entity.JOYUser;
 
 
 public interface JOYUserDao extends JOYBaseDao<JOYUser> {
-	
 }
 
 

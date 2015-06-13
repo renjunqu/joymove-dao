@@ -7,6 +7,13 @@
     <select id="getPagedRecordList" resultType="map" parameterType="map" lang="velocity">
             #SelectFilterPageList($_parameter)
     </select>
+    <select id="getExtendInfoPagedList" resultType="map" parameterType="map" lang="velocity">
+        #SelectExtendInfoPagedList($_parameter)
+    </select>
+
+    <select id="countRecord"  resultType="Long" parameterType="map" lang="velocity">
+        #SelectCount($_parameter)
+    </select>
 
     <delete id="deleteByProperties" parameterType="JOYBase" lang="velocity">
         #DeleteFilter($_parameter)

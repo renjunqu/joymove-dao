@@ -4,6 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.joymove.dao.JOYUserDao">
 
+        <!--使用 left Join  select u.*,m.mobileNo as haha from JOY_Users u left  join JOY_DriverLicense m on u.mobileNo=m.mobileNo; -->
+     <!--
+        <select id="getPagedExtendUserList" parameterMap="map" resultType="JOYUser" resultMap="map" lang="velocity">
+                select u.*, m.driverLicenseNumber  from JOY_Users u left join JOY_DriverLicense m on u.mobileNo = m.mobile
+                #SelectFilter($_parameter)
+        </select>
+      -->
 </mapper>
 
 

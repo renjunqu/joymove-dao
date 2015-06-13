@@ -25,6 +25,7 @@ public class JOYCoupon  extends  JOYBase {
 	public Date couponExpDate;
 	public Date overdueTime;
 	public Integer delMark;
+	public Integer orderId;//用在了哪个订单上
 
 
 

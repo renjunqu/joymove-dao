@@ -1,10 +1,15 @@
 package com.joymove.entity;
 
+import com.joymove.util.StringUtil;
+import org.apache.commons.lang.StringUtils;
+import org.json.simple.JSONObject;
 import sun.misc.BASE64Encoder;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -86,6 +91,25 @@ public class JOYBase {
         return reMap;
     }
 
+    public JSONObject toJSON(){
+        JSONObject jsonObj = new JSONObject();
+        Field[] fs = this.getClass().getFields();
+        try {
+            for (Field f : fs) {
+                if (java.lang.reflect.Modifier.isStatic(f.getModifiers())) {
+                    // do nothing
+                } else if (f.get(this)!=null) {
+                    jsonObj.put(f.getName(),f.get(this));
+                } else {
+                   jsonObj.put(f.getName(),"");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  jsonObj;
+    }
+
     public void setNull(){
 
         Field[] fs = this.getClass().getFields();
@@ -100,6 +124,33 @@ public class JOYBase {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setDataFilterFromHTTPReq(HttpServletRequest req){
+        Field[] fs = this.getClass().getFields();
+        try {
+            for (Field f : fs) {
+                if (java.lang.reflect.Modifier.isStatic(f.getModifiers())) {
+                    // do nothing
+                } else  {
+                       String queryData =  req.getParameter(f.getName());
+                    if(!StringUtils.isBlank(queryData)) {
+                        if (f.getType().equals(String.class)) {
+                            f.set(this, queryData);
+                        } else if (f.getType().equals(Integer.class)) {
+                            f.set(this, Integer.parseInt(queryData));
+                        } else if (f.getType().equals(Double.class)) {
+                            f.set(this, Double.parseDouble(queryData));
+                        } else if (f.getType().equals(Date.class)) {
+                            f.set(this, Date.parse(queryData));
+                        }
+                    }//StringUtils
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

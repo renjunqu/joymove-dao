@@ -3,10 +3,10 @@ package com.joymove.util;
 import com.joymove.entity.JOYNCar;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by jessie on 2015/6/6.
@@ -34,6 +34,20 @@ public class SimpleJSONUtil {
                 reArray.add(SimpleJSONUtil.beanToJSONObject(beanList.get(i)));
         }
         return reArray;
+    }
+
+    public static JSONObject fromMap(Map<String,Object> map) {
+        JSONObject json = new JSONObject();
+        Iterator iter =map.entrySet().iterator();
+        while(iter.hasNext()) {
+            Map.Entry<String,Object> mapEntry  = (Map.Entry<String,Object>)iter.next();
+            if(String.valueOf(mapEntry.getValue()).equals("null")||mapEntry.getValue()==null) {
+                json.put(mapEntry.getKey(),"");
+            } else {
+                json.put(mapEntry.getKey(),mapEntry.getValue());
+            }
+        }
+        return  json;
     }
 
     public static void main(String [] args) {

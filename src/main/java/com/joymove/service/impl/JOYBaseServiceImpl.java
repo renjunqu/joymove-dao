@@ -15,10 +15,6 @@ import java.util.Map;
  */
 public abstract class JOYBaseServiceImpl<E extends  JOYBase> implements JOYBaseService<E> {
 
-
-
-
-
     public JOYBaseServiceImpl() {
 
     }
@@ -39,7 +35,7 @@ public abstract class JOYBaseServiceImpl<E extends  JOYBase> implements JOYBaseS
         try {
             Class<E>  entityClass = this.getEntityClass();
             JOYBaseDao dao  = this.getBaseDao();
-            System.out.println("hello E " + entityClass.getName());
+          //  System.out.println("hello E " + entityClass.getName());
             Map<String, Object> dataMap = new HashMap<String, Object>();
             dataMap.put("filter",data);
             if(start!=null)
@@ -50,7 +46,7 @@ public abstract class JOYBaseServiceImpl<E extends  JOYBase> implements JOYBaseS
                 dataMap.put("order",order);
 
             List<Map<String, Object>> reMapList = dao.getPagedRecordList(dataMap);
-            System.out.println("list length is "+reMapList.size());
+       //     System.out.println("list length is "+reMapList.size());
             if(reMapList.size()>0) {
                 for(int i=0;i<reMapList.size();i++) {
                     E entity = entityClass.newInstance();
@@ -67,6 +63,14 @@ public abstract class JOYBaseServiceImpl<E extends  JOYBase> implements JOYBaseS
         return reList;
     }
 
+    public long countRecord(E data){
+        Map<String, Object> dataMap = new HashMap<String, Object>();
+        dataMap.put("filter",data);
+        JOYBaseDao dao  = this.getBaseDao();
+        return dao.countRecord(dataMap);
+    }
+
+
 
     public List<E> getNeededList(E data,Integer start,Integer limit) {
         return this.getNeededList(data,start,limit,null);
@@ -75,6 +79,38 @@ public abstract class JOYBaseServiceImpl<E extends  JOYBase> implements JOYBaseS
     public List<E> getNeededList(E data) {
         return getNeededList(data,null,null);
     }
+
+    public List<Map<String,Object>> getExtendInfoPagedList(String sql,E data,Integer start,Integer limit,String order) {
+        List<Map<String,Object>>  reMapList = new ArrayList<Map<String,Object>>();
+        try {
+            Class<E>  entityClass = this.getEntityClass();
+            JOYBaseDao dao  = this.getBaseDao();
+            //  System.out.println("hello E " + entityClass.getName());
+            Map<String, Object> dataMap = new HashMap<String, Object>();
+            dataMap.put("sql",sql);
+            dataMap.put("filter",data);
+            if(start!=null)
+                dataMap.put("start",start);
+            if(limit!=null)
+                dataMap.put("limit",limit);
+            if(order!=null)
+                dataMap.put("order",order);
+            reMapList = dao.getExtendInfoPagedList(dataMap);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return reMapList;
+    }
+
+
+    public List<Map<String,Object>> getExtendInfoPagedList(String sql,E data,Integer start,Integer limit){
+           return this.getExtendInfoPagedList(sql,data,start,limit,null);
+    }
+    public List<Map<String,Object>> getExtendInfoPagedList(String sql,E data){
+        return this.getExtendInfoPagedList(sql,data,null,null,null);
+    }
+
 
     public E getNeededRecord(E data) {
         E reObj = null;
