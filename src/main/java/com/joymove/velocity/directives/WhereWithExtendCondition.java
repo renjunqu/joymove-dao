@@ -12,20 +12,17 @@ import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
 
 /**
- * Created by qurj on 15/6/10.
+ * Created by jessie on 2015/6/14.
  */
+//whereprefix 在这个字段加上用户需要的查询条件~,记得在前面加上用户自己的select 语句，
+    //记得，一定要将主表的名字 alias 为u
+public class WhereWithExtendCondition  extends Directive  {
 
-//记得在前面加上用户自己的select 语句， (一般是left join、right join 以及 inner join 语句)
-//记得，一定要将主表的名字 alias 为u
-public class SelectExtendInfoPagedList extends Directive {
-
-
-    public String getName() { return "SelectExtendInfoPagedList"; } //指定指令的名称
+    public String getName() { return "WhereWithExtendCondition"; } //指定指令的名称
 
     @Override
     public int getType() { return LINE; } //指定指令类型为行指令
@@ -41,32 +38,16 @@ public class SelectExtendInfoPagedList extends Directive {
     {
 
         Class paraClass;
-        String sql = "";
         StringBuffer where = new StringBuffer();
-        StringBuffer limit = new StringBuffer();
-        String rangeOrder = "order by id";
+
 
         Node parameterNode = node.jjtGetChild(0);
 
         Map<String,Object> paraMap = (Map<String,Object>)parameterNode.value(context);
 
-        sql = String.valueOf(paraMap.get("sql"));
         Object  filterObj = paraMap.get("filter");
-        String TimeCondtions = TimeScopeFilter.generateConditons(paraMap);
-
-
 
         paraClass = filterObj.getClass();
-
-        if(paraMap.containsKey("start")&& paraMap.containsKey("limit")) {
-            limit.append(" limit " + paraMap.get("start")+" , "+paraMap.get("limit"));
-        }
-
-        if(paraMap.containsKey("order")) {
-            rangeOrder  += " " + String.valueOf(paraMap.get("order"));
-        } else {
-            rangeOrder += " ASC";
-        }
 
 
         Field[] fields = paraClass.getFields();
@@ -78,6 +59,7 @@ public class SelectExtendInfoPagedList extends Directive {
 
                 if (java.lang.reflect.Modifier.isStatic(f.getModifiers())) {
                     //不使用静态的属性
+
                 } else {
 
                     if (f.get(filterObj)!=null) {
@@ -105,18 +87,11 @@ public class SelectExtendInfoPagedList extends Directive {
 
                 }
             }
-            where.append(TimeCondtions);
-            if(where.toString().equals(" where ")) {
-                where.delete(0,where.length());
-            } else {
-                where.delete(where.length()-3,where.length());
-            }
-
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String resultString = sql + " " + where.toString() + " "+rangeOrder+" "+limit.toString();
+        String resultString = " " + where.toString() + " ";
         System.out.println(resultString);
         writer.write(resultString);
         return true;

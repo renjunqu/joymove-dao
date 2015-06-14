@@ -9,4 +9,7 @@ import com.joymove.entity.JOYUser;
 public interface JOYOrderService extends  JOYBaseService<JOYOrder>  {
 
     public List<JOYOrder> getNeededOrder(Map<String, Object> likeCondition);
+
+
+
 }

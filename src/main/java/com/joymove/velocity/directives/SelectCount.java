@@ -47,6 +47,9 @@ public class SelectCount  extends Directive {
 
         Object  filterObj = paraMap.get("filter");
 
+        String TimeConditions = TimeScopeFilter.generateConditons(paraMap);
+
+
         paraClass = filterObj.getClass();
 
 
@@ -61,7 +64,7 @@ public class SelectCount  extends Directive {
                     //不使用静态的属性
                     if(f.getName()=="tableName") {
                         String tableName = String.valueOf(f.get(filterObj));
-                        fromTable.append(" "+tableName+" ");
+                        fromTable.append(" "+tableName+"  u ");
                     }
                 } else {
 
@@ -72,24 +75,25 @@ public class SelectCount  extends Directive {
 
                         if(f_type.equals(String.class)) {
 
-                            where.append(" "+fieldName+" like \'" + f.get(filterObj)+"%\' and");
+                            where.append(" u."+fieldName+" like \'" + f.get(filterObj)+"%\' and");
 
                         } else if(f_type.equals(byte[].class)){
                             BASE64Encoder encoder = new BASE64Encoder();
                             String byteDataStr = encoder.encode((byte[])f.get(filterObj));
-                            where.append(" " + fieldName+" = BASE64_DECODE(\'"+byteDataStr+"\') and");
+                            where.append(" u." + fieldName+" = BASE64_DECODE(\'"+byteDataStr+"\') and");
                         } else if(f_type.equals(Date.class)) {
                             Date d = (Date)f.get(filterObj);
                             Long timeValue = d.getTime();
                             timeValue = timeValue/1000;
-                            where.append(" "+ fieldName+" = FROM_UNIXTIME("+timeValue+",\'%Y-%m-%d %H:%i:%S\') and");
+                            where.append(" u."+ fieldName+" = FROM_UNIXTIME("+timeValue+",\'%Y-%m-%d %H:%i:%S\') and");
                         }else {
-                            where.append(" "+fieldName +" = "+f.get(filterObj)+" and");
+                            where.append(" u."+fieldName +" = "+f.get(filterObj)+" and");
                         }
                     }
 
                 }
             }
+            where.append(TimeConditions);
             if(where.toString().equals(" where ")) {
                 where.delete(0,where.length());
             } else {

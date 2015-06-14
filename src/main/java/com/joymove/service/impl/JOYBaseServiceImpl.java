@@ -2,6 +2,7 @@ package com.joymove.service.impl;
 
 import com.joymove.dao.JOYBaseDao;
 import com.joymove.entity.JOYBase;
+import com.joymove.entity.JOYOrder;
 import com.joymove.entity.JOYUser;
 import com.joymove.service.JOYBaseService;
 
@@ -102,6 +103,37 @@ public abstract class JOYBaseServiceImpl<E extends  JOYBase> implements JOYBaseS
         }
         return reMapList;
     }
+
+    public List<Map<String,Object>> getListWithTimeScope(E dataFilter,Map<String, Object> likeCondition) throws Exception {
+        E dFillter = dataFilter;
+        if(dataFilter==null) {
+            dFillter = this.getEntityClass().newInstance();
+        }
+        likeCondition.put("filter",dFillter);
+        JOYBaseDao dao = this.getBaseDao();
+        return dao.getPagedRecordList(likeCondition);
+    }
+
+    public   List<Map<String,Object>> getListWithTimeScope(Map<String, Object> likeCondition) throws  Exception {
+        return this.getListWithTimeScope(null, likeCondition);
+    }
+
+    public long countRecordWithTimeScope(E dataFilter,Map<String, Object> likeCondition) throws  Exception {
+        E dFillter = dataFilter;
+        if(dataFilter==null) {
+            dFillter = this.getEntityClass().newInstance();
+        }
+        likeCondition.put("filter",dFillter);
+        JOYBaseDao dao = this.getBaseDao();
+        return dao.countRecord(likeCondition);
+    }
+
+    public long countRecordWithTimeScope(Map<String, Object> likeCondition) throws  Exception {
+           return this.countRecordWithTimeScope(null,likeCondition);
+    }
+
+
+
 
 
     public List<Map<String,Object>> getExtendInfoPagedList(String sql,E data,Integer start,Integer limit){

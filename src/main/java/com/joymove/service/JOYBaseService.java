@@ -2,6 +2,7 @@ package com.joymove.service;
 
 import com.joymove.dao.JOYBaseDao;
 import com.joymove.entity.JOYBase;
+import com.joymove.entity.JOYOrder;
 
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,15 @@ public interface  JOYBaseService  <E extends JOYBase>  {
     List<Map<String,Object>> getExtendInfoPagedList(String sql,E data,Integer start,Integer limit,String order);
     List<Map<String,Object>> getExtendInfoPagedList(String sql,E data,Integer start,Integer limit);
     List<Map<String,Object>> getExtendInfoPagedList(String sql,E data);
+
+    public List<Map<String,Object>> getListWithTimeScope(E data,Map<String, Object> likeCondition) throws  Exception;
+
+    public List<Map<String,Object>> getListWithTimeScope(Map<String, Object> likeCondition) throws  Exception;
+
+    public long countRecordWithTimeScope(E data,Map<String, Object> likeCondition) throws  Exception;
+    public long countRecordWithTimeScope(Map<String, Object> likeCondition) throws  Exception;
+
+
 
     public E getNeededRecord(E data);
     public long countRecord(E data);

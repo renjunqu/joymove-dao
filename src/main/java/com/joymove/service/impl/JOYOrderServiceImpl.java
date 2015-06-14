@@ -1,4 +1,7 @@
 package com.joymove.service.impl;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +15,8 @@ import org.slf4j.LoggerFactory;
 
 import com.joymove.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,8 +26,7 @@ public class JOYOrderServiceImpl  extends JOYBaseServiceImpl<JOYOrder> implement
     final static Logger logger = LoggerFactory.getLogger(JOYOrderServiceImpl.class);
     @Autowired
     private JOYOrderDao   joyOrderDao;
-
-    public JOYBaseDao getBaseDao() {
+   public JOYBaseDao getBaseDao() {
         return joyOrderDao;
     }
 
@@ -35,5 +39,24 @@ public class JOYOrderServiceImpl  extends JOYBaseServiceImpl<JOYOrder> implement
         return joyOrderDao.getNeededOrder(likeCondition);
     }
 
+    public static void main(String [] args) throws Exception {
+        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:test.xml");
+        JOYOrderService  service = (JOYOrderService)context.getBean("JOYOrderService");
+        JOYOrder orderFilter = new JOYOrder();
+        orderFilter.mobileNo = "18518019074";
+        Map<String,Object> map = new HashMap<String, Object>();
+        map.put("minStartTime", new Date(System.currentTimeMillis()-(24L*3600L*1L*1000L)));
+
+        List<Map<String,Object>>  mapList =  service.getListWithTimeScope(map);
+       // System.out.println(service.countRecordWithTimeScope(map));
+
+        for(int i =0;i<mapList.size();i++) {
+           JOYOrder order = new JOYOrder();
+            order.fromMap(mapList.get(i));
+            System.out.println(order);
+        }
+
+
+    }
 
 }

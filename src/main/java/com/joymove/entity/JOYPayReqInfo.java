@@ -5,6 +5,8 @@ package com.joymove.entity;
  */
 import org.apache.ibatis.type.Alias;
 
+import java.util.Date;
+
 @Alias("JOYPayReqInfo")
 public class JOYPayReqInfo extends  JOYBase  {
     public static String tableName = "JOY_PayReqInfo";
@@ -23,7 +25,5 @@ public class JOYPayReqInfo extends  JOYBase  {
     public Double totalFee;
     public Integer payOverFlag;
     public Integer type;
-
-
-
+    public Date createTime;
 }

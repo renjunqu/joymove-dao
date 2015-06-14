@@ -1,6 +1,7 @@
 package com.joymove.dao;
 
 import com.joymove.entity.JOYBase;
+import com.joymove.entity.JOYOrder;
 import com.joymove.entity.JOYUser;
 
 import java.util.List;
@@ -14,8 +15,6 @@ public interface  JOYBaseDao <E extends JOYBase>{
      List<Map<String,Object>> getPagedRecordList(Map<String,Object> filterMap);
 
      List<Map<String,Object>> getExtendInfoPagedList(Map<String,Object> filterMap);
-
-
 
      long countRecord(Map<String,Object> filterMap);
      void deleteByProperties(E t);

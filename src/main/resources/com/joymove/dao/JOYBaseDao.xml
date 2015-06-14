@@ -5,7 +5,7 @@
 <mapper namespace="com.joymove.dao.JOYBaseDao">
 
     <select id="getPagedRecordList" resultType="map" parameterType="map" lang="velocity">
-            #SelectFilterPageList($_parameter)
+        #SelectFilterPageList($_parameter)
     </select>
     <select id="getExtendInfoPagedList" resultType="map" parameterType="map" lang="velocity">
         #SelectExtendInfoPagedList($_parameter)

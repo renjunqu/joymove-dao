@@ -30,7 +30,11 @@
 		</trim>
 		order by u.id desc limit 20
 	</select>
+	<!--
 
+        List<JOYOrder> getListByTimeScope(Map<String, Object> likeCondition);
+        List<JOYOrder> getOrderByTimeScope(Map<String,Object> likeCondition);
+    -->
 	<!--
 	<sql id="userColumn"> *</sql>
 	<insert id="insertOrder" parameterType="JOYOrder">

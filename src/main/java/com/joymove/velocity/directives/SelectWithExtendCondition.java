@@ -12,20 +12,17 @@ import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
-import java.math.BigDecimal;
+import java.sql.Time;
 import java.util.Date;
 import java.util.Map;
 
 /**
- * Created by qurj on 15/6/10.
+ * Created by jessie on 2015/6/14.
  */
+//selectprefix 在这个元语生产的sql语句后面补充上用户自己的sql查询条件和Limit条件以及排序条件
+public class SelectWithExtendCondition  extends Directive  {
 
-//记得在前面加上用户自己的select 语句， (一般是left join、right join 以及 inner join 语句)
-//记得，一定要将主表的名字 alias 为u
-public class SelectExtendInfoPagedList extends Directive {
-
-
-    public String getName() { return "SelectExtendInfoPagedList"; } //指定指令的名称
+    public String getName() { return "SelectWithExtendCondition"; } //指定指令的名称
 
     @Override
     public int getType() { return LINE; } //指定指令类型为行指令
@@ -41,43 +38,33 @@ public class SelectExtendInfoPagedList extends Directive {
     {
 
         Class paraClass;
-        String sql = "";
         StringBuffer where = new StringBuffer();
-        StringBuffer limit = new StringBuffer();
-        String rangeOrder = "order by id";
+        StringBuffer fromTable = new StringBuffer();
+
 
         Node parameterNode = node.jjtGetChild(0);
 
         Map<String,Object> paraMap = (Map<String,Object>)parameterNode.value(context);
 
-        sql = String.valueOf(paraMap.get("sql"));
         Object  filterObj = paraMap.get("filter");
-        String TimeCondtions = TimeScopeFilter.generateConditons(paraMap);
-
-
 
         paraClass = filterObj.getClass();
-
-        if(paraMap.containsKey("start")&& paraMap.containsKey("limit")) {
-            limit.append(" limit " + paraMap.get("start")+" , "+paraMap.get("limit"));
-        }
-
-        if(paraMap.containsKey("order")) {
-            rangeOrder  += " " + String.valueOf(paraMap.get("order"));
-        } else {
-            rangeOrder += " ASC";
-        }
+        String TimeConditions = TimeScopeFilter.generateConditons(paraMap);
 
 
         Field[] fields = paraClass.getFields();
         String fieldName;
         try {
-
+            fromTable.append("select *  from ");
             where.append(" where ");
             for(Field f : fields) {
 
                 if (java.lang.reflect.Modifier.isStatic(f.getModifiers())) {
                     //不使用静态的属性
+                    if(f.getName()=="tableName") {
+                        String tableName = String.valueOf(f.get(filterObj));
+                        fromTable.append(" "+tableName+"  u ");
+                    }
                 } else {
 
                     if (f.get(filterObj)!=null) {
@@ -105,19 +92,12 @@ public class SelectExtendInfoPagedList extends Directive {
 
                 }
             }
-            where.append(TimeCondtions);
-            if(where.toString().equals(" where ")) {
-                where.delete(0,where.length());
-            } else {
-                where.delete(where.length()-3,where.length());
-            }
-
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String resultString = sql + " " + where.toString() + " "+rangeOrder+" "+limit.toString();
-        System.out.println(resultString);
+        String resultString =  fromTable.toString() + " " + where.toString();
+        System.out.println("sdfsdf" + resultString);
         writer.write(resultString);
         return true;
     }

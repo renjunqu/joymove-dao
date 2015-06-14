@@ -9,5 +9,4 @@ import com.joymove.entity.JOYOrder;
 public interface JOYOrderDao extends JOYBaseDao<JOYOrder>  {
 
     List<JOYOrder> getNeededOrder(Map<String, Object> likeCondition);
-
 }
