@@ -44,7 +44,7 @@ public class SelectExtendInfoPagedList extends Directive {
         String sql = "";
         StringBuffer where = new StringBuffer();
         StringBuffer limit = new StringBuffer();
-        String rangeOrder = "order by id";
+        String rangeOrder = "order by u.id";
 
         Node parameterNode = node.jjtGetChild(0);
 
@@ -116,7 +116,7 @@ public class SelectExtendInfoPagedList extends Directive {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String resultString = sql + " " + where.toString() + " "+rangeOrder+" "+limit.toString();
+        String resultString = sql + " " + where.toString() + " group by u.id "+rangeOrder+limit.toString();
         System.out.println(resultString);
         writer.write(resultString);
         return true;

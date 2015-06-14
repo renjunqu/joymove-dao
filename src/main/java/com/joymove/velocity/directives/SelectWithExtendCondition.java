@@ -96,6 +96,7 @@ public class SelectWithExtendCondition  extends Directive  {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        where.append(TimeConditions);
         String resultString =  fromTable.toString() + " " + where.toString();
         System.out.println("sdfsdf" + resultString);
         writer.write(resultString);

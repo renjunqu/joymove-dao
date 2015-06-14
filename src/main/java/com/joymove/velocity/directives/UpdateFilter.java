@@ -44,7 +44,7 @@ public class UpdateFilter  extends Directive {
 
         Map<String,Object> paraMap = (Map<String,Object>)parameterNode.value(context);
 
-
+        String TimeCondtions = TimeScopeFilter.generateConditons(paraMap);
 
 
         Object  valueObj = paraMap.get("value");
@@ -67,7 +67,7 @@ public class UpdateFilter  extends Directive {
                     //不使用静态的属性
                     if(f.getName()=="tableName") {
                         String tableName = String.valueOf(f.get(filterObj));
-                        prefix+=tableName+"  set ";
+                        prefix+=tableName+"  u  set ";
                     }
                 } else {
                     fieldName = f.getName();
@@ -77,44 +77,45 @@ public class UpdateFilter  extends Directive {
                         if(f_type.equals(String.class)) {
 
                             if(f.get(valueObj)!=null)
-                               values.append(" "+fieldName+" = \'" + f.get(valueObj)+"\' ,");
+                               values.append(" u."+fieldName+" = \'" + f.get(valueObj)+"\' ,");
                             if(filterObj!=null && f.get(filterObj)!=null)
-                                where.append(" "+fieldName+" like \'" + f.get(filterObj)+"\' and");
+                                where.append(" u."+fieldName+" like \'" + f.get(filterObj)+"\' and");
 
                         } else if(f_type.equals(byte[].class)){
                             BASE64Encoder encoder = new BASE64Encoder();
                             if(f.get(valueObj)!=null) {
                                 String byteDataStr = encoder.encode((byte[]) f.get(valueObj));
-                                values.append(" " + fieldName + " = BASE64_DECODE(\'" + byteDataStr + "\') ,");
+                                values.append(" u." + fieldName + " = BASE64_DECODE(\'" + byteDataStr + "\') ,");
                             }
                             if(filterObj!=null && f.get(filterObj)!=null) {
                                 String byteDataStr = encoder.encode((byte[])f.get(filterObj));
-                                where.append(" " + fieldName+" = BASE64_DECODE(\'"+byteDataStr+"\') and");
+                                where.append(" u." + fieldName+" = BASE64_DECODE(\'"+byteDataStr+"\') and");
                             }
                         } else if(f_type.equals(Date.class)) {
                             if(f.get(valueObj)!=null) {
                                 Date d = (Date)f.get(valueObj);
                                 Long timeValue = d.getTime();
                                 timeValue = timeValue/1000;
-                                values.append(" " + fieldName + " = FROM_UNIXTIME(" +timeValue + ",\'%Y-%m-%d %H:%i:%S\') ,");
+                                values.append(" u." + fieldName + " = FROM_UNIXTIME(" +timeValue + ",\'%Y-%m-%d %H:%i:%S\') ,");
                             }
                             if(filterObj!=null && f.get(filterObj)!=null) {
                                 Date d = (Date)f.get(filterObj);
                                 Long timeValue = d.getTime();
                                 timeValue = timeValue/1000;
-                                where.append(" " + fieldName + " = FROM_UNIXTIME(" +timeValue + ",\'%Y-%m-%d %H:%i:%S\') and");
+                                where.append(" u." + fieldName + " = FROM_UNIXTIME(" +timeValue + ",\'%Y-%m-%d %H:%i:%S\') and");
                             }
                         }else {
                             if(f.get(valueObj)!=null)
-                                values.append(" " + fieldName + " = " + f.get(valueObj) + " ,");
+                                values.append(" u." + fieldName + " = " + f.get(valueObj) + " ,");
                             if(filterObj!=null && f.get(filterObj)!=null)
-                                where.append(" " + fieldName + " = " + f.get(filterObj) + " and");
+                                where.append(" u." + fieldName + " = " + f.get(filterObj) + " and");
                         }
 
 
 
                 }
             }
+            where.append(TimeCondtions);
             System.out.println("where is "+where);
             System.out.println("values is "+values);
             if(where.toString().equals(" where ")) {

@@ -53,7 +53,7 @@ public class TimeScopeFilter  extends Directive {
                 Long timeValue = time.getTime();
                 timeValue = timeValue/1000;
                 String conditionStr = "";
-                conditionStr = " TIMEDIFF(FROM_UNIXTIME("+timeValue+",'%Y-%m-%d %H:%i:%S'), "+columnName+")";
+                conditionStr = " TIMEDIFF(FROM_UNIXTIME("+timeValue+",'%Y-%m-%d %H:%i:%S'), u."+columnName+")";
                 if(prefix.equals("min")) {
                     conditionStr += "<=0";
                 } else if(prefix.equals("max")) {

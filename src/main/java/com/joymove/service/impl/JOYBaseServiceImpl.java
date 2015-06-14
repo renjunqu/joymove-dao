@@ -32,43 +32,13 @@ public abstract class JOYBaseServiceImpl<E extends  JOYBase> implements JOYBaseS
 
 
     public List<E> getNeededList(E data,Integer start,Integer limit, String order) {
-        List<E> reList = new ArrayList<E>();
-        try {
-            Class<E>  entityClass = this.getEntityClass();
-            JOYBaseDao dao  = this.getBaseDao();
-          //  System.out.println("hello E " + entityClass.getName());
-            Map<String, Object> dataMap = new HashMap<String, Object>();
-            dataMap.put("filter",data);
-            if(start!=null)
-                dataMap.put("start",start);
-            if(limit!=null)
-                dataMap.put("limit",limit);
-            if(order!=null)
-                dataMap.put("order",order);
-
-            List<Map<String, Object>> reMapList = dao.getPagedRecordList(dataMap);
-       //     System.out.println("list length is "+reMapList.size());
-            if(reMapList.size()>0) {
-                for(int i=0;i<reMapList.size();i++) {
-                    E entity = entityClass.newInstance();
-                    entity.fromMap(reMapList.get(i));
-                    reList.add(entity);
-                }
-            }
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-
-        }
-
-        return reList;
+        HashMap<String,Object> paraMap = new HashMap<String, Object>();
+       return this.getListWithTimeScope(data,paraMap,start,limit,order);
     }
 
     public long countRecord(E data){
         Map<String, Object> dataMap = new HashMap<String, Object>();
-        dataMap.put("filter",data);
-        JOYBaseDao dao  = this.getBaseDao();
-        return dao.countRecord(dataMap);
+        return this.countRecordWithTimeScope(data,dataMap);
     }
 
 
@@ -81,13 +51,12 @@ public abstract class JOYBaseServiceImpl<E extends  JOYBase> implements JOYBaseS
         return getNeededList(data,null,null);
     }
 
-    public List<Map<String,Object>> getExtendInfoPagedList(String sql,E data,Integer start,Integer limit,String order) {
+    public List<Map<String,Object>> getExtendInfoPagedList(String sql,Map<String, Object> dataMap,E data,Integer start,Integer limit,String order) {
         List<Map<String,Object>>  reMapList = new ArrayList<Map<String,Object>>();
         try {
             Class<E>  entityClass = this.getEntityClass();
             JOYBaseDao dao  = this.getBaseDao();
             //  System.out.println("hello E " + entityClass.getName());
-            Map<String, Object> dataMap = new HashMap<String, Object>();
             dataMap.put("sql",sql);
             dataMap.put("filter",data);
             if(start!=null)
@@ -104,31 +73,73 @@ public abstract class JOYBaseServiceImpl<E extends  JOYBase> implements JOYBaseS
         return reMapList;
     }
 
-    public List<Map<String,Object>> getListWithTimeScope(E dataFilter,Map<String, Object> likeCondition) throws Exception {
-        E dFillter = dataFilter;
-        if(dataFilter==null) {
-            dFillter = this.getEntityClass().newInstance();
-        }
-        likeCondition.put("filter",dFillter);
-        JOYBaseDao dao = this.getBaseDao();
-        return dao.getPagedRecordList(likeCondition);
+    public List<Map<String,Object>> getExtendInfoPagedList(String sql,E data,Integer start,Integer limit,String order) {
+        Map<String,Object> dataMap = new HashMap<String, Object>();
+        return getExtendInfoPagedList(sql,dataMap,data,start,limit,order);
     }
 
-    public   List<Map<String,Object>> getListWithTimeScope(Map<String, Object> likeCondition) throws  Exception {
+    public List<E> getListWithTimeScope(E dataFilter,Map<String, Object> likeCondition,Integer start,Integer limit,String order){
+        List<E> reList = new ArrayList<E>();
+
+         try {
+             E dFillter = dataFilter;
+             if (dataFilter == null) {
+                 dFillter = this.getEntityClass().newInstance();
+             }
+             if (start != null)
+                 likeCondition.put("start", start);
+             if (limit != null)
+                 likeCondition.put("limit", limit);
+             if (order != null)
+                 likeCondition.put("order", order);
+             likeCondition.put("filter", dFillter);
+             JOYBaseDao dao = this.getBaseDao();
+             Class<E> entityClass = this.getEntityClass();
+             List<Map<String, Object>> reMapList = dao.getPagedRecordList(likeCondition);
+             //     System.out.println("list length is "+reMapList.size());
+             if (reMapList.size() > 0) {
+                 for (int i = 0; i < reMapList.size(); i++) {
+                     E entity = entityClass.newInstance();
+                     entity.fromMap(reMapList.get(i));
+                     reList.add(entity);
+                 }
+             }
+         } catch(Exception e) {
+
+         }
+        return reList;
+    }
+
+    public List<E> getListWithTimeScope(E data,Map<String, Object> likeCondition,Integer start,Integer limit) {
+           return this.getListWithTimeScope(data,likeCondition,start,limit,null);
+    }
+
+
+
+    public List<E> getListWithTimeScope(E dataFilter,Map<String, Object> likeCondition){
+        return this.getListWithTimeScope(dataFilter,likeCondition,null,null,null);
+    }
+
+    public   List<E> getListWithTimeScope(Map<String, Object> likeCondition){
         return this.getListWithTimeScope(null, likeCondition);
     }
 
-    public long countRecordWithTimeScope(E dataFilter,Map<String, Object> likeCondition) throws  Exception {
-        E dFillter = dataFilter;
-        if(dataFilter==null) {
-            dFillter = this.getEntityClass().newInstance();
+    public long countRecordWithTimeScope(E dataFilter,Map<String, Object> likeCondition) {
+        try {
+            E dFillter = dataFilter;
+            if (dataFilter == null) {
+                dFillter = this.getEntityClass().newInstance();
+            }
+            likeCondition.put("filter", dFillter);
+            JOYBaseDao dao = this.getBaseDao();
+            return dao.countRecord(likeCondition);
+        } catch(Exception e) {
+
         }
-        likeCondition.put("filter",dFillter);
-        JOYBaseDao dao = this.getBaseDao();
-        return dao.countRecord(likeCondition);
+        return 0;
     }
 
-    public long countRecordWithTimeScope(Map<String, Object> likeCondition) throws  Exception {
+    public long countRecordWithTimeScope(Map<String, Object> likeCondition){
            return this.countRecordWithTimeScope(null,likeCondition);
     }
 

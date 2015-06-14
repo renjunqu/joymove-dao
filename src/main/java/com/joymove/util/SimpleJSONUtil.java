@@ -4,6 +4,7 @@ import com.joymove.entity.JOYNCar;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.omg.CORBA.PUBLIC_MEMBER;
+import java.sql.Timestamp;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -41,10 +42,16 @@ public class SimpleJSONUtil {
         Iterator iter =map.entrySet().iterator();
         while(iter.hasNext()) {
             Map.Entry<String,Object> mapEntry  = (Map.Entry<String,Object>)iter.next();
-            if(String.valueOf(mapEntry.getValue()).equals("null")||mapEntry.getValue()==null) {
+            String key = mapEntry.getKey();
+            Object value = mapEntry.getValue();
+          //  System.out.println("name:>>>>>>>>>>>>"+key+">>>>>>>>>>>>>>>>> value is "+value+"   >>>>>>>>>>>>> type is "+value.getClass());
+            if(String.valueOf(value).equals("null")||value==null) {
                 json.put(mapEntry.getKey(),"");
+            } else if(value.getClass().equals(Timestamp.class)) {
+                Date d = (Date)value;
+                json.put(key,d.getTime());
             } else {
-                json.put(mapEntry.getKey(),mapEntry.getValue());
+                json.put(key,value);
             }
         }
         return  json;

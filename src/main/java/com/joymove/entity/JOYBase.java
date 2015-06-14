@@ -64,6 +64,9 @@ public class JOYBase {
                      if(dataC.equals(BigDecimal.class) && f.getType().equals(Double.class)) {
                          BigDecimal typedData = (BigDecimal)data;
                          f.set(this,typedData.doubleValue());
+                     } else if(dataC.equals(Long.class) && f.getType().equals(Integer.class)) {
+                         Integer typedData = ((Long)data).intValue();
+                         f.set(this,typedData);
                      } else {
                          f.set(this, paraMap.get(f.getName()));
                      }

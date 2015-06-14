@@ -40,7 +40,7 @@ public class SelectFilterPageList extends Directive {
                 StringBuffer where = new StringBuffer();
                 StringBuffer fromTable = new StringBuffer();
                 StringBuffer limit = new StringBuffer();
-               String rangeOrder = "order by id";
+               String rangeOrder = "order by u.id";
 
                 Node parameterNode = node.jjtGetChild(0);
 
@@ -115,7 +115,7 @@ public class SelectFilterPageList extends Directive {
                 } catch (Exception e) {
                      e.printStackTrace();
                 }
-                String resultString =  fromTable.toString() + " " + where.toString() + " "+rangeOrder+" "+limit.toString();
+                String resultString =  fromTable.toString() + " " + where.toString() + " group by u.id "+rangeOrder + limit.toString();
             System.out.println(resultString);
                 writer.write(resultString);
             return true;

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
+import java.sql.Time;
 import java.util.Date;
 import java.util.Map;
 
@@ -45,6 +46,7 @@ public class WhereWithExtendCondition  extends Directive  {
 
         Map<String,Object> paraMap = (Map<String,Object>)parameterNode.value(context);
 
+        String TimeConditions = TimeScopeFilter.generateConditons(paraMap);
         Object  filterObj = paraMap.get("filter");
 
         paraClass = filterObj.getClass();
@@ -91,6 +93,7 @@ public class WhereWithExtendCondition  extends Directive  {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        where.append(TimeConditions);
         String resultString = " " + where.toString() + " ";
         System.out.println(resultString);
         writer.write(resultString);

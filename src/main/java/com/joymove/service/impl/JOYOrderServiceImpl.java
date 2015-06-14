@@ -47,16 +47,6 @@ public class JOYOrderServiceImpl  extends JOYBaseServiceImpl<JOYOrder> implement
         Map<String,Object> map = new HashMap<String, Object>();
         map.put("minStartTime", new Date(System.currentTimeMillis()-(24L*3600L*1L*1000L)));
 
-        List<Map<String,Object>>  mapList =  service.getListWithTimeScope(map);
-       // System.out.println(service.countRecordWithTimeScope(map));
-
-        for(int i =0;i<mapList.size();i++) {
-           JOYOrder order = new JOYOrder();
-            order.fromMap(mapList.get(i));
-            System.out.println(order);
-        }
-
-
     }
 
 }

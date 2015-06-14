@@ -17,16 +17,22 @@ public interface  JOYBaseService  <E extends JOYBase>  {
     public List<E> getNeededList(E data,Integer start,Integer limit);
     public List<E> getNeededList(E data);
 
+
+    List<Map<String,Object>> getExtendInfoPagedList(String sql,Map<String, Object> likeCondition,E data,Integer start,Integer limit,String order);
     List<Map<String,Object>> getExtendInfoPagedList(String sql,E data,Integer start,Integer limit,String order);
     List<Map<String,Object>> getExtendInfoPagedList(String sql,E data,Integer start,Integer limit);
     List<Map<String,Object>> getExtendInfoPagedList(String sql,E data);
 
-    public List<Map<String,Object>> getListWithTimeScope(E data,Map<String, Object> likeCondition) throws  Exception;
+    public List<E> getListWithTimeScope(E data,Map<String, Object> likeCondition,Integer start,Integer limit,String order);
+    public List<E> getListWithTimeScope(E data,Map<String, Object> likeCondition,Integer start,Integer limit);
+    public List<E> getListWithTimeScope(E data,Map<String, Object> likeCondition) ;
 
-    public List<Map<String,Object>> getListWithTimeScope(Map<String, Object> likeCondition) throws  Exception;
+    public List<E> getListWithTimeScope(Map<String, Object> likeCondition);
 
-    public long countRecordWithTimeScope(E data,Map<String, Object> likeCondition) throws  Exception;
-    public long countRecordWithTimeScope(Map<String, Object> likeCondition) throws  Exception;
+
+
+    public long countRecordWithTimeScope(E data,Map<String, Object> likeCondition);
+    public long countRecordWithTimeScope(Map<String, Object> likeCondition);
 
 
 
