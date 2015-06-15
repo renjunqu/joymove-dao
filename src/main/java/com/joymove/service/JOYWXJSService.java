@@ -10,4 +10,6 @@ import java.util.Map;
  */
 public interface JOYWXJSService  extends  JOYBaseService<JOYWXJSData>  {
 
+    public String getSignature(Map map) throws  Exception;
+
 }

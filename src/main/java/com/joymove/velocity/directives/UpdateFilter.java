@@ -104,8 +104,8 @@ public class UpdateFilter  extends Directive {
                                 timeValue = timeValue/1000;
                                 where.append(" u." + fieldName + " = FROM_UNIXTIME(" +timeValue + ",\'%Y-%m-%d %H:%i:%S\') and");
                             }
-                        }else {
-                            if(f.get(valueObj)!=null)
+                        } else {
+                            if(f.get(valueObj)!=null && !(f.getName().equals("id")))
                                 values.append(" u." + fieldName + " = " + f.get(valueObj) + " ,");
                             if(filterObj!=null && f.get(filterObj)!=null)
                                 where.append(" u." + fieldName + " = " + f.get(filterObj) + " and");
