@@ -75,7 +75,7 @@ public class SelectCount  extends Directive {
 
                         if(f_type.equals(String.class)) {
 
-                            where.append(" u."+fieldName+" like \'" + f.get(filterObj)+"%\' and");
+                            where.append(" u."+fieldName+" like \'" + f.get(filterObj)+"\' and");
 
                         } else if(f_type.equals(byte[].class)){
                             BASE64Encoder encoder = new BASE64Encoder();

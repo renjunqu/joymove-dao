@@ -9,4 +9,5 @@ import java.util.Map;
  * Created by qurj on 15/5/28.
  */
 public interface JOYWXJSService  extends  JOYBaseService<JOYWXJSData>  {
+
 }

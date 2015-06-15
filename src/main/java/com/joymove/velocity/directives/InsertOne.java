@@ -71,9 +71,10 @@ public class InsertOne  extends Directive {
                         Type f_type = f.getType();
 
                         if(f_type.equals(String.class)) {
-
-
-                            values.append(" \'" + f.get(filterObj)+"\' ,");
+                            String value = (String)f.get(filterObj);
+                            value = value.trim();
+                            if(value.length()>0)
+                                values.append(" \'" + f.get(filterObj)+"\' ,");
 
                         } else if(f_type.equals(byte[].class)) {
                             BASE64Encoder encoder = new BASE64Encoder();

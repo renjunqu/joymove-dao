@@ -66,7 +66,6 @@ public class DeleteFilter extends Directive {
                         Type f_type = f.getType();
 
                         if(f_type.equals(String.class)) {
-
                             where.append(" "+fieldName+" like \'" + f.get(filterObj)+"\' and");
 
                         } else if(f_type.equals(byte[].class)){
