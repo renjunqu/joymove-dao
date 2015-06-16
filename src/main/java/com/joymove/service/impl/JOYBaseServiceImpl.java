@@ -5,7 +5,11 @@ import com.joymove.entity.JOYBase;
 import com.joymove.entity.JOYOrder;
 import com.joymove.entity.JOYUser;
 import com.joymove.service.JOYBaseService;
+import org.bouncycastle.crypto.params.KeyParameter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.security.KeyPair;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +19,10 @@ import java.util.Map;
  * Created by qurj on 15/6/11.
  */
 public abstract class JOYBaseServiceImpl<E extends  JOYBase> implements JOYBaseService<E> {
+
+
+    final static Logger logger = LoggerFactory.getLogger(JOYBaseServiceImpl.class);
+
 
     public JOYBaseServiceImpl() {
 
@@ -31,26 +39,32 @@ public abstract class JOYBaseServiceImpl<E extends  JOYBase> implements JOYBaseS
     }
 
 
+    /*
     public List<E> getNeededList(E data,Integer start,Integer limit, String order) {
         HashMap<String,Object> paraMap = new HashMap<String, Object>();
        return this.getListWithTimeScope(data,paraMap,start,limit,order);
     }
+    */
+
+    /*
 
     public long countRecord(E data){
         Map<String, Object> dataMap = new HashMap<String, Object>();
-        return this.countRecordWithTimeScope(data,dataMap);
+        return this.countRecordWithTimeScope(data, dataMap);
     }
+    */
 
 
-
+    /*
     public List<E> getNeededList(E data,Integer start,Integer limit) {
-        return this.getNeededList(data,start,limit,null);
+        return this.getNeededList(data, start, limit, null);
     }
 
     public List<E> getNeededList(E data) {
-        return getNeededList(data,null,null);
+        return getNeededList(data, null, null);
     }
-
+    */
+/*
     public List<Map<String,Object>> getExtendInfoPagedList(String sql,Map<String, Object> dataMap,E data,Integer start,Integer limit,String order) {
         List<Map<String,Object>>  reMapList = new ArrayList<Map<String,Object>>();
         try {
@@ -123,7 +137,8 @@ public abstract class JOYBaseServiceImpl<E extends  JOYBase> implements JOYBaseS
     public   List<E> getListWithTimeScope(Map<String, Object> likeCondition){
         return this.getListWithTimeScope(null, likeCondition);
     }
-
+*/
+    /*
     public long countRecordWithTimeScope(E dataFilter,Map<String, Object> likeCondition) {
         try {
             E dFillter = dataFilter;
@@ -142,18 +157,19 @@ public abstract class JOYBaseServiceImpl<E extends  JOYBase> implements JOYBaseS
     public long countRecordWithTimeScope(Map<String, Object> likeCondition){
            return this.countRecordWithTimeScope(null,likeCondition);
     }
+    */
 
 
 
-
+/*
 
     public List<Map<String,Object>> getExtendInfoPagedList(String sql,E data,Integer start,Integer limit){
-           return this.getExtendInfoPagedList(sql,data,start,limit,null);
+           return this.getExtendInfoPagedList(sql, data, start, limit, null);
     }
     public List<Map<String,Object>> getExtendInfoPagedList(String sql,E data){
         return this.getExtendInfoPagedList(sql,data,null,null,null);
     }
-
+*/
 
     public E getNeededRecord(E data) {
         E reObj = null;
@@ -198,6 +214,114 @@ public abstract class JOYBaseServiceImpl<E extends  JOYBase> implements JOYBaseS
     }
 
 
+    public  void  parseIntArg(List<Object> intArgs,Map<String,Object> paraMap) {
+        int size = intArgs.size();
+        if(size==0) {
+            return;
+        } else if(size==2) {
+            paraMap.put("start",intArgs.get(1));
+            paraMap.put("limit",10);
+        } else if(size==4) {
+             paraMap.put("start",intArgs.get(1));
+             paraMap.put("limit",intArgs.get(3));
+        }
+    }
 
+    public  void  parseStrArg(List<Object> strArgs,Map<String,Object> paraMap) {
+        int size = strArgs.size();
+        if(size==0) {
+            return;
+        } else if(size==2) {
+            int order = (Integer)strArgs.get(0);
+            if(order==0) {
+                paraMap.put("sql", strArgs.get(1));
+            } else {
+                paraMap.put("order", strArgs.get(1));
+            }
+        } else if(size==4) {
+            paraMap.put("sql",strArgs.get(1));
+            paraMap.put("order",strArgs.get(3));
+        }
 
+    }
+
+    public  void  parseEntityArg(List<Object> entityArgs,Map<String,Object> paraMap) {
+        int size = entityArgs.size();
+        if(size==0) {
+            return;
+        } else if(size==2) {
+            paraMap.put("filter",entityArgs.get(1));
+        } else if(size==4) {
+            paraMap.put("filter",entityArgs.get(1));
+            paraMap.put("minFilter",entityArgs.get(3));
+        } else if(size==6) {
+            paraMap.put("filter",entityArgs.get(1));
+            paraMap.put("minFilter",entityArgs.get(3));
+            paraMap.put("maxFilter",entityArgs.get(5));
+        }
+
+    }
+
+    public Map<String,Object> parseArgs(Object...args) {
+
+        List<Object> strArgs    = new ArrayList<Object>();
+        List<Object> intArgs    = new ArrayList<Object>();
+        List<Object> entityArgs = new ArrayList<Object>();
+        Map<String,Object> paraMap = new HashMap<String, Object>();
+
+        for(int i=0;i<args.length;i++) {
+            Object argObj = args[i];
+
+            if(argObj.getClass().equals(Integer.class)) {
+                intArgs.add(i);
+                intArgs.add(argObj);
+            } else if(argObj.getClass().equals(String.class)) {
+                strArgs.add(i);
+                strArgs.add(argObj);
+            } else if(argObj.getClass().equals(this.getEntityClass())) {
+                entityArgs.add(i);
+                entityArgs.add(argObj);
+            } else if(argObj instanceof  Map) {
+                paraMap.putAll((Map<String,Object>)argObj);
+            }
+        }
+
+        parseEntityArg(entityArgs, paraMap);
+        parseIntArg(intArgs, paraMap);
+        parseStrArg(strArgs, paraMap);
+        return paraMap;
+    }
+
+    //动态个数参数
+    public List<E> getNeededList(Object...args) {
+        List<E> reList = new ArrayList<E>();
+        JOYBaseDao dao = this.getBaseDao();
+        Class<E> entityClass = this.getEntityClass();
+        try {
+            List<Map<String, Object>> reMapList = dao.getPagedRecordList(parseArgs(args));
+            //     logger.trace("list length is "+reMapList.size());
+            if (reMapList.size() > 0) {
+                for (int i = 0; i < reMapList.size(); i++) {
+                    E entity = entityClass.newInstance();
+                    entity.fromMap(reMapList.get(i));
+                    reList.add(entity);
+                }
+            }
+        } catch (Exception e) {
+            logger.error(e.getStackTrace().toString());
+        }
+        return reList;
+    }
+
+    public List<Map<String,Object>> getNeededExtendList(Object...args) {
+        JOYBaseDao dao = this.getBaseDao();
+        return  dao.getExtendInfoPagedList(parseArgs(args));
+            //     logger.trace("list length is "+reMapList.size());
+    }
+
+    public long countRecord(Object...args) {
+        JOYBaseDao dao = this.getBaseDao();
+        return  dao.countRecord(parseArgs(args));
+        //     logger.trace("list length is "+reMapList.size());
+    }
 }
