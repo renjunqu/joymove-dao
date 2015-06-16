@@ -6,6 +6,8 @@ import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.directive.Directive;
 import org.apache.velocity.runtime.parser.node.Node;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Encoder;
 
 import java.io.IOException;
@@ -27,6 +29,9 @@ import java.beans.Introspector;
  * Created by qurj on 15/6/10.
  */
 public class TimeScopeFilter  extends Directive {
+
+    final static Logger logger = LoggerFactory.getLogger(TimeScopeFilter.class);
+
 
     public String getName() { return "TimeScopeFilter"; } //指定指令的名称
 
@@ -77,11 +82,11 @@ public class TimeScopeFilter  extends Directive {
             throws IOException, ResourceNotFoundException, ParseErrorException,
             MethodInvocationException
     {
-        System.out.println("hello men");
+        logger.trace("hello men");
         Node parameterNode = node.jjtGetChild(0);
         Map<String,Object> paraMap = (Map<String,Object>)parameterNode.value(context);
         String resultString = TimeScopeFilter.generateConditons(paraMap);
-        System.out.println(resultString);
+        logger.trace(resultString);
         writer.write(resultString);
         return true;
     }
@@ -95,7 +100,7 @@ public class TimeScopeFilter  extends Directive {
         ttt.put("minCreateTime",new Date(System.currentTimeMillis()));
         ttt.put("minCreateDate",new Date(System.currentTimeMillis()));
         ttt.put("maxCreateDate",new Date(System.currentTimeMillis()));
-        System.out.println(TimeScopeFilter.generateConditons(ttt));
+        logger.trace(TimeScopeFilter.generateConditons(ttt));
 
 
     }

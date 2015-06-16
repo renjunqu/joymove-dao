@@ -56,7 +56,7 @@ public abstract class JOYBaseServiceImpl<E extends  JOYBase> implements JOYBaseS
         try {
             Class<E>  entityClass = this.getEntityClass();
             JOYBaseDao dao  = this.getBaseDao();
-            //  System.out.println("hello E " + entityClass.getName());
+            //  logger.trace("hello E " + entityClass.getName());
             dataMap.put("sql",sql);
             dataMap.put("filter",data);
             if(start!=null)
@@ -96,7 +96,7 @@ public abstract class JOYBaseServiceImpl<E extends  JOYBase> implements JOYBaseS
              JOYBaseDao dao = this.getBaseDao();
              Class<E> entityClass = this.getEntityClass();
              List<Map<String, Object>> reMapList = dao.getPagedRecordList(likeCondition);
-             //     System.out.println("list length is "+reMapList.size());
+             //     logger.trace("list length is "+reMapList.size());
              if (reMapList.size() > 0) {
                  for (int i = 0; i < reMapList.size(); i++) {
                      E entity = entityClass.newInstance();
@@ -161,7 +161,7 @@ public abstract class JOYBaseServiceImpl<E extends  JOYBase> implements JOYBaseS
             List<E> reList = null;
             Class<E>  entityClass = this.getEntityClass();
             JOYBaseDao dao  = this.getBaseDao();
-          //  System.out.println("hello E " + entityClass.getName());
+          //  logger.trace("hello E " + entityClass.getName());
             Map<String, Object> dataMap = new HashMap<String, Object>();
             dataMap.put("filter",data);
             List<Map<String, Object>> reMapList = dao.getPagedRecordList(dataMap);

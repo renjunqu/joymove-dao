@@ -91,7 +91,7 @@ public class JOYUserServiceImpl extends JOYBaseServiceImpl<JOYUser> implements  
 
 			Map.Entry<String,Object> haha = (Map.Entry<String,Object>)i.next();
 		    if(String.valueOf(haha.getValue()).equals("null")) {
-				System.out.println(haha.getKey()+" is null");
+				logger.trace(haha.getKey()+" is null");
 			}
 		}
 
@@ -100,7 +100,7 @@ public class JOYUserServiceImpl extends JOYBaseServiceImpl<JOYUser> implements  
 		user.mobileNo="18500217642";
 		service.updateRecord(user2,user);
 		user = service.getNeededRecord(user);
-        System.out.println(user);
+        logger.trace(user);
 
 		/*
 		JOYOrderService service = (JOYOrderService) context.getBean("JOYOrderService");
@@ -126,7 +126,7 @@ public class JOYUserServiceImpl extends JOYBaseServiceImpl<JOYUser> implements  
         order2.startTime = order.startTime;
 		order2.mobileNo = null;
 		order = service.getNeededRecord(order2);
-		System.out.println(order);
+		logger.trace(order);
 		/*
 		order.delFlag = 1;
 		order.startTime = new Date(System.currentTimeMillis()+30);
@@ -135,7 +135,7 @@ public class JOYUserServiceImpl extends JOYBaseServiceImpl<JOYUser> implements  
 		order2.mobileNo = null;
 		order2.startTime = order.startTime;
 		order = service.getNeededRecord(order2);
-		System.out.println(order);
+		logger.trace(order);
 		//service.deleteByProperties(order);
 
 
@@ -154,7 +154,7 @@ public class JOYUserServiceImpl extends JOYBaseServiceImpl<JOYUser> implements  
 
 
 		List<JOYIdAuthInfo> dList = service.getNeededList(dl,null,null);
-		System.out.println(dList.get(0));
+		logger.trace(dList.get(0));
 
 		for(int i=0;i<dList.get(0).idAuthInfo.length;i++)
 		System.out.format("%c",dList.get(0).idAuthInfo[i]);
@@ -163,9 +163,9 @@ public class JOYUserServiceImpl extends JOYBaseServiceImpl<JOYUser> implements  
 		JOYUser user1 = new JOYUser();
 		user.mobileNo = ("18500217642");
 		List<JOYUser> userList =  service.getNeededList(user,0,10);
-        System.out.println("sdfdsdsf :"+userList.size());
+        logger.trace("sdfdsdsf :"+userList.size());
 		JOYUser u = userList.get(0);
-		System.out.println(u);
+		logger.trace(u);
 	    */
 	}
 

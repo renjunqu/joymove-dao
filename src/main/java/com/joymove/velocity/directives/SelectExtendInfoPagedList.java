@@ -6,6 +6,8 @@ import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.directive.Directive;
 import org.apache.velocity.runtime.parser.node.Node;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Encoder;
 
 import java.io.IOException;
@@ -25,6 +27,9 @@ import java.util.Map;
 public class SelectExtendInfoPagedList extends Directive {
 
 
+    final static Logger logger = LoggerFactory.getLogger(SelectExtendInfoPagedList.class);
+
+
     public String getName() { return "SelectExtendInfoPagedList"; } //指定指令的名称
 
     @Override
@@ -39,6 +44,8 @@ public class SelectExtendInfoPagedList extends Directive {
             throws IOException, ResourceNotFoundException, ParseErrorException,
             MethodInvocationException
     {
+
+
 
         Class paraClass;
         String sql = "";
@@ -117,7 +124,7 @@ public class SelectExtendInfoPagedList extends Directive {
             e.printStackTrace();
         }
         String resultString = sql + " " + where.toString() + " group by u.id "+rangeOrder+limit.toString();
-        System.out.println(resultString);
+        logger.trace(resultString);
         writer.write(resultString);
         return true;
     }

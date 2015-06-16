@@ -54,12 +54,12 @@ public class ClearExpireReserveJob  implements Job {
 			//logger.debug(e.printStackTrace());
 			logger.debug("show exception over");
 		}
-		//System.out.println("Job executing: "+name + " ****** Date: "+new Date());
+		//logger.trace("Job executing: "+name + " ****** Date: "+new Date());
 	}
 
 	public static  void main(String[] args) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:**/applicationContext-mvc.xml");
 		JOYCarDao joyCarDao = (JOYCarDao)context.getBean("JOYCarDao");
-		System.out.println("sdfsdf");
+		logger.trace("sdfsdf");
 	}
 }

@@ -6,6 +6,9 @@ import java.util.LinkedList;
 import com.futuremove.cacheServer.utils.HttpPostUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Random;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -15,6 +18,10 @@ import java.util.regex.Matcher;
  * Created by qurj on 15/5/12.
  */
 public class WeChatPayUtil {
+
+    final static Logger logger = LoggerFactory.getLogger(WeChatPayUtil.class);
+
+
 
     static public String  API_KEY="8RO2EAEXIIWFPENGQ5J9UESAZXC86P82";
     static public String MCH_ID="1238525102";
@@ -141,14 +148,14 @@ public class WeChatPayUtil {
         payparams.add(new BasicNameValuePair("timestamp", String.valueOf(System.currentTimeMillis()).substring(0,10)));
         String sign2 = getSignStr(payparams);
         payparams.add(new BasicNameValuePair("sign", sign2));
-       // System.out.println(WeChatPayUtil.toJsonStr(payparams));
+       // logger.trace(WeChatPayUtil.toJsonStr(payparams));
        return WeChatPayUtil.toJsonStr(payparams);
     }
 
 
     public static void main(String [] args){
        String reStr = genePayStr("1","ttt1");
-        System.out.println(reStr);
+        logger.trace(reStr);
     }
 
 

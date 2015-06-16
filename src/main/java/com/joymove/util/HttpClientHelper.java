@@ -1,5 +1,8 @@
 package com.joymove.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,6 +19,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HttpClientHelper {
+
+	final static Logger logger = LoggerFactory.getLogger(HttpClientHelper.class);
+
 	static {
 		System.setProperty("java.net.useSystemProxies", "true");
 	}
@@ -68,7 +74,7 @@ public class HttpClientHelper {
 		InputStream in = null;
 		try {
 			URL url = new URL(urlToRequest);
-			System.out.println("Reuqest URL:::" + urlToRequest);
+			logger.trace("Reuqest URL:::" + urlToRequest);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			OutputStream out;
 

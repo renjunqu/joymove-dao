@@ -7,6 +7,8 @@ import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.directive.Directive;
 import org.apache.velocity.runtime.parser.node.Node;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Encoder;
 
 import java.io.IOException;
@@ -21,6 +23,10 @@ import java.util.regex.Pattern;
  * Created by jessie on 2015/6/14.
  */
 public class QrjTrim  extends Directive  {
+
+    final static Logger logger = LoggerFactory.getLogger(QrjTrim.class);
+
+
     public String getName() { return "QrjTrim"; } //指定指令的名称
 
     @Override
@@ -30,7 +36,7 @@ public class QrjTrim  extends Directive  {
    * @see org.apache.velocity.runtime.directive.Directive#render()
    */
     public static String doTrim(String fixStr,String removeContent,String bodyStr) {
-        System.out.println("hello trim");
+        logger.trace("hello trim");
         Pattern prefixPattern = Pattern.compile("^\\s*"+removeContent+"\\W(.*)");
         Pattern suffixPattern = Pattern.compile("(.*)\\W"+removeContent+"\\s*$");
         if(fixStr.equals("prefix")) {
@@ -45,7 +51,7 @@ public class QrjTrim  extends Directive  {
                 bodyStr = suffixMatcher.group(1);
             }
         }
-        System.out.println(bodyStr);
+        logger.trace(bodyStr);
         return bodyStr;
     }
 
@@ -58,13 +64,13 @@ public class QrjTrim  extends Directive  {
         Node parameter1 = node.jjtGetChild(0);
         Node parameter2 = node.jjtGetChild(1);
         Node body = node.jjtGetChild(2);
-        System.out.println("number is "+node.jjtGetNumChildren());
+        logger.trace("number is "+node.jjtGetNumChildren());
         String fixStr = String.valueOf(parameter1.value(context));
         String removeContent = String.valueOf(parameter2.value(context));
         String bodyStr = String.valueOf(body.value(context)).replace("\n","");
-        System.out.println("body is "+bodyStr);
-        System.out.println("fixStr is "+fixStr);
-        System.out.println("removeContent  is "+removeContent);
+        logger.trace("body is "+bodyStr);
+        logger.trace("fixStr is "+fixStr);
+        logger.trace("removeContent  is "+removeContent);
         bodyStr = QrjTrim.doTrim(fixStr,removeContent,bodyStr);
         writer.write(bodyStr);
         return true;

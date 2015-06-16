@@ -6,9 +6,14 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.json.simple.parser.JSONParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class JsonHashUtils {
-	
+
+	final static Logger logger = LoggerFactory.getLogger(JsonHashUtils.class);
+
+
 	public static boolean checkJsonProps(Hashtable<String,Object>hash,String []props){
 	    for(int i =0;i<props.length;i++){
 	    	
@@ -31,17 +36,17 @@ public class JsonHashUtils {
 				  jb.append(line);
 			  String jstr = jb.toString();
 			  /*
-			  System.out.println("show str first .................");
-			  System.out.println(jstr);
-			  System.out.println("...............................");
+			  logger.trace("show str first .................");
+			  logger.trace(jstr);
+			  logger.trace("...............................");
 			  */
 			  Map json = (Map)parser.parse(jstr);
 			  Hashtable<String, Object> jsonObj = new Hashtable<String, Object>();
 			  Iterator iter = json.entrySet().iterator();
-			  //System.out.println("==iterate result==");
+			  //logger.trace("==iterate result==");
 			  while(iter.hasNext()){
 			      Map.Entry entry = (Map.Entry)iter.next();
-			      System.out.println(entry.getKey() + "=>" + entry.getValue());
+			      logger.trace(entry.getKey() + "=>" + entry.getValue());
 			      jsonObj.put(entry.getKey().toString(), entry.getValue());
 			 }
 			 jsonObj.put("originStr", jstr);
@@ -55,7 +60,5 @@ public class JsonHashUtils {
 		Long t = (long) 1;
 		String m = "sdfsdf";
 		String q = String.valueOf("sdfsfsd");
-		
-		System.out.println(String.valueOf("").length());
 	}
 }

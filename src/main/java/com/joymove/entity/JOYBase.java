@@ -32,7 +32,7 @@ public class JOYBase {
                     // do nothing
                 } else if (f.get(this)!=null) {
                     if(f.getType().equals(byte[].class)){
-                   //     System.out.println("byte[]");
+                   //     logger.trace("byte[]");
                         BASE64Encoder encoder = new BASE64Encoder();
                         byte [] byteData = (byte[])f.get(this);
                         sb.append("\t " + f.getName() + ": " + "\"" + encoder.encode(byteData) + "\" ;\n");
@@ -40,7 +40,7 @@ public class JOYBase {
                     } else if(f.getType().equals(String.class)) {
                         sb.append("\t " + f.getName() + ": \'" + f.get(this) + "\' ;\n");
                     } else {
-                        //   System.out.println("hello "+f.getName());
+                        //   logger.trace("hello "+f.getName());
                         sb.append("\t " + f.getName() + ": " + f.get(this) + " ;\n");
                     }
                 }

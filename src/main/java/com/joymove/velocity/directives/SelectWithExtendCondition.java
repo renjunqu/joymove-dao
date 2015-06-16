@@ -6,6 +6,8 @@ import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.directive.Directive;
 import org.apache.velocity.runtime.parser.node.Node;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Encoder;
 
 import java.io.IOException;
@@ -21,6 +23,10 @@ import java.util.Map;
  */
 //selectprefix 在这个元语生产的sql语句后面补充上用户自己的sql查询条件和Limit条件以及排序条件
 public class SelectWithExtendCondition  extends Directive  {
+
+    final static Logger logger = LoggerFactory.getLogger(SelectWithExtendCondition.class);
+
+
 
     public String getName() { return "SelectWithExtendCondition"; } //指定指令的名称
 
@@ -98,7 +104,7 @@ public class SelectWithExtendCondition  extends Directive  {
         }
         where.append(TimeConditions);
         String resultString =  fromTable.toString() + " " + where.toString();
-        System.out.println("sdfsdf" + resultString);
+        logger.trace("sdfsdf" + resultString);
         writer.write(resultString);
         return true;
     }

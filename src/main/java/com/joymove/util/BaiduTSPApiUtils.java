@@ -25,16 +25,16 @@ public class BaiduTSPApiUtils {
 			String city = "region="+cityName;
 			url+=city;
 			//url = URLEncoder.encode(url,"utf-8");
-			//System.out.println(HttpGetUtils.get(url));
+			//logger.trace(HttpGetUtils.get(url));
 			String jsonStr = HttpGetUtils.get(url);
 			JSONParser parser=new JSONParser();
 			JSONObject reObj = (JSONObject) parser.parse(jsonStr);
 			JSONObject apiResult = (JSONObject) ((JSONArray) reObj.get("results")).get(0);
 			/*
-			System.out.println(reObj.get("returnType"));
-			System.out.println(reObj.get("status"));
-			System.out.println(apiResult.get("duration"));
-			System.out.println(apiResult.get("distance"));
+			logger.trace(reObj.get("returnType"));
+			logger.trace(reObj.get("status"));
+			logger.trace(apiResult.get("duration"));
+			logger.trace(apiResult.get("distance"));
 		    */
 		} catch(Exception e){
 			e.printStackTrace();

@@ -6,6 +6,8 @@ import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.directive.Directive;
 import org.apache.velocity.runtime.parser.node.Node;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Encoder;
 
 import java.io.IOException;
@@ -20,6 +22,10 @@ import java.util.Map;
  * Created by qurj on 15/6/10.
  */
 public class UpdateFilter  extends Directive {
+
+    final static Logger logger = LoggerFactory.getLogger(UpdateFilter.class);
+
+
 
     public String getName() { return "UpdateFilter"; } //指定指令的名称
 
@@ -116,13 +122,13 @@ public class UpdateFilter  extends Directive {
                 }
             }
             where.append(TimeCondtions);
-            System.out.println("where is "+where);
-            System.out.println("values is "+values);
+            logger.trace("where is "+where);
+            logger.trace("values is "+values);
             if(where.toString().equals(" where ")) {
-                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>");
+                logger.trace(">>>>>>>>>>>>>>>>>>>>>>>>");
                 where.delete(0,where.length());
             } else {
-                System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<");
+                logger.trace("<<<<<<<<<<<<<<<<<<<<<<<<<");
                 where.delete(where.length()-3,where.length());
             }
 
@@ -134,7 +140,7 @@ public class UpdateFilter  extends Directive {
             e.printStackTrace();
         }
         String resultString =  prefix + values.toString() + " " + where.toString();
-        System.out.println(resultString);
+        logger.trace(resultString);
         writer.write(resultString);
         return true;
     }

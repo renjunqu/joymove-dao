@@ -4,6 +4,9 @@ import com.joymove.entity.JOYNCar;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.omg.CORBA.PUBLIC_MEMBER;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.sql.Timestamp;
 
 import java.lang.reflect.Field;
@@ -13,6 +16,10 @@ import java.util.*;
  * Created by jessie on 2015/6/6.
  */
 public class SimpleJSONUtil {
+
+
+    final static Logger logger = LoggerFactory.getLogger(SimpleJSONUtil.class);
+
     public static JSONObject beanToJSONObject(Object beanObject) throws  Exception {
         JSONObject Reobj = new JSONObject();
         Field[] fields = beanObject.getClass().getDeclaredFields();
@@ -44,7 +51,7 @@ public class SimpleJSONUtil {
             Map.Entry<String,Object> mapEntry  = (Map.Entry<String,Object>)iter.next();
             String key = mapEntry.getKey();
             Object value = mapEntry.getValue();
-          //  System.out.println("name:>>>>>>>>>>>>"+key+">>>>>>>>>>>>>>>>> value is "+value+"   >>>>>>>>>>>>> type is "+value.getClass());
+          //  logger.trace("name:>>>>>>>>>>>>"+key+">>>>>>>>>>>>>>>>> value is "+value+"   >>>>>>>>>>>>> type is "+value.getClass());
             if(String.valueOf(value).equals("null")||value==null) {
                 json.put(mapEntry.getKey(),"");
             } else if(value.getClass().equals(Timestamp.class)) {
@@ -69,7 +76,7 @@ public class SimpleJSONUtil {
         try {
             JSONObject ttt = new JSONObject();
            ttt.put("root",SimpleJSONUtil.listToJSONArray(ncarList));
-            System.out.println(ttt);
+            logger.trace(ttt.toJSONString());
         } catch(Exception e){
             e.printStackTrace();
         }

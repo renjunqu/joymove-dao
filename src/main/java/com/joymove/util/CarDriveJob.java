@@ -24,6 +24,8 @@ import org.quartz.SchedulerException;
 import org.quartz.StatefulJob;
 import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -40,7 +42,11 @@ import com.joymove.util.JobUtils;
 
 @DisallowConcurrentExecution
 public class CarDriveJob implements StatefulJob   {
-	
+
+	final static Logger logger = LoggerFactory.getLogger(CarDriveJob.class);
+
+
+
 	//car service
 	private JOYCarService joyCarService;
 	//user service
@@ -73,7 +79,7 @@ public class CarDriveJob implements StatefulJob   {
 					 List<JOYCar> cars = joyCarService.getCarById(likeCondition);
 					 JOYCar cCar = cars.get(0);
 					 */
-					System.out.println("show map");
+					logger.trace("show map");
 					count++;
 					args.put("test", count.toString());
 					 
@@ -81,10 +87,10 @@ public class CarDriveJob implements StatefulJob   {
 					 while (iter.hasNext()) { 
 					     Map.Entry entry = (Map.Entry) iter.next(); 
 					     JSONObject ReObj_POIs_item = new JSONObject();
-					     System.out.println("name:"+(String)entry.getKey());
-					     System.out.println("value"+(String)entry.getValue());
+					     logger.trace("name:"+(String)entry.getKey());
+					     logger.trace("value"+(String)entry.getValue());
 					 } 
-					System.out.println(args.toString());
+					logger.trace(args.toString());
 				} catch(Exception e){
 				
 				}

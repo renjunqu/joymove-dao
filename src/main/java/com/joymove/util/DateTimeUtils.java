@@ -1,5 +1,8 @@
 package com.joymove.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,6 +12,9 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class DateTimeUtils {
+
+	final static Logger logger = LoggerFactory.getLogger(DateTimeUtils.class);
+
 
 
 	public static Date getCurrentTime(){
@@ -50,7 +56,7 @@ public class DateTimeUtils {
 		return dateFormat.format(Calendar.getInstance().getTime());
 	}
 	public static void main(String [] args){
-		System.out.println(""+System.currentTimeMillis());
+		logger.trace(""+System.currentTimeMillis());
 	}
 
 	public static Date parseDate(String date, String format)
@@ -238,7 +244,7 @@ public class DateTimeUtils {
 
 	public static String getHTTPDatefromMSTime(long milliseconds) {
 		Date date = new Date(milliseconds);
-		System.out.println(date.toString());
+		logger.trace(date.toString());
 
 		DateFormat sdf = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
 		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -260,7 +266,7 @@ public class DateTimeUtils {
 
 			date = (Date) formatter.parse(str_date);
 		} catch (ParseException e) {
-			System.out.println("Exception :" + e);
+			logger.trace("Exception :" + e);
 		}
 
 		return date;
@@ -274,7 +280,7 @@ public class DateTimeUtils {
 
 			date = (Date) formatter.parse(str_date);
 		} catch (ParseException e) {
-			System.out.println("Exception :" + e);
+			logger.trace("Exception :" + e);
 		}
 
 		return date;

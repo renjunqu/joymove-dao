@@ -47,9 +47,6 @@ public class JOYOrder  extends  JOYBase {
 		} else {
 			stop = this.stopTime;
 		}
-		System.out.println("stop is "+stop.getTime());
-		System.out.println("start is "+start.getTime());
-		System.out.println("diff is "+(stop.getTime() - start.getTime()));
 
 		double result =  stop.getTime() - start.getTime();
 		result = result/(100000.0 * 60);

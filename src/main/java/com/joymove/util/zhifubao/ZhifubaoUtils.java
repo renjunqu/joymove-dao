@@ -1,5 +1,8 @@
 package com.joymove.util.zhifubao;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -8,6 +11,10 @@ import java.util.Locale;
 import java.util.Random;
 
 public class ZhifubaoUtils {
+
+	final static Logger logger = LoggerFactory.getLogger(ZhifubaoUtils.class);
+
+
 
 	//商户PID
 	public static final String PARTNER = "2088911128852234";
@@ -79,7 +86,7 @@ public class ZhifubaoUtils {
 		// 完整的符合支付宝参数规范的订单信息
 		final String payInfo = getOrderInfo("aaa", "bbb", "0.01","aaaaa",true) + "&sign=\\\"" + sign + "\\\"&"
 				+ getSignType(true);
-		System.out.println(payInfo);
+		logger.trace(payInfo);
 	}
 	/**
 	 * create the order info. 创建订单信息

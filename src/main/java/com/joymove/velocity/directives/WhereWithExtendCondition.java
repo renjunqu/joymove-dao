@@ -6,6 +6,8 @@ import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.directive.Directive;
 import org.apache.velocity.runtime.parser.node.Node;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Encoder;
 
 import java.io.IOException;
@@ -22,6 +24,10 @@ import java.util.Map;
 //whereprefix 在这个字段加上用户需要的查询条件~,记得在前面加上用户自己的select 语句，
     //记得，一定要将主表的名字 alias 为u
 public class WhereWithExtendCondition  extends Directive  {
+
+    final static Logger logger = LoggerFactory.getLogger(WhereWithExtendCondition.class);
+
+
 
     public String getName() { return "WhereWithExtendCondition"; } //指定指令的名称
 
@@ -95,7 +101,7 @@ public class WhereWithExtendCondition  extends Directive  {
         }
         where.append(TimeConditions);
         String resultString = " " + where.toString() + " ";
-        System.out.println(resultString);
+        logger.trace(resultString);
         writer.write(resultString);
         return true;
     }
