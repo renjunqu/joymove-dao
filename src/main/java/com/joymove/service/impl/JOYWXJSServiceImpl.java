@@ -40,7 +40,7 @@ public class JOYWXJSServiceImpl extends JOYBaseServiceImpl<JOYWXJSData> implemen
     }
 
     public static String  appid = "wx0a6bcdeb9d86bdff";
-    public static String secret = "5f44ddfba3c75f53c1ef82edc2c910c4";
+    public static String secret = "3263a57511491ca979ea413f9ac94d8d";
 
 
     public  static JSONObject getAccessTokenFromWX() {
@@ -108,7 +108,9 @@ public class JOYWXJSServiceImpl extends JOYBaseServiceImpl<JOYWXJSData> implemen
         dataRequirement.type = data_type;
         //dataRequirement.expireTime = new Date(System.currentTimeMillis());
         HashMap<String,Object>paraMap = new HashMap<String,Object>();
-        paraMap.put("filter",data_type);
+        JOYWXJSData jsDataFilter = new JOYWXJSData();
+        jsDataFilter.type = data_type;
+        paraMap.put("filter",jsDataFilter);
         paraMap.put("minExpireTime",new Date(System.currentTimeMillis()));
 
 
