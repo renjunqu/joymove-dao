@@ -26,6 +26,8 @@ public class JOYOrderServiceImpl  extends JOYBaseServiceImpl<JOYOrder> implement
     final static Logger logger = LoggerFactory.getLogger(JOYOrderServiceImpl.class);
     @Autowired
     private JOYOrderDao   joyOrderDao;
+
+
    public JOYBaseDao getBaseDao() {
         return joyOrderDao;
     }
@@ -34,19 +36,8 @@ public class JOYOrderServiceImpl  extends JOYBaseServiceImpl<JOYOrder> implement
         return JOYOrder.class;
     }
 
-    public List<JOYOrder> getNeededOrder(Map<String, Object> likeCondition) {
-        // TODO Auto-generated method stub
+    public List<JOYOrder> getNeededOrder(Map<String,Object> likeCondition){
         return joyOrderDao.getNeededOrder(likeCondition);
-    }
-
-    public static void main(String [] args) throws Exception {
-        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:test.xml");
-        JOYOrderService  service = (JOYOrderService)context.getBean("JOYOrderService");
-        JOYOrder orderFilter = new JOYOrder();
-        orderFilter.mobileNo = "18518019074";
-        Map<String,Object> map = new HashMap<String, Object>();
-        map.put("minStartTime", new Date(System.currentTimeMillis()-(24L*3600L*1L*1000L)));
-
     }
 
 }

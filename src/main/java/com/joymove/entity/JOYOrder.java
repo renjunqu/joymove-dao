@@ -30,6 +30,8 @@ public class JOYOrder  extends  JOYBase {
 	public Double   stopLatitude;
 	public Double   startLongitude;
 	public Double   stopLongitude;
+	public String   uuid;
+	public String   carLicenseNum;
 	
 	
 	public static int DEL_MARK=1;

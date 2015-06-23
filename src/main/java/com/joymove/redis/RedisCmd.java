@@ -14,18 +14,19 @@ import java.util.Map;
 
 @Service("RedisCmd")
 public class RedisCmd {
-    public static JedisPool pool = new JedisPool(new JedisPoolConfig(), "123.57.151.176");
 
     public void saveJson(String key,String jsonStr){
+        JedisPool pool = new JedisPool(new JedisPoolConfig(), "123.57.151.176");
         Jedis jedis =  pool.getResource();
         jedis.set(key,jsonStr);
-
+        pool.returnResource(jedis);
     }
 
     public JSONObject getJson(String key){
+        JedisPool pool = new JedisPool(new JedisPoolConfig(), "123.57.151.176");
         Jedis jedis = pool.getResource();
         String jstr = jedis.get(key);
-
+        pool.returnResource(jedis);
         try {
             JSONParser parser = new JSONParser();
             return (JSONObject)parser.parse(jstr);

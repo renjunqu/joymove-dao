@@ -135,7 +135,13 @@
     <aop:config>
 
         <aop:pointcut id="pc" expression="execution(* com.joymove.service.impl.*.*(..))" />
+        <aop:pointcut id="retry_redis_access"
+                      expression="execution(* com.joymove.redis.*.*(..))" />
+
         <aop:advisor pointcut-ref="pc" advice-ref="txAdvice"/>
+
+        <aop:advisor pointcut-ref="retry_redis_access"
+                     advice-ref="retryAdvice"/>
 
 
 
