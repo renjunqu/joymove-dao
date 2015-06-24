@@ -14,6 +14,8 @@ public interface  JOYBaseDao <E extends JOYBase>{
 
      List<Map<String,Object>> getPagedRecordList(Map<String,Object> filterMap);
 
+     List<Map<String,Object>> test(Map<String,Object> filterMap);
+
      List<Map<String,Object>> getExtendInfoPagedList(Map<String,Object> filterMap);
 
      long countRecord(Map<String,Object> filterMap);
