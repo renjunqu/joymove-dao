@@ -36,6 +36,9 @@ public class JOYNCar extends  JOYBase  {
 	// 0 --> non blue teech
 	// 1 --> has blue teech
 	public Integer     ifBlueTeeth;
-
+	public String      carInfo;
+	public String      imageUrl;
+	public Integer     powerType;
+	public Integer     powerPercent;
 
 }

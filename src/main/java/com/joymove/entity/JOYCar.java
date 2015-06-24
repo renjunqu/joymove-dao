@@ -28,4 +28,8 @@ public class JOYCar  extends  JOYBase {
 	public String      desp;
 	public String      mobileNo;
 	public Integer     ifBlueTeeth;
+	public String      carInfo;
+	public String      imageUrl;
+	public Integer     powerType;
+	public Integer     powerPercent;
 }

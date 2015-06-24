@@ -79,10 +79,6 @@ public class WhereWithExtendCondition  extends Directive  {
 
                             where.append(" u."+fieldName+" like \'" + f.get(filterObj)+"\' and");
 
-                        } else if(f_type.equals(byte[].class)){
-                            BASE64Encoder encoder = new BASE64Encoder();
-                            String byteDataStr = encoder.encode((byte[])f.get(filterObj));
-                            where.append(" u." + fieldName+" = BASE64_DECODE(\'"+byteDataStr+"\') and");
                         } else if(f_type.equals(Date.class)) {
                             Date d = (Date)f.get(filterObj);
                             Long timeValue = d.getTime();

@@ -2,6 +2,7 @@ package com.joymove.entity;
 
 import org.apache.ibatis.type.Alias;
 
+import java.sql.Blob;
 import java.util.Arrays;
 import java.util.Date;
 @Alias("JOYDriverLicense")
@@ -18,9 +19,9 @@ public class JOYDriverLicense extends  JOYBase  {
 
 	public String mobileNo;
 	
-	public byte[] driverAuthInfo;
+	public String driverAuthInfo;
 
-	public byte[] driverAuthInfo_back;
+	public String driverAuthInfo_back;
 	
 	public String driverLicenseNumber;
 	

@@ -31,13 +31,7 @@ public class JOYBase {
                 if (java.lang.reflect.Modifier.isStatic(f.getModifiers())) {
                     // do nothing
                 } else if (f.get(this)!=null) {
-                    if(f.getType().equals(byte[].class)){
-                   //     logger.trace("byte[]");
-                        BASE64Encoder encoder = new BASE64Encoder();
-                        byte [] byteData = (byte[])f.get(this);
-                        sb.append("\t " + f.getName() + ": " + "\"" + encoder.encode(byteData) + "\" ;\n");
-
-                    } else if(f.getType().equals(String.class)) {
+                    if(f.getType().equals(String.class)) {
                         sb.append("\t " + f.getName() + ": \'" + f.get(this) + "\' ;\n");
                     } else {
                         //   logger.trace("hello "+f.getName());

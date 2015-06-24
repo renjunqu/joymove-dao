@@ -87,16 +87,6 @@ public class UpdateFilter  extends Directive {
                             if(filterObj!=null && f.get(filterObj)!=null)
                                 where.append(" u."+fieldName+" like \'" + f.get(filterObj)+"\' and");
 
-                        } else if(f_type.equals(byte[].class)){
-                            BASE64Encoder encoder = new BASE64Encoder();
-                            if(f.get(valueObj)!=null) {
-                                String byteDataStr = encoder.encode((byte[]) f.get(valueObj));
-                                values.append(" u." + fieldName + " = BASE64_DECODE(\'" + byteDataStr + "\') ,");
-                            }
-                            if(filterObj!=null && f.get(filterObj)!=null) {
-                                String byteDataStr = encoder.encode((byte[])f.get(filterObj));
-                                where.append(" u." + fieldName+" = BASE64_DECODE(\'"+byteDataStr+"\') and");
-                            }
                         } else if(f_type.equals(Date.class)) {
                             if(f.get(valueObj)!=null) {
                                 Date d = (Date)f.get(valueObj);
