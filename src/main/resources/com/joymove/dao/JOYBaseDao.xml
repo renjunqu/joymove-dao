@@ -28,8 +28,16 @@
     </update>
 
     <select id="test" resultType="map" parameterType="map" lang="velocity">
-        #set($id=1)
-        $render.eval($ctx,"select * from JOY_Users where id=$id")
+          #set($id=42)
+
+        #test($parameters)
+           #if($id &lt; 500)
+              #evaluate("select * from JOY_Users where id = $id;")
+           #else
+               select * from JOY_Users ;
+           #end
+        #end
+
     </select>
 
 

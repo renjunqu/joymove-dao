@@ -66,7 +66,12 @@ public class JOYUserServiceImpl extends JOYBaseServiceImpl<JOYUser> implements  
 		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:test.xml");
         Map<String,Object> likeCondition = new HashMap<String, Object>();
 		JOYUserDao   dao = (JOYUserDao)context.getBean("JOYUserDao");
-		dao.test(likeCondition);
+		List<Map<String,Object>> mapList = dao.test(likeCondition);
+		for(int i=0;i<mapList.size();i++) {
+			JOYUser user = new JOYUser();
+			user.fromMap(mapList.get(i));
+			System.out.println(user);
+		}
 
 
 
