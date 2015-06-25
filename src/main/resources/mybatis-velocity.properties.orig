@@ -8,6 +8,9 @@ userdirective=com.joymove.velocity.directives.SelectFilterPageList,\
   com.joymove.velocity.directives.WhereWithExtendCondition,\
   com.joymove.velocity.directives.TimeScopeFilter,\
   com.joymove.velocity.directives.QrjTrim,\
+<<<<<<< HEAD
   com.joymove.velocity.directives.test
+=======
   com.joymove.velocity.directives.test2,\
   com.joymove.velocity.directives.test3
+>>>>>>> b04fdbb1eb358f11a73924be76912c01a91b9f57

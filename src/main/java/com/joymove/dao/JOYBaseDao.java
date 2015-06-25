@@ -22,4 +22,11 @@ public interface  JOYBaseDao <E extends JOYBase>{
      void deleteByProperties(E t);
      void insertRecord(E t);
      void updateRecord(Map<String,Object> filterMap);
+
+     List<Map<String,Object>> test2(Map<String,Object>like);
+
+     void insertTest(Map<String,Object> like);
+
+     List<Map<String,Object>> selectTest(Map<String,Object>like);
+
 }

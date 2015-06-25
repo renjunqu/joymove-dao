@@ -2,7 +2,9 @@ package com.joymove.service.impl;
 
 import com.futuremove.cacheServer.utils.HttpGetUtils;
 import com.joymove.dao.JOYBaseDao;
+import com.joymove.dao.JOYUserDao;
 import com.joymove.dao.JOYWXJSDataDao;
+import com.joymove.entity.JOYUser;
 import com.joymove.entity.JOYWXJSData;
 import com.joymove.service.JOYWXJSService;
 import com.joymove.util.DigestUtil;
@@ -150,6 +152,26 @@ public class JOYWXJSServiceImpl extends JOYBaseServiceImpl<JOYWXJSData> implemen
                 this.getWXJSCrendentail(JOYWXJSData.type_jsapi_ticket, "ticket"),
                 map
         );
+    }
+
+    public  static  void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("classpath:test.xml");
+        Map<String,Object> likeCondition = new HashMap<String, Object>();
+        JOYUserDao dao = (JOYUserDao)context.getBean("JOYUserDao");
+        /*
+        byte[] haha = "12345".getBytes();
+        byte[] hehe = "sdfdsfsdf".getBytes();
+        likeCondition.put("haha",haha);
+        likeCondition.put("hehe",hehe);
+        dao.insertTest(likeCondition);
+        */
+        likeCondition.put("id", 42);
+        List<Map<String,Object>> mapList = dao.selectTest(likeCondition);
+        for(int i=0;i<mapList.size();i++) {
+            JOYUser user = new JOYUser();
+            user.fromMap(mapList.get(i));
+            System.out.println(user);
+        }
     }
 
 }
