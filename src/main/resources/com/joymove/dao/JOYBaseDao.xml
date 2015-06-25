@@ -27,10 +27,27 @@
         #UpdateFilter($_parameter)
     </update>
 
-    <select id="test" resultType="map" parameterType="map" lang="velocity">
-        #set($id=1)
-        $render.eval($ctx,"select * from JOY_Users where id=$id")
+    <select id="test2" resultType="map" parameterType="map" lang="velocity">
+       select * from JOY_Users where registerTime &lt; @{registerTime}
+       #if(@{id} &lt; 10)
+           id = @{id}
+       #end
     </select>
+
+    <insert id="insertTest"  parameterType="map" lang="velocity">
+
+             #test2($_parameter)
+             #end
+
+    </insert>
+
+    <select id="selectTest" parameterType="map" resultType="map" lang="velocity">
+        #test3($_parameter)
+        #end
+    </select>
+
+
+
 
 
 
