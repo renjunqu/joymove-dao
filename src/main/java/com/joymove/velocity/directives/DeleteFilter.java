@@ -82,21 +82,6 @@ public class DeleteFilter extends Directive {
                         } else {
                             where.append(" " + fieldName + " = @{" + fieldName + "} and");
                         }
-
-
-                        /*
-                        if(f_type.equals(String.class)) {
-                            where.append(" "+fieldName+" like \'" + f.get(filterObj)+"\' and");
-
-                        }  else if(f_type.equals(Date.class)) {
-                            Date d = (Date)f.get(filterObj);
-                            Long timeValue = d.getTime();
-                            timeValue = timeValue/1000;
-                            where.append(" "+ fieldName+" = FROM_UNIXTIME("+timeValue+",\'%Y-%m-%d %H:%i:%S\') and");
-                        } else {
-                            where.append(" " + fieldName + " = " + f.get(filterObj) + " and");
-                        }
-                        */
                     }
 
                 }

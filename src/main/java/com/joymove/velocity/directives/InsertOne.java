@@ -85,24 +85,6 @@ public class InsertOne  extends Directive {
                         Type f_type = f.getType();
                         columns.append(" "+fieldName+" ,");
                         values.append(" @{"+fieldName+"} ,");
-
-                        /*
-                        if(f_type.equals(String.class)) {
-                            String value = (String)f.get(filterObj);
-                            value = value.trim();
-                            if(value.length()>0)
-                                values.append(" \'" + f.get(filterObj)+"\' ,");
-
-                        }else if(f_type.equals(Date.class)) {
-                            Date d = (Date)f.get(filterObj);
-                            Long timeValue = d.getTime();
-                            timeValue = timeValue/1000;
-                            values.append(" FROM_UNIXTIME("+timeValue+",'%Y-%m-%d %H:%i:%S') ,");
-
-                        } else {
-                            values.append(" " + f.get(filterObj) + " ,");
-                        }
-                        */
                     }
 
                 }
