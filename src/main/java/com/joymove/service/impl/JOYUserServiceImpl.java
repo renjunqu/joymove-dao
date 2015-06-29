@@ -2,6 +2,8 @@ package com.joymove.service.impl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -65,10 +67,17 @@ public class JOYUserServiceImpl extends JOYBaseServiceImpl<JOYUser> implements  
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:test.xml");
         Map<String,Object> likeCondition = new HashMap<String, Object>();
+		JOYUser user = new JOYUser();
+		DateFormat formatWithTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		user.registerTime = formatWithTime.parse("2013-04-29 15:08:41");
+
 		JOYUserDao   dao = (JOYUserDao)context.getBean("JOYUserDao");
-		List<Map<String,Object>> mapList = dao.test(likeCondition);
+		likeCondition.putAll(user.toMap());
+		likeCondition.put("filter",user);
+		List<Map<String,Object>> mapList = dao.getPagedRecordList(likeCondition);
 		for(int i=0;i<mapList.size();i++) {
-			JOYUser user = new JOYUser();
+			JOYUser userObj = new JOYUser();
 			user.fromMap(mapList.get(i));
 			System.out.println(user);
 		}

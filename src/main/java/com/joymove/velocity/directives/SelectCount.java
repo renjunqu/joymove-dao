@@ -1,11 +1,13 @@
 package com.joymove.velocity.directives;
 
+import org.apache.ibatis.mapping.BoundSql;
 import org.apache.velocity.context.InternalContextAdapter;
 import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.directive.Directive;
 import org.apache.velocity.runtime.parser.node.Node;
+import org.mybatis.scripting.velocity.SQLScriptSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Encoder;
@@ -16,6 +18,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -24,6 +27,11 @@ import java.util.Map;
 public class SelectCount  extends Directive {
 
     final static Logger logger = LoggerFactory.getLogger(SelectCount.class);
+    protected static final String PARAMETER_OBJECT_KEY = "_parameter";
+    protected static final String DATABASE_ID_KEY = "_databaseId";
+    protected static final String MAPPING_COLLECTOR_KEY = "_pmc";
+    protected static final String VARIABLES_KEY = "_vars";
+
 
 
 
@@ -80,16 +88,9 @@ public class SelectCount  extends Directive {
                         Type f_type = f.getType();
 
                         if(f_type.equals(String.class)) {
-
-                            where.append(" u."+fieldName+" like \'" + f.get(filterObj)+"\' and");
-
-                        } else if(f_type.equals(Date.class)) {
-                            Date d = (Date)f.get(filterObj);
-                            Long timeValue = d.getTime();
-                            timeValue = timeValue/1000;
-                            where.append(" u."+ fieldName+" = FROM_UNIXTIME("+timeValue+",\'%Y-%m-%d %H:%i:%S\') and");
-                        }else {
-                            where.append(" u."+fieldName +" = "+f.get(filterObj)+" and");
+                            where.append(" u." + fieldName + " like @{filter." + fieldName + "} and");
+                        } else {
+                            where.append(" u." + fieldName + " = @{filter." + fieldName + "} and");
                         }
                     }
 
@@ -102,7 +103,15 @@ public class SelectCount  extends Directive {
                 where.delete(where.length()-3,where.length());
             }
 
-
+            String resultString = " " + where.toString() + " group by u.id ";
+            SQLScriptSource thisScriptSource = (SQLScriptSource)context.get("sqlSource");
+            SQLScriptSource childSQLScriptSource = new SQLScriptSource(thisScriptSource.getConfiguration(),resultString,Map.class);
+            Map<String, Object> contextRoot =  (Map<String, Object>)context.get("contextRoot");
+            Map<String, Object> context2 = new HashMap<String, Object>();
+            BoundSql boundsQL = childSQLScriptSource.getBoundSql(paraMap,context2);
+            contextRoot.put(MAPPING_COLLECTOR_KEY, context2.get(MAPPING_COLLECTOR_KEY));
+            String retSQL = boundsQL.getSql();
+            writer.write(retSQL);
         } catch (Exception e) {
             e.printStackTrace();
         }

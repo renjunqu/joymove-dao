@@ -1,11 +1,13 @@
 package com.joymove.velocity.directives;
 
+import org.apache.ibatis.mapping.BoundSql;
 import org.apache.velocity.context.InternalContextAdapter;
 import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.directive.Directive;
 import org.apache.velocity.runtime.parser.node.Node;
+import org.mybatis.scripting.velocity.SQLScriptSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import sun.misc.BASE64Encoder;
@@ -16,6 +18,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -24,7 +27,10 @@ import java.util.Map;
 public class DeleteFilter extends Directive {
 
     final static Logger logger = LoggerFactory.getLogger(DeleteFilter.class);
-
+    protected static final String PARAMETER_OBJECT_KEY = "_parameter";
+    protected static final String DATABASE_ID_KEY = "_databaseId";
+    protected static final String MAPPING_COLLECTOR_KEY = "_pmc";
+    protected static final String VARIABLES_KEY = "_vars";
 
 
     public String getName() { return "DeleteFilter"; } //指定指令的名称
@@ -72,6 +78,14 @@ public class DeleteFilter extends Directive {
                         Type f_type = f.getType();
 
                         if(f_type.equals(String.class)) {
+                            where.append(" " + fieldName + " like @{" + fieldName + "} and");
+                        } else {
+                            where.append(" " + fieldName + " = @{" + fieldName + "} and");
+                        }
+
+
+                        /*
+                        if(f_type.equals(String.class)) {
                             where.append(" "+fieldName+" like \'" + f.get(filterObj)+"\' and");
 
                         }  else if(f_type.equals(Date.class)) {
@@ -82,6 +96,7 @@ public class DeleteFilter extends Directive {
                         } else {
                             where.append(" " + fieldName + " = " + f.get(filterObj) + " and");
                         }
+                        */
                     }
 
                 }
@@ -92,13 +107,22 @@ public class DeleteFilter extends Directive {
                 where.delete(where.length()-3,where.length());
             }
 
+            SQLScriptSource thisScriptSource = (SQLScriptSource)context.get("sqlSource");
+            String resultString =  fromTable.toString() + " " + where.toString();
+            SQLScriptSource childSQLScriptSource = new SQLScriptSource(thisScriptSource.getConfiguration(),resultString,paraClass);
+            Map<String, Object> contextRoot =  (Map<String, Object>)context.get("contextRoot");
 
+            Map<String, Object> context2 = new HashMap<String, Object>();
+            BoundSql boundsQL = childSQLScriptSource.getBoundSql(filterObj,context2);
+
+            contextRoot.put(MAPPING_COLLECTOR_KEY, context2.get(MAPPING_COLLECTOR_KEY));
+            String retSQL = boundsQL.getSql();
+            logger.debug(retSQL);
+            writer.write(retSQL);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String resultString =  fromTable.toString() + " " + where.toString();
-        logger.trace(resultString);
-        writer.write(resultString);
+
         return true;
     }
 
