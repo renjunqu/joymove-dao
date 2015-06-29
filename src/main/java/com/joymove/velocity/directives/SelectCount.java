@@ -103,7 +103,7 @@ public class SelectCount  extends Directive {
                 where.delete(where.length()-3,where.length());
             }
 
-            String resultString = " " + where.toString() + " group by u.id ";
+            String resultString = fromTable.toString() + " " + where.toString();
             SQLScriptSource thisScriptSource = (SQLScriptSource)context.get("sqlSource");
             SQLScriptSource childSQLScriptSource = new SQLScriptSource(thisScriptSource.getConfiguration(),resultString,Map.class);
             Map<String, Object> contextRoot =  (Map<String, Object>)context.get("contextRoot");
@@ -115,9 +115,7 @@ public class SelectCount  extends Directive {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String resultString =  fromTable.toString() + " " + where.toString();
-        logger.trace(resultString);
-        writer.write(resultString);
+
         return true;
     }
 
