@@ -2,6 +2,8 @@ package com.joymove.entity;
 
 import org.apache.ibatis.type.Alias;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.math.BigDecimal;
 
@@ -13,6 +15,8 @@ public class JOYOrder  extends  JOYBase {
 	public JOYOrder() {
 	}
 
+	public  static DateFormat dateTimeFormat;
+	public  static Date defaultStopTime;
 	public Integer id;
 	public String mobileNo;
 	public Integer carId;
@@ -32,6 +36,14 @@ public class JOYOrder  extends  JOYBase {
 	public Double   stopLongitude;
 	public String   uuid;
 	public String   carLicenseNum;
+
+	static {
+		try{
+			dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			defaultStopTime = dateTimeFormat.parse("1999-12-12 00:00:02");
+		} catch(Exception e) {
+		}
+	}
 	
 	
 	public static int DEL_MARK=1;
