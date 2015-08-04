@@ -20,6 +20,10 @@ public class JOYUserDao  extends  JOYBaseDao {
             " #if(${authToken}) \"authToken\" = '${authToken}', #end " +
             " #if(${lastActiveTime}) \"lastActiveTime\" = to_timestamp(${lastActiveTime.getTime()}/1000), #end " +
             " #if(${userpwd}) userpwd = '${userpwd}', #end " +
+            " #if(${extendInfo}) \"extendInfo\" = '${extendInfo}'::jsonb , #end" +
+            " #if(${addresses}) \"addresses\" = '${addresses}'::jsonb , #end" +
+            " #if(${username}) \"username\" = '${username}' , #end" +
+            " #if(${gender}) \"gender\" = '${gender}' , #end" +
             " #end " +
             " where id=${id} ";
 
